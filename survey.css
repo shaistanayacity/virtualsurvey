@@ -19,10 +19,9 @@ backdrop-filter:blur(6px);box-shadow:0 0 0 0 rgba(255,255,255,.5);animation:ring
 .pill{pointer-events:auto;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:10px 20px;font:500 12px var(--serif);letter-spacing:.04em;cursor:pointer;transition:transform .2s,background .2s}
 .pill:hover{transform:translateY(-1px);background:#000}
 
-.hero{position:absolute;z-index:4;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;max-width:86%;text-align:center;pointer-events:none;
-font-weight:400;font-size:clamp(40px,7vw,88px);letter-spacing:-.025em;line-height:1.05;text-shadow:0 2px 30px rgba(0,0,0,.35);opacity:0;transition:opacity .8s ease}
-.hero.show{opacity:1}
-.hero::after{content:".";}
+.hero{position:absolute;z-index:4;left:32px;bottom:88px;margin:0;max-width:60%;text-align:left;pointer-events:none;
+font-weight:500;font-size:clamp(17px,1.9vw,24px);letter-spacing:-.01em;line-height:1.2;text-shadow:0 1px 14px rgba(0,0,0,.45);opacity:0;transform:translateY(6px);transition:opacity .6s ease,transform .6s ease}
+.hero.show{opacity:1;transform:none}
 
 .bottom{position:absolute;z-index:5;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:flex-end;padding:26px 32px;pointer-events:none}
 .counter{display:flex;align-items:baseline;gap:4px}
@@ -63,6 +62,7 @@ transform:translateX(calc(100% + 24px));opacity:0;visibility:hidden;transition:t
  body{padding:10px}
  .stage{border-radius:18px}
  .top,.bottom{padding:18px 18px}
+ .hero{left:18px;bottom:78px;max-width:75%}
  .panel{left:10px;right:10px;top:auto;bottom:10px;width:auto;max-height:72%;transform:translateY(calc(100% + 24px))}
  .panel.open{transform:none}
 }

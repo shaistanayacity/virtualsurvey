@@ -118,7 +118,6 @@
     heroTimer = setTimeout(function () {
       heroEl.textContent = byId[id].title;
       heroEl.classList.add("show");
-      heroTimer = setTimeout(function () { heroEl.classList.remove("show"); }, 3600);
     }, 250);
   }
   viewer.on("scenechange", function (id) {
