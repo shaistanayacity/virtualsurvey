@@ -43,3 +43,20 @@ tidak menekan kirim di WhatsApp. Jika penyimpanan gagal (koneksi), WhatsApp teta
 unit, cluster, ruangan yang dilihat, serta lama keliling. Nomor yang sudah ada di CRM tidak diduplikasi dan lead lama tidak diubah,
 cukup ditautkan (`crm_status = 'sudah_ada'`). Jika penyalinan gagal, lead survey tetap tersimpan (`crm_status = 'error: ...'`).
 Ganti pemilik/sumber dengan mengubah fungsi tersebut di Supabase.
+
+## Denah
+`plans/*.webp` dipotong dari Product Knowledge Nov 2026. Satu lantai/area = satu gambar (`floors[].plan`). Titik posisi tiap ruangan
+diatur lewat `scenes[].plan: { x, y }` (persen dari gambar denah, 0–100). Di panel, titik merah = ruangan yang sedang dilihat;
+titik hijau bisa diketuk untuk pindah. Titik di New Gwen Hook adalah perkiraan dari denah dan foto, jadi cek sesuai kenyataan.
+Denah Gwen Hook, Arnica Pool, dan Bianca Deluxe sudah disiapkan (lihat komentar di `data.js`); tinggal tambah scene dengan `floor` yang sesuai.
+
+## Kecepatan
+- Foto memakai **WebP** (±50% lebih kecil dari JPG). Simpan foto baru sebagai `.webp` (kualitas ±80) lalu tulis path-nya di `data.js`.
+  Contoh: `cwebp -q 80 foto.jpg -o photos/nama.webp` atau lewat Pillow `im.save("x.webp", "WEBP", quality=80, method=6)`.
+- Foto scene pertama tidak diunduh selama beranda masih tampil; foto ruangan berikutnya diunduh di latar belakang
+  (dilewati bila Data Saver aktif atau jaringan 2G). `vercel.json` memberi cache 1 jam untuk foto/denah — foto yang diganti dengan nama
+  file yang sama bisa baru terlihat setelah ±1 jam (ganti nama file bila ingin langsung).
+
+## Pratinjau link
+Tag Open Graph ada di `index.html`; gambarnya `og.jpg` (1200×630). WhatsApp menyimpan pratinjau lama sebagai cache, jadi perubahan
+gambar bisa baru terlihat di link yang belum pernah dibagikan.

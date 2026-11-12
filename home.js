@@ -15,8 +15,17 @@
 
   // Latar per slide
   var bgs = el("div", "home__bgs"), bgEls = slides.map(function (s) {
-    var b = el("div", "home__bg"); b.style.backgroundImage = "url(" + s.image + ")"; bgs.appendChild(b); return b;
+    var b = el("div", "home__bg"); bgs.appendChild(b); return b;
   });
+  // Hanya gambar slide yang sedang tampil yang diunduh dulu; sisanya menyusul saat jaringan sudah longgar.
+  function ensureBg(i) {
+    i = (i + slides.length) % slides.length;
+    var b = bgEls[i];
+    if (!b.style.backgroundImage) b.style.backgroundImage = "url(" + slides[i].image + ")";
+  }
+  ensureBg(0);
+  function loadRest() { setTimeout(function () { slides.forEach(function (s, i) { ensureBg(i); }); }, 3000); }
+  if (document.readyState === "complete") loadRest(); else window.addEventListener("load", loadRest, { once: true });
   root.appendChild(bgs);
   root.appendChild(el("div", "home__shade"));
 
@@ -51,6 +60,7 @@
   function go(i) {
     cur = (i + slides.length) % slides.length;
     var s = slides[cur], nx = slides[(cur + 1) % slides.length];
+    ensureBg(cur);
     bgEls.forEach(function (b, k) { b.classList.toggle("on", k === cur); });
     dotEls.forEach(function (d, k) { if (k === cur) d.setAttribute("aria-current", "true"); else d.removeAttribute("aria-current"); });
     tag.textContent = s.tag || "";
@@ -102,7 +112,10 @@
       var sp = specLine(t);
       if (sp) lab.appendChild(el("em", null, sp));
       c.appendChild(lab);
-      if (ready) c.addEventListener("click", function () { VS.enter(first.id); hide(); closeUnits(); });
+      if (ready) {
+        if (VS.prefetch) { VS.prefetch(first.id); c.addEventListener("pointerenter", function () { VS.prefetch(first.id); }); }
+        c.addEventListener("click", function () { VS.enter(first.id); hide(); closeUnits(); });
+      }
       else c.setAttribute("aria-disabled", "true");
       uGrid.appendChild(c);
     });

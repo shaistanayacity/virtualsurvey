@@ -47,9 +47,10 @@
     if (partial) { cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = fov; }
     scenes[s.id] = cfg;
   });
-  var startId = (location.hash.slice(1) in byId) ? location.hash.slice(1) : allScenes[0].id;
+  var deepLink = location.hash.slice(1) in byId;
+  var startId = deepLink ? location.hash.slice(1) : allScenes[0].id;
   var viewer = pannellum.viewer("pano", {
-    default: { firstScene: startId, autoLoad: true, showControls: false, compass: false, mouseZoom: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
+    default: { firstScene: startId, autoLoad: deepLink, showControls: false, compass: false, mouseZoom: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
     scenes: scenes
   });
 
@@ -179,6 +180,7 @@
       });
     });
     $("plan").hidden = !f.plan;
+    $("plan-hint").hidden = !f.plan || !allScenes.some(function (s) { return s.floor === id && s.plan; });
     if (f.plan) { $("plan-img").src = f.plan; $("plan-img").alt = "Denah " + f.label; }
     $("floor-name").textContent = f.label + (f.area ? " · " + f.area : "");
     fillSpecs($("specs"), f.specs || []);
@@ -229,6 +231,8 @@
   viewer.on("load", function () {
     if (!current) { current = viewer.getScene(); announce(current); showFloor(byId[current].floor); }
     markVisited(current);
+    warmed[current] = true;
+    warmAround(current);
     fitView();
     dolly();
     updateRail();
@@ -321,11 +325,32 @@
 
   buildRail();
 
+  // ---- Pemuatan foto: ruangan berikutnya diunduh di latar belakang (hemat data bila Data Saver / jaringan lambat) ----
+  var warmed = {};
+  function slowNet() {
+    var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    return !!(c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || "")));
+  }
+  function warm(id) {
+    var s = byId[id];
+    if (!s || warmed[id]) return;
+    warmed[id] = true;
+    var im = new Image(); im.crossOrigin = "anonymous"; im.decoding = "async"; im.src = s.photo;
+  }
+  function warmAround(id) {
+    if (slowNet()) return;
+    var l = typeById[byId[id].type].scenes, i = l.indexOf(byId[id]);
+    var order = [l[i + 1], l[i - 1], l[i + 2]];
+    var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 600); };
+    order.forEach(function (s, k) { if (s) idle(function () { setTimeout(function () { warm(s.id); }, k * 400); }); });
+  }
+
   // API untuk beranda (home.js)
   window.VS = {
     hasScene: function (id) { return !!byId[id]; },
     enter: function (id) { if (byId[id] && current !== id) viewer.loadScene(id); },
     inSurvey: function () { return !homeOpen(); },
+    prefetch: function (id) { if (!slowNet()) warm(id); },
     stopTour: function () { stopTour(); },
     state: function () {
       var t = typeById[curType], sl = (D.home && D.home.slides) || [], cluster = "";

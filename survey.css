@@ -53,6 +53,7 @@ transform:translateX(calc(100% + 24px));opacity:0;visibility:hidden;transition:t
 .floors button[aria-selected=true]{background:#fff;color:var(--ink);border-color:#fff;font-weight:500}
 .plan{position:relative;border-radius:12px;overflow:hidden;background:#faf8f2}
 .plan img{display:block;width:100%;height:auto}
+.plan__hint{margin:8px 2px 0;font-size:11px;line-height:1.5;font-weight:300;color:var(--soft)}
 .dot{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:2px solid #fff;background:#2f6f55;cursor:pointer;padding:0;box-shadow:0 1px 4px rgba(0,0,0,.4)}
 .dot:hover{background:#3f8f70}
 .dot[aria-current=true]{background:#e0453a;width:26px;height:26px;margin:-13px 0 0 -13px;animation:pulse 1.6s infinite}
