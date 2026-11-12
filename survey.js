@@ -24,8 +24,9 @@
     if (partial) { cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = fov; }
     scenes[s.id] = cfg;
   });
+  var startId = (location.hash.slice(1) in byId) ? location.hash.slice(1) : D.scenes[0].id;
   var viewer = pannellum.viewer("pano", {
-    default: { firstScene: D.scenes[0].id, autoLoad: true, showControls: false, compass: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
+    default: { firstScene: startId, autoLoad: true, showControls: false, compass: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
     scenes: scenes
   });
 
@@ -131,10 +132,6 @@
     if (!current) { current = viewer.getScene(); announce(current); showFloor(byId[current].floor); }
     fitView();
   });
-
-  // Deep link: survey/#l2-master
-  var hash = location.hash.slice(1);
-  if (hash && byId[hash] && hash !== D.scenes[0].id) viewer.loadScene(hash);
 
   // Panel mobile
   var panel = $("panel");
