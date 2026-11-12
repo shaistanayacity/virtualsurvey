@@ -43,9 +43,9 @@
   [tag, title, desc, cta].forEach(function (n) { content.appendChild(n); });
   root.appendChild(content);
 
-  var nextBox = el("aside", "home__next"), card = el("button", "home__card"), cardTxt = el("span"), cardSmall = el("small", null, "Berikutnya"), cardName = el("strong");
+  var nextBox = el("aside", "home__next"), card = el("button", "home__card"), cardTxt = el("span"), cardName = el("strong");
   card.type = "button";
-  cardTxt.appendChild(cardSmall); cardTxt.appendChild(cardName); card.appendChild(cardTxt); nextBox.appendChild(card);
+  cardTxt.appendChild(cardName); card.setAttribute("aria-label", "Slide berikutnya"); card.appendChild(cardTxt); nextBox.appendChild(card);
   root.appendChild(nextBox);
 
   var bottom = el("footer", "home__bottom"), count = el("div", "home__count"), cb = el("b"), ca = el("span", null, "/" + pad(slides.length));
