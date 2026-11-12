@@ -12,6 +12,12 @@
   });
   var curType = null;
 
+  // Belum ada scene sama sekali (semua tipe masih kosong): hanya beranda & "Pilih Unit" yang aktif.
+  if (!allScenes.length) {
+    window.VS = { hasScene: function () { return false; }, enter: function () {} };
+    return;
+  }
+
   // Pannellum multi-scene config dari data.js
   var scenes = {};
   allScenes.forEach(function (s) {
