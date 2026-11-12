@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Trial 360° — Virtual Survey</title>
+<meta name="theme-color" content="#0d0d0d" />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="vendor/pannellum.css" />
+<link rel="stylesheet" href="survey.css" />
+<style>#panel-toggle,#panel,#rail{display:none!important}.brand{font-weight:600;font-size:15px;color:#fff;pointer-events:none}</style>
+</head>
+<body>
+  <div class="stage">
+    <div id="pano"></div>
+    <div class="shade" aria-hidden="true"></div>
+
+    <header class="top">
+      <div class="brand" id="brand">Trial 360°</div>
+      <nav class="types" id="types" aria-label="Pilih tipe rumah"></nav>
+      <button class="pill" id="panel-toggle" type="button" aria-expanded="false" aria-controls="panel">Spesifikasi</button>
+    </header>
+
+    <h1 class="hero" id="scene-title" aria-live="polite"></h1>
+
+    <footer class="bottom">
+      <div class="counter"><b id="count-cur">01</b><span id="count-all">/01</span></div>
+      <nav class="floornav" id="floors-nav" aria-label="Pilih lantai"></nav>
+    </footer>
+
+    <nav class="rail" id="rail" aria-label="Daftar ruangan"></nav>
+    <p class="hint" id="hint" aria-hidden="true"></p>
+    <div class="dock" id="dock" role="group" aria-label="Kontrol tur">
+      <button id="dock-prev" type="button" aria-label="Ruangan sebelumnya">←</button>
+      <button id="dock-play" class="dock__play" type="button" aria-pressed="false" aria-label="Putar tur otomatis"><span class="dock__ico">▶</span><span class="dock__lbl">Tur Otomatis</span></button>
+      <button id="dock-next" type="button" aria-label="Ruangan berikutnya">→</button>
+      <button id="dock-full" class="dock__full" type="button" aria-label="Layar penuh">⛶</button>
+    </div>
+
+    <aside class="panel" id="panel" aria-hidden="true">
+      <button class="panel__close" id="panel-close" type="button" aria-label="Tutup">×</button>
+      <p class="eyebrow" id="unit-name"></p>
+      <div class="floors" id="floors" role="tablist" aria-label="Pilih lantai"></div>
+      <div class="plan" id="plan">
+        <img id="plan-img" alt="Denah lantai" />
+        <div id="plan-dots"></div>
+      </div>
+      <p class="plan__hint" id="plan-hint">Titik merah = posisi Anda. Ketuk titik lain untuk pindah ruangan.</p>
+      <div class="info">
+        <h2 id="floor-name"></h2>
+        <dl class="specs" id="specs"></dl>
+        <h3>Ringkasan Unit</h3>
+        <dl class="specs specs--summary" id="summary"></dl>
+        <details class="more" id="building-box">
+          <summary>Spesifikasi Bangunan</summary>
+          <dl class="specs" id="building"></dl>
+        </details>
+        <h3>Ruangan</h3>
+        <div class="rooms" id="rooms"></div>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="vendor/pannellum.js"></script>
+  <script src="trial-data.js"></script>
+  <script src="survey.js"></script>
+</body>
+</html>

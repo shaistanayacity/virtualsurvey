@@ -50,7 +50,7 @@
   var deepLink = location.hash.slice(1) in byId;
   var startId = deepLink ? location.hash.slice(1) : allScenes[0].id;
   var viewer = pannellum.viewer("pano", {
-    default: { firstScene: startId, autoLoad: deepLink, showControls: false, compass: false, mouseZoom: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
+    default: { firstScene: startId, autoLoad: deepLink || !$("home"), showControls: false, compass: false, mouseZoom: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
     scenes: scenes
   });
 
