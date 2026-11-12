@@ -93,21 +93,42 @@
     $("unit-name").textContent = t.unit || t.name;
     document.title = D.title + " — " + (t.unit || t.name);
     fillSpecs($("summary"), t.summary || []);
-    Array.prototype.forEach.call(typesEl.children, function (b) {
-      b.setAttribute("aria-selected", b.getAttribute("data-type") === id ? "true" : "false");
-    });
+    buildTypeTabs();
     buildFloors();
   }
-  types.forEach(function (t) {
-    var b = el("button", { type: "button", "data-type": t.id, "aria-selected": "false" }, t.name);
-    b.addEventListener("click", function () {
-      setType(t.id);
-      viewer.loadScene(t.scenes[0].id);
-      closePanel();
+  // Pemilih unit di dalam survey: unit-unit se-cluster (urutan sesuai home.slides[].enter.units).
+  // Unit yang belum punya scene tampil redup + "segera" dan tidak bisa diklik.
+  var rawTypeById = {};
+  (D.types || []).forEach(function (t) { rawTypeById[t.id] = t; });
+  function clusterIds(typeId) {
+    var sl = (D.home && D.home.slides) || [];
+    for (var i = 0; i < sl.length; i++) {
+      var u = sl[i].enter && sl[i].enter.units;
+      if (u && u.indexOf(typeId) > -1) return u;
+    }
+    return types.map(function (t) { return t.id; });
+  }
+  function buildTypeTabs() {
+    typesEl.textContent = "";
+    var list = clusterIds(curType).map(function (id) { return rawTypeById[id] || typeById[id]; }).filter(Boolean);
+    list.forEach(function (t) {
+      var ready = !!typeById[t.id];
+      var b = el("button", { type: "button", "data-type": t.id, "aria-selected": t.id === curType ? "true" : "false" }, t.name);
+      if (!ready) {
+        b.className = "off"; b.setAttribute("aria-disabled", "true"); b.title = "Segera hadir";
+        b.appendChild(el("em", {}, "segera"));
+      } else {
+        b.addEventListener("click", function () {
+          if (t.id === curType) return;
+          setType(t.id);
+          viewer.loadScene(typeById[t.id].scenes[0].id);
+          closePanel();
+        });
+      }
+      typesEl.appendChild(b);
     });
-    typesEl.appendChild(b);
-  });
-  typesEl.hidden = types.length < 2;
+    typesEl.hidden = list.length < 2;
+  }
   setType(byId[startId].type);
 
   function showFloor(id) {
