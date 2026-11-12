@@ -53,7 +53,12 @@
     scenes: scenes
   });
 
-  var current = null, shownFloor = null;
+  var current = null, shownFloor = null, visited = [];
+  function markVisited(id) {
+    var s = byId[id];
+    if (!s || visited.some(function (v) { return v.id === id; })) return;
+    visited.push({ id: id, unit: typeById[s.type].name, title: s.title });
+  }
   var homeEl = $("home");
   function homeOpen() { return homeEl && !homeEl.classList.contains("hide"); }
 
@@ -206,6 +211,7 @@
   }
   viewer.on("scenechange", function (id) {
     current = id;
+    markVisited(id);
     setType(byId[id].type);
     fitView();
     announce(id);
@@ -215,6 +221,7 @@
   });
   viewer.on("load", function () {
     if (!current) { current = viewer.getScene(); announce(current); showFloor(byId[current].floor); }
+    markVisited(current);
     fitView();
     dolly();
     updateRail();
@@ -311,6 +318,13 @@
   window.VS = {
     hasScene: function (id) { return !!byId[id]; },
     enter: function (id) { if (byId[id] && current !== id) viewer.loadScene(id); },
+    inSurvey: function () { return !homeOpen(); },
+    stopTour: function () { stopTour(); },
+    state: function () {
+      var t = typeById[curType], sl = (D.home && D.home.slides) || [], cluster = "";
+      sl.forEach(function (s) { if (s.enter && s.enter.units && s.enter.units.indexOf(curType) > -1) cluster = s.name; });
+      return { unit: t ? t.name : "", cluster: cluster, visited: visited.slice() };
+    },
     onEnter: function () {
       stepped = false;
       showHint(window.matchMedia && matchMedia("(hover: hover)").matches ? "Scroll untuk lanjut ke ruangan berikutnya" : "Seret untuk melihat sekeliling · tombol → untuk lanjut");

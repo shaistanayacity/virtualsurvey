@@ -14,6 +14,9 @@
  * floors[].specs   : tabel spesifikasi (label, nilai) */
 window.SURVEY = {
   title: "Virtual Survey",
+  // Pop-up lead WhatsApp: muncul tiap `everySeconds` detik pengunjung keliling di dalam tour, sampai form diisi.
+  // Isi `whatsapp` dengan nomor admin (kode negara tanpa +, mis. "6281234567890"); kosong = fitur nonaktif.
+  lead: { whatsapp: "", everySeconds: 120 },
   // Halaman awal (landing). Tiap slide = satu area. enter: { scene: "<id scene>" } membuka survey di scene itu,
   // enter: { units: ["id-tipe", ...] } membuka layar "Pilih Unit" berisi tipe-tipe tsb (urutan = urutan kartu),
   // enter: { next: true } lanjut ke slide berikutnya, tanpa enter = tombol "Segera hadir".
