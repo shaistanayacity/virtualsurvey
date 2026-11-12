@@ -60,12 +60,11 @@ window.SURVEY = {
         cta: "Tour Unit", enter: { units: ["arnica", "bianca"] } },
       { id: "montana", tag: "Cluster", name: "Montana", image: "photos/home-montana.jpg",
         desc: "American style with mezzanine. Rumah 1 lantai dengan ruang fleksibel santai atau workspace (mezzanine), dan semua unit dilengkapi smartdoor lock.",
-        cta: "Tour Unit", enter: { units: ["gwen", "new-gwen", "new-gwen-hook"] } }
+        cta: "Tour Unit", enter: { units: ["gwen-hook", "new-gwen-hook"] } }
     ]
   },
   types: [
-    { id: "gwen", name: "Gwen", unit: "Gwen", cover: "", summary: [["Luas Bangunan", "38 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Smartdoor Lock", "Ya"]], building: SPEC_MONTANA, floors: [], scenes: [] },
-    { id: "new-gwen", name: "New Gwen", unit: "New Gwen", summary: [["Luas Bangunan", "45 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Mezzanine", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_MONTANA, floors: [], scenes: [] },
+    { id: "gwen-hook", name: "Gwen Hook", unit: "Gwen Hook", summary: [["Luas Bangunan", "38 m²"], ["Luas Tanah", "106 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Smartdoor Lock", "Ya"]], building: SPEC_MONTANA, floors: [], scenes: [] },
     { id: "new-gwen-hook", name: "New Gwen Hook", unit: "New Gwen Hook · F5-08", cover: "photos/luar-sudut.jpg",
       summary: [["Luas Bangunan", "45 m²"], ["Luas Tanah", "112 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Mezzanine", "Ya"], ["Smartdoor Lock", "Ya"]],
       building: SPEC_MONTANA,
