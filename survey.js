@@ -164,6 +164,13 @@
     fitView();
   });
 
+  // API untuk beranda (home.js)
+  window.VS = {
+    hasScene: function (id) { return !!byId[id]; },
+    enter: function (id) { if (byId[id] && current !== id) viewer.loadScene(id); }
+  };
+  $("brand").addEventListener("click", function () { closePanel(); if (window.VS.showHome) window.VS.showHome(); });
+
   // Panel mobile
   var panel = $("panel");
   var toggle = $("panel-toggle");

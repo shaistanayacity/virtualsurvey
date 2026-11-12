@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="vendor/pannellum.css" />
 <link rel="stylesheet" href="survey.css" />
+<link rel="stylesheet" href="home.css" />
 </head>
 <body>
   <div class="stage">
@@ -17,7 +18,7 @@
     <div class="shade" aria-hidden="true"></div>
 
     <header class="top">
-      <div class="brand" id="brand">Shaistanaya City</div>
+      <button class="brand" id="brand" type="button" aria-label="Kembali ke beranda"><span aria-hidden="true">‹</span> Shaistanaya City</button>
       <nav class="types" id="types" aria-label="Pilih tipe rumah"></nav>
       <button class="pill" id="panel-toggle" type="button" aria-expanded="false" aria-controls="panel">Denah</button>
     </header>
@@ -46,10 +47,13 @@
         <div class="rooms" id="rooms"></div>
       </div>
     </aside>
+
+    <section class="home" id="home" aria-label="Beranda"></section>
   </div>
 
   <script src="vendor/pannellum.js"></script>
   <script src="data.js"></script>
   <script src="survey.js"></script>
+  <script src="home.js"></script>
 </body>
 </html>

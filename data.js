@@ -13,6 +13,24 @@
  * floors[].specs   : tabel spesifikasi (label, nilai) */
 window.SURVEY = {
   title: "Virtual Survey",
+  // Halaman awal (landing). Tiap slide = satu area. enter: { scene: "<id scene>" } membuka survey di scene itu,
+  // enter: { next: true } lanjut ke slide berikutnya, tanpa enter = tombol "Segera hadir".
+  home: {
+    brand: "Shaistanaya City",
+    sub: "Virtual Survey",
+    slides: [
+      { id: "kawasan", tag: "Kawasan", name: "Shaistanaya City", image: "photos/home-gerbang.jpg",
+        desc: "Selamat datang. Jelajahi kawasan, cluster, dan tipe rumah secara virtual. Geser untuk melihat area lainnya.",
+        cta: "Mulai Jelajah", enter: { next: true } },
+      { id: "sierra", tag: "Cluster", name: "Sierra", image: "photos/home-sierra.jpg",
+        desc: "Gerbang cluster Sierra dengan hunian dua lantai, fasad panel kayu, dan atap pelana." },
+      { id: "montana", tag: "Cluster", name: "Montana", image: "photos/home-montana.jpg",
+        desc: "Gerbang cluster Montana dengan hunian berpintu arch dan atap genteng metal.",
+        cta: "Jelajahi Rumah", enter: { scene: "luar-sudut" } },
+      { id: "komersial", tag: "Area Komersial", name: "Ruko", image: "photos/home-komersial.jpg",
+        desc: "Ruko dua lantai di area depan kawasan." }
+    ]
+  },
   types: [
     { id: "gwen", name: "Gwen", unit: "Gwen", summary: [], floors: [], scenes: [] },
     { id: "new-gwen", name: "The New Gwen", unit: "The New Gwen · F5-08",
