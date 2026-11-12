@@ -5,22 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Virtual Survey — Shaistanaya City</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="vendor/pannellum.css" />
 <link rel="stylesheet" href="survey.css" />
 </head>
 <body>
-  <header class="bar">
-    <div class="bar__title"><span>Virtual Survey</span><strong id="unit-name"></strong></div>
-    <button class="bar__toggle" id="panel-toggle" type="button">Denah</button>
-  </header>
+  <div class="stage">
+    <div id="pano"></div>
+    <div class="shade" aria-hidden="true"></div>
 
-  <main class="layout">
-    <section class="viewer">
-      <div id="pano"></div>
-      <div class="viewer__scene" id="scene-title" aria-live="polite"></div>
-    </section>
+    <header class="top">
+      <div class="brand" id="brand">Shaistanaya City</div>
+      <button class="pill" id="panel-toggle" type="button" aria-expanded="false" aria-controls="panel">Denah</button>
+    </header>
 
-    <aside class="panel" id="panel">
+    <h1 class="hero" id="scene-title" aria-live="polite"></h1>
+
+    <footer class="bottom">
+      <div class="counter"><b id="count-cur">01</b><span id="count-all">/01</span></div>
+      <nav class="floornav" id="floors-nav" aria-label="Pilih lantai"></nav>
+    </footer>
+
+    <aside class="panel" id="panel" aria-hidden="true">
+      <button class="panel__close" id="panel-close" type="button" aria-label="Tutup">×</button>
+      <p class="eyebrow" id="unit-name"></p>
       <div class="floors" id="floors" role="tablist" aria-label="Pilih lantai"></div>
       <div class="plan" id="plan">
         <img id="plan-img" alt="Denah lantai" />
@@ -35,7 +45,7 @@
         <div class="rooms" id="rooms"></div>
       </div>
     </aside>
-  </main>
+  </div>
 
   <script src="vendor/pannellum.js"></script>
   <script src="data.js"></script>

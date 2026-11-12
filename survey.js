@@ -18,7 +18,7 @@
     };
   });
   var viewer = pannellum.viewer("pano", {
-    default: { firstScene: D.scenes[0].id, autoLoad: true, showControls: true, compass: false },
+    default: { firstScene: D.scenes[0].id, autoLoad: true, showControls: false, compass: false, autoRotate: -2, autoRotateInactivityDelay: 4000 },
     scenes: scenes
   });
 
@@ -36,7 +36,7 @@
   }
 
   // Tab lantai: klik lantai -> tampil denah + spesifikasi, lalu loncat ke scene pertama lantai itu.
-  var floorsEl = $("floors");
+  var floorsEl = $("floors"), navEl = $("floors-nav");
   D.floors.forEach(function (f) {
     var b = el("button", { type: "button", role: "tab", "data-floor": f.id }, f.label);
     b.addEventListener("click", function () {
@@ -45,6 +45,9 @@
       if (first && (!current || byId[current].floor !== f.id)) viewer.loadScene(first.id);
     });
     floorsEl.appendChild(b);
+    var n = el("button", { type: "button", "data-floor": f.id }, f.label);
+    n.addEventListener("click", function () { b.click(); openPanel(); });
+    navEl.appendChild(n);
   });
   fillSpecs($("summary"), D.summary || []);
 
@@ -52,8 +55,10 @@
     var f = floorById[id];
     if (!f) return;
     shownFloor = id;
-    Array.prototype.forEach.call(floorsEl.children, function (b) {
-      b.setAttribute("aria-selected", b.getAttribute("data-floor") === id ? "true" : "false");
+    [floorsEl, navEl].forEach(function (box) {
+      Array.prototype.forEach.call(box.children, function (b) {
+        b.setAttribute("aria-selected", b.getAttribute("data-floor") === id ? "true" : "false");
+      });
     });
     $("plan-img").src = f.plan;
     $("plan-img").alt = "Denah " + f.label;
@@ -79,14 +84,28 @@
     });
   }
 
+  var heroEl = $("scene-title"), heroTimer;
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function announce(id) {
+    var i = D.scenes.indexOf(byId[id]);
+    $("count-cur").textContent = pad(i + 1);
+    $("count-all").textContent = "/" + pad(D.scenes.length);
+    heroEl.classList.remove("show");
+    clearTimeout(heroTimer);
+    heroTimer = setTimeout(function () {
+      heroEl.textContent = byId[id].title;
+      heroEl.classList.add("show");
+      heroTimer = setTimeout(function () { heroEl.classList.remove("show"); }, 3600);
+    }, 250);
+  }
   viewer.on("scenechange", function (id) {
     current = id;
-    $("scene-title").textContent = byId[id].title;
+    announce(id);
     if (shownFloor !== byId[id].floor) showFloor(byId[id].floor); else markCurrent();
     try { history.replaceState(null, "", "#" + id); } catch (e) {}
   });
   viewer.on("load", function () {
-    if (!current) { current = viewer.getScene(); $("scene-title").textContent = byId[current].title; showFloor(byId[current].floor); }
+    if (!current) { current = viewer.getScene(); announce(current); showFloor(byId[current].floor); }
   });
 
   // Deep link: survey/#l2-master
@@ -95,6 +114,16 @@
 
   // Panel mobile
   var panel = $("panel");
-  function closePanel() { panel.classList.remove("open"); }
-  $("panel-toggle").addEventListener("click", function () { panel.classList.toggle("open"); });
+  var toggle = $("panel-toggle");
+  function setPanel(open) {
+    panel.classList.toggle("open", open);
+    panel.setAttribute("aria-hidden", open ? "false" : "true");
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.textContent = open ? "Tutup" : "Denah";
+  }
+  function openPanel() { setPanel(true); }
+  function closePanel() { setPanel(false); }
+  toggle.addEventListener("click", function () { setPanel(!panel.classList.contains("open")); });
+  $("panel-close").addEventListener("click", closePanel);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePanel(); });
 })();
