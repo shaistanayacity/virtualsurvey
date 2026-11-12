@@ -57,7 +57,7 @@
     title.textContent = s.name;
     desc.textContent = s.desc || "";
     var e = s.enter;
-    if (e && (e.scene || e.next)) { cta.disabled = false; cta.textContent = (s.cta || "Jelajahi") + "  →"; }
+    if (e && (e.scene || e.next || e.units)) { cta.disabled = false; cta.textContent = (s.cta || "Jelajahi") + "  →"; }
     else { cta.disabled = true; cta.textContent = "Segera hadir"; }
     cb.textContent = pad(cur + 1);
     nextBox.hidden = slides.length < 2;
@@ -70,11 +70,47 @@
     var e = slides[cur].enter;
     if (!e) return;
     if (e.next) { go(cur + 1); return; }
+    if (e.units) { openUnits(slides[cur]); return; }
     if (e.scene && VS.hasScene(e.scene)) { VS.enter(e.scene); hide(); }
   });
   card.addEventListener("click", function () { go(cur + 1); });
   next.addEventListener("click", function () { go(cur + 1); });
   prev.addEventListener("click", function () { go(cur - 1); });
+
+  // Layar "Pilih Unit"
+  var units = el("div", "units"), uBack = el("button", "units__back", "‹ Kembali"), uHead = el("div", "units__head"),
+      uTag = el("p", "home__tag"), uTitle = el("h2", "units__title", "Pilih Unit"), uGrid = el("div", "units__grid");
+  uBack.type = "button";
+  uHead.appendChild(uTag); uHead.appendChild(uTitle);
+  units.appendChild(uBack); units.appendChild(uHead); units.appendChild(uGrid);
+  root.appendChild(units);
+  function specLine(t) {
+    return (t.summary || []).slice(0, 2).map(function (r) { return r[0].replace("Luas Bangunan", "LB").replace("Luas Tanah", "LT") + " " + r[1]; }).join(" · ");
+  }
+  function openUnits(slide) {
+    uTag.textContent = slide.name;
+    uGrid.textContent = "";
+    (slide.enter.units || []).forEach(function (id) {
+      var t = (D.types || []).filter(function (x) { return x.id === id; })[0];
+      if (!t) return;
+      var first = t.scenes && t.scenes[0], ready = !!(first && VS.hasScene(first.id));
+      var c = el("button", "unit" + (ready ? "" : " unit--off")); c.type = "button";
+      var img = t.cover || (first && first.photo);
+      if (img) c.style.backgroundImage = "url(" + img + ")";
+      var lab = el("span"), small = el("small", null, ready ? "Tipe" : "Segera hadir"), name = el("strong", null, t.name);
+      lab.appendChild(small); lab.appendChild(name);
+      var sp = ready ? specLine(t) : "";
+      if (sp) lab.appendChild(el("em", null, sp));
+      c.appendChild(lab);
+      if (ready) c.addEventListener("click", function () { VS.enter(first.id); hide(); closeUnits(); });
+      else c.setAttribute("aria-disabled", "true");
+      uGrid.appendChild(c);
+    });
+    units.classList.add("open");
+    var f = uGrid.querySelector(".unit:not(.unit--off)"); if (f) f.focus({ preventScroll: true });
+  }
+  function closeUnits() { units.classList.remove("open"); }
+  uBack.addEventListener("click", closeUnits);
 
   function visible() { return !root.classList.contains("hide"); }
   function hide(instant) {
@@ -84,12 +120,13 @@
     root.setAttribute("aria-hidden", "true");
   }
   VS.showHome = function () {
-    root.classList.remove("hide"); root.setAttribute("aria-hidden", "false");
+    closeUnits(); root.classList.remove("hide"); root.setAttribute("aria-hidden", "false");
     try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
   };
 
   document.addEventListener("keydown", function (e) {
     if (!visible()) return;
+    if (units.classList.contains("open")) { if (e.key === "Escape") closeUnits(); return; }
     if (e.key === "ArrowRight") go(cur + 1);
     else if (e.key === "ArrowLeft") go(cur - 1);
   });

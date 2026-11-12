@@ -1,5 +1,6 @@
 /* Data virtual survey. Ganti foto/denah/spesifikasi di sini — tidak perlu ubah survey.js.
  *
+ * types[].cover  : foto sampul kartu di layar "Pilih Unit" (kosong = kartu polos). Tipe tanpa scenes tampil "Segera hadir".
  * types[]         : tipe rumah. Tipe tanpa scenes otomatis disembunyikan (isi scenes untuk mengaktifkan).
  *                    Id scene & lantai harus unik di semua tipe (beri awalan, mis. "gwen-depan").
  * scenes[].photo   : file foto di folder photos/
@@ -14,6 +15,7 @@
 window.SURVEY = {
   title: "Virtual Survey",
   // Halaman awal (landing). Tiap slide = satu area. enter: { scene: "<id scene>" } membuka survey di scene itu,
+  // enter: { units: ["id-tipe", ...] } membuka layar "Pilih Unit" berisi tipe-tipe tsb (urutan = urutan kartu),
   // enter: { next: true } lanjut ke slide berikutnya, tanpa enter = tombol "Segera hadir".
   home: {
     brand: "Shaistanaya City",
@@ -26,14 +28,14 @@ window.SURVEY = {
         desc: "Gerbang cluster Sierra dengan hunian dua lantai, fasad panel kayu, dan atap pelana." },
       { id: "montana", tag: "Cluster", name: "Montana", image: "photos/home-montana.jpg",
         desc: "Gerbang cluster Montana dengan hunian berpintu arch dan atap genteng metal.",
-        cta: "Jelajahi Rumah", enter: { scene: "luar-sudut" } },
+        cta: "Pilih Unit", enter: { units: ["gwen", "new-gwen", "arnica", "bianca"] } },
       { id: "komersial", tag: "Area Komersial", name: "Ruko", image: "photos/home-komersial.jpg",
         desc: "Ruko dua lantai di area depan kawasan." }
     ]
   },
   types: [
     { id: "gwen", name: "Gwen", unit: "Gwen", summary: [], floors: [], scenes: [] },
-    { id: "new-gwen", name: "The New Gwen", unit: "The New Gwen · F5-08",
+    { id: "new-gwen", name: "The New Gwen", unit: "The New Gwen · F5-08", cover: "photos/luar-sudut.jpg",
       summary: [["Luas Bangunan", "45 m²"], ["Luas Tanah", "112 m²"], ["Mezzanine", "Ya"]],
       floors: [
         { id: "luar", label: "Tampak Luar", plan: null, area: "",
