@@ -29,9 +29,7 @@ window.SURVEY = {
         cta: "Tour Unit", enter: { units: ["arnica", "bianca"] } },
       { id: "montana", tag: "Cluster", name: "Montana", image: "photos/home-montana.jpg",
         desc: "American style with mezzanine. Rumah 1 lantai dengan ruang fleksibel santai atau workspace (mezzanine), dan semua unit dilengkapi smartdoor lock.",
-        cta: "Tour Unit", enter: { units: ["gwen", "new-gwen"] } },
-      { id: "komersial", tag: "Area Komersial", name: "Ruko", image: "photos/home-komersial.jpg",
-        desc: "Ruko dua lantai di area depan kawasan." }
+        cta: "Tour Unit", enter: { units: ["gwen", "new-gwen"] } }
     ]
   },
   types: [
