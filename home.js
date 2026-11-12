@@ -107,8 +107,9 @@
       var c = el("button", "unit" + (ready ? "" : " unit--off")); c.type = "button";
       var img = t.cover || (first && first.photo);
       if (img) c.style.backgroundImage = "url(" + img + ")";
-      var lab = el("span"), small = el("small", null, ready ? "Tipe" : "Segera hadir"), name = el("strong", null, t.name);
-      lab.appendChild(small); lab.appendChild(name);
+      var lab = el("span"), name = el("strong", null, t.name);
+      if (ready) lab.appendChild(el("small", null, "Tipe")); else c.appendChild(el("span", "unit__tag", "Segera hadir"));
+      lab.appendChild(name);
       var sp = specLine(t);
       if (sp) lab.appendChild(el("em", null, sp));
       c.appendChild(lab);
