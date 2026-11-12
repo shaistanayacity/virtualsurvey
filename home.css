@@ -6,7 +6,8 @@
 .home__bg.on{opacity:1;transform:translate3d(var(--px,0),var(--py,0),0) scale(1.06)}
 .home__shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(6,10,8,.72) 0%,rgba(6,10,8,.35) 42%,rgba(6,10,8,.05) 70%),linear-gradient(180deg,rgba(6,10,8,.45),transparent 24%,transparent 62%,rgba(6,10,8,.6))}
 .home__top{position:absolute;z-index:2;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:26px 32px}
-.home__brand{font-weight:600;font-size:15px;letter-spacing:.01em}
+.home__brand{display:inline-flex;align-items:center;gap:11px;font-weight:600;font-size:15px;letter-spacing:.01em}
+.home__logo{display:block;width:34px;height:34px;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.35)}
 .home__sub{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
 .home__content{position:absolute;z-index:2;left:32px;top:46%;transform:translateY(-50%);max-width:min(560px,60%)}
 .home__tag{margin:0 0 14px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}

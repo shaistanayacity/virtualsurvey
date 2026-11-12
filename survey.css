@@ -16,8 +16,10 @@ backdrop-filter:blur(6px);box-shadow:0 0 0 0 rgba(255,255,255,.5);animation:ring
 
 .top{position:absolute;z-index:5;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:26px 32px;pointer-events:none}
 .brand{pointer-events:auto;background:none;border:0;padding:4px 0;color:#fff;font:600 15px var(--serif);letter-spacing:.01em;cursor:pointer}
-.brand span{opacity:.7;margin-right:2px}
-.brand:hover span{opacity:1}
+.brand{display:inline-flex;align-items:center;gap:8px}
+.brand__back{opacity:.7;margin-right:-2px}
+.brand:hover .brand__back{opacity:1}
+.brand__logo{display:block;width:28px;height:28px;border-radius:50%;box-shadow:0 1px 8px rgba(0,0,0,.35)}
 .pill{pointer-events:auto;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:10px 20px;font:500 12px var(--serif);letter-spacing:.04em;cursor:pointer;transition:transform .2s,background .2s}
 .pill:hover{transform:translateY(-1px);background:#000}
 

@@ -367,7 +367,8 @@
   // Panel mobile
   var panel = $("panel");
   var toggle = $("panel-toggle");
-  var panelLabel = allFloors.some(function (f) { return f.plan; }) ? "Denah & Spesifikasi" : "Spesifikasi";
+  var small = window.matchMedia && matchMedia("(max-width: 820px)").matches;
+  var panelLabel = allFloors.some(function (f) { return f.plan; }) ? (small ? "Denah" : "Denah & Spesifikasi") : (small ? "Info" : "Spesifikasi");
   toggle.textContent = panelLabel;
   function setPanel(open) {
     panel.classList.toggle("open", open);

@@ -25,6 +25,8 @@
 <meta name="twitter:image" content="https://virtualsurvey.vercel.app/og.jpg" />
 <link rel="preload" as="image" href="photos/home-gerbang.webp" fetchpriority="high" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -39,7 +41,7 @@
     <div class="shade" aria-hidden="true"></div>
 
     <header class="top">
-      <button class="brand" id="brand" type="button" aria-label="Kembali ke beranda"><span aria-hidden="true">‹</span> Shaistanaya City</button>
+      <button class="brand" id="brand" type="button" aria-label="Kembali ke beranda"><span class="brand__back" aria-hidden="true">‹</span><img class="brand__logo" src="assets/logo.png" width="28" height="28" alt="" /> Shaistanaya City</button>
       <nav class="types" id="types" aria-label="Pilih tipe rumah"></nav>
       <button class="pill" id="panel-toggle" type="button" aria-expanded="false" aria-controls="panel">Spesifikasi</button>
     </header>

@@ -30,7 +30,10 @@
   root.appendChild(el("div", "home__shade"));
 
   var top = el("header", "home__top");
-  top.appendChild(el("span", "home__brand", H.brand || ""));
+  var brand = el("span", "home__brand");
+  var logo = el("img", "home__logo"); logo.src = "assets/logo.png"; logo.alt = ""; logo.width = 34; logo.height = 34;
+  brand.appendChild(logo); brand.appendChild(document.createTextNode(H.brand || ""));
+  top.appendChild(brand);
   top.appendChild(el("span", "home__sub", H.sub || ""));
   root.appendChild(top);
 
