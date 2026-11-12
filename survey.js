@@ -10,19 +10,39 @@
   // Pannellum multi-scene config dari data.js
   var scenes = {};
   D.scenes.forEach(function (s) {
-    scenes[s.id] = {
-      type: "equirectangular", panorama: s.photo, yaw: s.yaw || 0, hfov: 100,
+    var fov = s.fov || 360, partial = fov < 360;
+    var haov = fov, vaov = partial ? fov * s.h / s.w : 180;
+    var cfg = {
+      type: "equirectangular", panorama: s.photo, yaw: s.yaw || 0, pitch: s.pitch || 0, hfov: partial ? fov : 100,
+      autoRotate: partial ? 0 : -2,
       hotSpots: (s.hotspots || []).map(function (h) {
-        return { type: "scene", sceneId: h.to, yaw: h.yaw, pitch: h.pitch || 0, text: h.label };
+        var yaw = h.yaw, pitch = h.pitch || 0;
+        if (h.x != null) { yaw = (h.x / 100 - 0.5) * haov; pitch = (0.5 - h.y / 100) * vaov; }
+        return { type: "scene", sceneId: h.to, yaw: yaw, pitch: pitch, text: h.label };
       })
     };
+    if (partial) { cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = fov; }
+    scenes[s.id] = cfg;
   });
   var viewer = pannellum.viewer("pano", {
-    default: { firstScene: D.scenes[0].id, autoLoad: true, showControls: false, compass: false, autoRotate: -2, autoRotateInactivityDelay: 4000 },
+    default: { firstScene: D.scenes[0].id, autoLoad: true, showControls: false, compass: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
     scenes: scenes
   });
 
   var current = null, shownFloor = null;
+
+  // Foto biasa: batasi zoom-out supaya tepi foto tidak terbuka (pita hitam), terutama di layar portrait.
+  function fitView() {
+    var sc = current && byId[current];
+    if (!sc || !sc.fov || sc.fov >= 360) return;
+    var box = $("pano"), a = box.clientWidth / Math.max(1, box.clientHeight);
+    var vaov = sc.fov * sc.h / sc.w, rad = Math.PI / 180;
+    var maxH = Math.min(sc.fov, 2 * Math.atan(Math.tan(vaov / 2 * rad) * a) / rad);
+    var minH = Math.min(30, maxH);
+    viewer.setHfovBounds([minH, maxH]);
+    if (viewer.getHfov() > maxH) viewer.setHfov(maxH, false);
+  }
+  window.addEventListener("resize", fitView);
 
   function el(tag, attrs, text) {
     var e = document.createElement(tag);
@@ -50,6 +70,7 @@
     navEl.appendChild(n);
   });
   fillSpecs($("summary"), D.summary || []);
+  if (D.floors.length < 2) { floorsEl.hidden = true; navEl.hidden = true; }
 
   function showFloor(id) {
     var f = floorById[id];
@@ -60,17 +81,18 @@
         b.setAttribute("aria-selected", b.getAttribute("data-floor") === id ? "true" : "false");
       });
     });
-    $("plan-img").src = f.plan;
-    $("plan-img").alt = "Denah " + f.label;
+    $("plan").hidden = !f.plan;
+    if (f.plan) { $("plan-img").src = f.plan; $("plan-img").alt = "Denah " + f.label; }
     $("floor-name").textContent = f.label + (f.area ? " · " + f.area : "");
     fillSpecs($("specs"), f.specs || []);
     var dots = $("plan-dots"), rooms = $("rooms");
     dots.textContent = ""; rooms.textContent = "";
     D.scenes.filter(function (s) { return s.floor === id; }).forEach(function (s) {
       var d = el("button", { type: "button", class: "dot", title: s.title, "aria-label": s.title, "data-scene": s.id });
+      if (s.plan) {
       d.style.left = s.plan.x + "%"; d.style.top = s.plan.y + "%";
       d.addEventListener("click", function () { viewer.loadScene(s.id); closePanel(); });
-      dots.appendChild(d);
+      dots.appendChild(d); }
       var r = el("button", { type: "button", "data-scene": s.id }, s.title);
       r.addEventListener("click", function () { viewer.loadScene(s.id); closePanel(); });
       rooms.appendChild(r);
@@ -100,12 +122,14 @@
   }
   viewer.on("scenechange", function (id) {
     current = id;
+    fitView();
     announce(id);
     if (shownFloor !== byId[id].floor) showFloor(byId[id].floor); else markCurrent();
     try { history.replaceState(null, "", "#" + id); } catch (e) {}
   });
   viewer.on("load", function () {
     if (!current) { current = viewer.getScene(); announce(current); showFloor(byId[current].floor); }
+    fitView();
   });
 
   // Deep link: survey/#l2-master
