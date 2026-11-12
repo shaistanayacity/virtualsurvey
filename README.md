@@ -34,3 +34,10 @@ cluster, ruangan yang sudah dilihat, dan lama keliling. Status "sudah mengisi" d
 "Shaistanaya City CRM" (RLS: pengunjung/anon hanya bisa INSERT, tidak bisa baca/ubah/hapus). Jadi lead tetap tercatat walau pengunjung
 tidak menekan kirim di WhatsApp. Jika penyimpanan gagal (koneksi), WhatsApp tetap dibuka sebagai cadangan. Lihat data di dashboard Supabase
 (Table Editor → `leads_virtualsurvey`). `openWhatsApp: false` di `data.js` = hanya simpan, tanpa membuka WhatsApp.
+
+**Masuk CRM (lead kantor):** tiap baris baru di `leads_virtualsurvey` otomatis disalin oleh trigger `virtualsurvey_to_crm`
+(fungsi `private.virtualsurvey_to_crm`, SECURITY DEFINER) ke tabel CRM `public.leads`: `source='Website'`, `minat` = nama unit
+(tanpa "The", mis. "New Gwen"), `stage='Masuk'`, pemilik `shaistanayacity@gmail.com` (admin = lead kantor), dan catatan awal berisi
+unit, cluster, ruangan yang dilihat, serta lama keliling. Nomor yang sudah ada di CRM tidak diduplikasi dan lead lama tidak diubah,
+cukup ditautkan (`crm_status = 'sudah_ada'`). Jika penyalinan gagal, lead survey tetap tersimpan (`crm_status = 'error: ...'`).
+Ganti pemilik/sumber dengan mengubah fungsi tersebut di Supabase.
