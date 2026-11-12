@@ -102,6 +102,9 @@
   function buildFloors() {
     floorsEl.textContent = ""; navEl.textContent = "";
     var list = allFloors.filter(function (f) { return f.type === curType; });
+    var cap = el("button", { type: "button", class: "nav-spec", "aria-label": "Buka spesifikasi unit" }, "Spesifikasi");
+    cap.addEventListener("click", function () { setPanel(!panel.classList.contains("open")); });
+    navEl.appendChild(cap);
     list.forEach(function (f) {
       var b = el("button", { type: "button", role: "tab", "data-floor": f.id }, f.label);
       b.addEventListener("click", function () {
@@ -342,11 +345,13 @@
   // Panel mobile
   var panel = $("panel");
   var toggle = $("panel-toggle");
+  var panelLabel = allFloors.some(function (f) { return f.plan; }) ? "Denah & Spesifikasi" : "Spesifikasi";
+  toggle.textContent = panelLabel;
   function setPanel(open) {
     panel.classList.toggle("open", open);
     panel.setAttribute("aria-hidden", open ? "false" : "true");
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    toggle.textContent = open ? "Tutup" : "Denah";
+    toggle.textContent = open ? "Tutup" : panelLabel;
   }
   function openPanel() { setPanel(true); }
   function closePanel() { setPanel(false); }
