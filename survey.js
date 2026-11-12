@@ -123,6 +123,8 @@
     $("unit-name").textContent = t.unit || t.name;
     document.title = D.title + " — " + (t.unit || t.name);
     fillSpecs($("summary"), t.summary || []);
+    fillSpecs($("building"), t.building || []);
+    $("building-box").hidden = !(t.building && t.building.length);
     buildTypeTabs();
     buildFloors();
     buildRail();
@@ -159,6 +161,11 @@
       typesEl.appendChild(b);
     });
     typesEl.hidden = list.length < 2;
+    // Tab aktif ke tengah (penting di HP saat tab tidak muat).
+    requestAnimationFrame(function () {
+      var sel = typesEl.querySelector('[aria-selected="true"]');
+      if (sel && typesEl.scrollWidth > typesEl.clientWidth) typesEl.scrollLeft = sel.offsetLeft - (typesEl.clientWidth - sel.offsetWidth) / 2;
+    });
   }
   setType(byId[startId].type);
 

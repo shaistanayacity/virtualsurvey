@@ -99,7 +99,7 @@
       if (img) c.style.backgroundImage = "url(" + img + ")";
       var lab = el("span"), small = el("small", null, ready ? "Tipe" : "Segera hadir"), name = el("strong", null, t.name);
       lab.appendChild(small); lab.appendChild(name);
-      var sp = ready ? specLine(t) : "";
+      var sp = specLine(t);
       if (sp) lab.appendChild(el("em", null, sp));
       c.appendChild(lab);
       if (ready) c.addEventListener("click", function () { VS.enter(first.id); hide(); closeUnits(); });

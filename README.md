@@ -4,7 +4,9 @@ Viewer virtual survey (Pannellum, di-vendor di `vendor/`, tanpa CDN/build). Foto
 foto 360° (equirectangular) juga didukung. Ada pilihan tipe rumah, pilihan lantai/area, denah, dan spesifikasi.
 
 ## Tipe rumah
-`data.js` → `types[]`: **Gwen**, **The New Gwen**, **Arnica Private Pool**, **Bianca Garden**.
+`data.js` → `types[]`. Montana: **Gwen**, **New Gwen**, **New Gwen Hook**. Sierra: **Arnica Pool**, **Bianca Deluxe**.
+Angka LB/LT, jumlah kamar, dan spesifikasi bangunan (`SPEC_MONTANA`, `SPEC_SIERRA`) berasal dari Product Knowledge Nov 2026.
+Foto tour yang ada saat ini milik **New Gwen Hook** (LB 45 / LT 112).
 Tipe yang `scenes`-nya kosong otomatis disembunyikan; begitu `scenes` diisi, tab tipe muncul sendiri.
 
 ## Menambah foto / tipe

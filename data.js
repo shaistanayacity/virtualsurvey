@@ -1,6 +1,7 @@
 /* Data virtual survey. Ganti foto/denah/spesifikasi di sini — tidak perlu ubah survey.js.
  *
  * types[].cover  : foto sampul kartu di layar "Pilih Unit" (kosong = kartu polos). Tipe tanpa scenes tampil "Segera hadir".
+ * types[].summary : ringkasan unit [label, nilai] (2 baris pertama dipakai di kartu "Pilih Unit"). types[].building : spesifikasi bangunan lengkap.
  * types[]         : tipe rumah. Tipe tanpa scenes otomatis disembunyikan (isi scenes untuk mengaktifkan).
  *                    Id scene & lantai harus unik di semua tipe (beri awalan, mis. "gwen-depan").
  * scenes[].photo   : file foto di folder photos/
@@ -12,6 +13,26 @@
  *                    atau yaw/pitch (derajat) untuk foto 360. to = id scene tujuan
  * floors[].plan    : gambar denah di folder plans/ (boleh dikosongkan)
  * floors[].specs   : tabel spesifikasi (label, nilai) */
+/* Spesifikasi bangunan per cluster, dari Product Knowledge Nov 2026 (Montana & Sierra). */
+var SPEC_MONTANA = [
+  ["Pondasi", "Batu kali"], ["Struktur", "Beton bertulang"], ["Dinding", "Bata ringan"], ["Rangka atap", "Baja ringan"],
+  ["Penutup atap", "Genteng beton flat"], ["Rangka plafon", "Hollow galvalum"], ["Penutup plafon", "Gypsum & kalsi board"],
+  ["Lantai", "Granite tile 60 × 60"], ["Penerangan", "LED downlight"],
+  ["Kusen", "Aluminium, powder coating"], ["Pintu", "Engineer door"], ["Kunci", "Smartdoor lock"],
+  ["Kamar mandi: pintu", "Aluminium"], ["Kamar mandi: dinding", "Keramik 25 × 40"], ["Kamar mandi: lantai", "Keramik 25 × 25"], ["Kamar mandi: sanitair", "Monoblock & shower"],
+  ["Dapur", "Concrete-based kitchen & kitchen sink"], ["Carport", "Paving block"], ["Eksterior", "Conwood & cat"],
+  ["Instalasi", "PDAM, listrik PLN, internet & TV kabel"]
+];
+var SPEC_SIERRA = [
+  ["Pondasi", "Batu kali dan strauss pile"], ["Struktur", "Beton bertulang"], ["Dinding", "Bata ringan"], ["Rangka atap", "Baja ringan"],
+  ["Penutup atap", "Genteng beton flat"], ["Rangka plafon", "Hollow galvalum"], ["Penutup plafon", "Gypsum & kalsi board"],
+  ["Lantai", "Granite tile 80 × 80"], ["Penerangan", "LED downlight"],
+  ["Kusen", "Aluminium, powder coating"], ["Pintu", "Engineer door"], ["Gagang pintu", "Smartdoor lock"],
+  ["Kamar mandi: pintu", "Aluminium"], ["Kamar mandi: dinding", "Keramik 30 × 60"], ["Kamar mandi: lantai", "Keramik 60 × 60"], ["Kamar mandi: sanitair", "Monoblock & shower"],
+  ["Dapur", "Concrete-based kitchen & kitchen sink"], ["Carport", "Paving block"],
+  ["Instalasi", "PDAM, listrik PLN, internet & TV kabel"]
+];
+
 window.SURVEY = {
   title: "Virtual Survey",
   // Pop-up lead WhatsApp: muncul tiap `everySeconds` detik pengunjung keliling di dalam tour, sampai form diisi.
@@ -39,18 +60,20 @@ window.SURVEY = {
         cta: "Tour Unit", enter: { units: ["arnica", "bianca"] } },
       { id: "montana", tag: "Cluster", name: "Montana", image: "photos/home-montana.jpg",
         desc: "American style with mezzanine. Rumah 1 lantai dengan ruang fleksibel santai atau workspace (mezzanine), dan semua unit dilengkapi smartdoor lock.",
-        cta: "Tour Unit", enter: { units: ["gwen", "new-gwen"] } }
+        cta: "Tour Unit", enter: { units: ["gwen", "new-gwen", "new-gwen-hook"] } }
     ]
   },
   types: [
-    { id: "gwen", name: "Gwen", unit: "Gwen", summary: [], floors: [], scenes: [] },
-    { id: "new-gwen", name: "The New Gwen", unit: "The New Gwen · F5-08", cover: "photos/luar-sudut.jpg",
-      summary: [["Luas Bangunan", "45 m²"], ["Luas Tanah", "112 m²"], ["Mezzanine", "Ya"]],
+    { id: "gwen", name: "Gwen", unit: "Gwen", cover: "", summary: [["Luas Bangunan", "38 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Smartdoor Lock", "Ya"]], building: SPEC_MONTANA, floors: [], scenes: [] },
+    { id: "new-gwen", name: "New Gwen", unit: "New Gwen", summary: [["Luas Bangunan", "45 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Mezzanine", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_MONTANA, floors: [], scenes: [] },
+    { id: "new-gwen-hook", name: "New Gwen Hook", unit: "New Gwen Hook · F5-08", cover: "photos/luar-sudut.jpg",
+      summary: [["Luas Bangunan", "45 m²"], ["Luas Tanah", "112 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Mezzanine", "Ya"], ["Smartdoor Lock", "Ya"]],
+      building: SPEC_MONTANA,
       floors: [
         { id: "luar", label: "Tampak Luar", plan: null, area: "",
-          specs: [["Fasad", "Dinding putih & panel serat kayu"], ["Kanopi", "Rangka besi hitam, atap polikarbonat"], ["Atap", "Genteng metal, model pelana"], ["Entrance", "Arch dengan pintu kayu"], ["Taman", "Teras samping & taman depan"]] },
+          specs: [["Penutup atap", "Genteng beton flat"], ["Eksterior", "Conwood & cat"], ["Kusen", "Aluminium, powder coating"], ["Pintu", "Engineer door"], ["Kunci", "Smartdoor lock"], ["Carport", "Paving block"]] },
         { id: "dalam", label: "Tampak Dalam", plan: null, area: "",
-          specs: [["Ruang", "Ruang tamu, keluarga, makan, dapur & kamar tidur"], ["Plafon", "Tinggi (double height) dengan jendela atas"], ["Lantai", "Keramik glossy warna krem"], ["Dinding", "Panel wainscoting putih"], ["Built-in", "TV unit & rak display lengkung"], ["Furnitur built-in", "Lemari & meja rias, ranjang tingkat berlaci"], ["Dapur", "Kitchen set mini, kompor tanam & sink stainless"], ["Pendingin", "AC split"]] }
+          specs: [["Lantai", "Granite tile 60 × 60"], ["Plafon", "Gypsum & kalsi board"], ["Penerangan", "LED downlight"], ["Dapur", "Concrete-based kitchen & kitchen sink"], ["Kamar mandi", "Keramik 25 × 40, monoblock & shower"], ["Mezzanine", "Ya"]] }
       ],
       scenes: [
         { id: "luar-sudut", floor: "luar", title: "Tampak Sudut", photo: "photos/luar-sudut.jpg", fov: 80, w: 2000, h: 1500,
@@ -87,7 +110,7 @@ window.SURVEY = {
           hotspots: [{ to: "dalam-keluarga", x: 35, y: 92, label: "Keluar" }] }
       ]
     },
-    { id: "arnica", name: "Arnica Pool", unit: "Arnica Pool", summary: [], floors: [], scenes: [] },
-    { id: "bianca", name: "Bianca Deluxe", unit: "Bianca Deluxe", summary: [], floors: [], scenes: [] }
+    { id: "arnica", name: "Arnica Pool", unit: "Arnica Pool", summary: [["Luas Bangunan", "91 m²"], ["Luas Tanah", "90 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Private Pool", "Ya"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA, floors: [], scenes: [] },
+    { id: "bianca", name: "Bianca Deluxe", unit: "Bianca Deluxe", summary: [["Luas Bangunan", "65 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA, floors: [], scenes: [] }
   ]
 };
