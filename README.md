@@ -1,13 +1,19 @@
-# Virtual Survey 360°
+# Virtual Survey — Shaistanaya City
 
-Halaman: `survey/index.html` (viewer 360° Pannellum, di-vendor di `vendor/`, tanpa CDN/build).
-Klik tab **Lantai 1/2** → tampil denah + spesifikasi lantai, dan titik merah di denah menunjukkan posisi scene saat ini
-(klik titik/ruangan untuk pindah). Deep link: `survey/#l2-master`.
+Viewer virtual survey (Pannellum, di-vendor di `vendor/`, tanpa CDN/build). Foto biasa bisa digeser/zoom,
+foto 360° (equirectangular) juga didukung. Ada pilihan tipe rumah, pilihan lantai/area, denah, dan spesifikasi.
 
-## Mengganti dengan file asli
-1. Taruh foto equirectangular (JPG rasio 2:1) di `photos/`, gambar denah di `plans/`.
-2. Edit `data.js`: scene (`photo`, posisi titik di denah `plan {x,y}` dalam %, `hotspots` panah pindah scene),
-   lantai (`plan`, `specs`), dan `summary`. `survey.js` tidak perlu diubah.
-3. `python3 -m http.server` lalu buka `/survey/`.
+## Tipe rumah
+`data.js` → `types[]`: **Gwen**, **The New Gwen**, **Arnica Private Pool**, **Bianca Garden**.
+Tipe yang `scenes`-nya kosong otomatis disembunyikan; begitu `scenes` diisi, tab tipe muncul sendiri.
 
-File di `photos/` dan `plans/` saat ini placeholder (dibuat `scripts/make_placeholders.py`).
+## Menambah foto / tipe
+1. Taruh foto di `photos/` (dan denah di `plans/` kalau ada).
+2. Edit `data.js` pada tipe yang bersangkutan:
+   - `floors[]` — mis. "Tampak Luar", "Tampak Dalam", "Lantai 2" (`plan` boleh `null`).
+   - `scenes[]` — `photo`, `fov` (lebar pandang foto biasa ±70–85, atau 360 untuk foto 360°), `w`/`h` ukuran piksel,
+     `hotspots` (titik pindah: `x`/`y` persen di foto, atau `yaw`/`pitch` untuk 360°).
+   - **Id scene dan lantai harus unik di semua tipe** — beri awalan tipe, mis. `gwen-depan`.
+3. `survey.js` tidak perlu diubah. Jalankan lokal: `python3 -m http.server` lalu buka `/`.
+
+Deep link: `/#<id-scene>`, mis. `/#dalam-tv`.

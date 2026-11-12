@@ -1,15 +1,20 @@
 (function () {
   "use strict";
   var D = window.SURVEY, $ = function (id) { return document.getElementById(id); };
-  var byId = {}, floorById = {};
-  D.scenes.forEach(function (s) { byId[s.id] = s; });
-  D.floors.forEach(function (f) { floorById[f.id] = f; });
-  $("unit-name").textContent = D.unit;
-  document.title = D.title + " — " + D.unit;
+  // Tipe rumah: hanya tipe yang punya scene yang ditampilkan. (Format lama tanpa "types" tetap didukung.)
+  var types = (D.types || [{ id: "unit", name: D.unit, unit: D.unit, summary: D.summary, floors: allFloors, scenes: allScenes }])
+    .filter(function (t) { return t.scenes && t.scenes.length; });
+  var allScenes = [], allFloors = [], byId = {}, floorById = {}, typeById = {};
+  types.forEach(function (t) {
+    typeById[t.id] = t;
+    t.scenes.forEach(function (s) { s.type = t.id; allScenes.push(s); byId[s.id] = s; });
+    (t.floors || []).forEach(function (f) { f.type = t.id; allFloors.push(f); floorById[f.id] = f; });
+  });
+  var curType = null;
 
   // Pannellum multi-scene config dari data.js
   var scenes = {};
-  D.scenes.forEach(function (s) {
+  allScenes.forEach(function (s) {
     var fov = s.fov || 360, partial = fov < 360;
     var haov = fov, vaov = partial ? fov * s.h / s.w : 180;
     var cfg = {
@@ -24,7 +29,7 @@
     if (partial) { cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = fov; }
     scenes[s.id] = cfg;
   });
-  var startId = (location.hash.slice(1) in byId) ? location.hash.slice(1) : D.scenes[0].id;
+  var startId = (location.hash.slice(1) in byId) ? location.hash.slice(1) : allScenes[0].id;
   var viewer = pannellum.viewer("pano", {
     default: { firstScene: startId, autoLoad: true, showControls: false, compass: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
     scenes: scenes
@@ -56,22 +61,48 @@
     rows.forEach(function (r) { node.appendChild(el("dt", {}, r[0])); node.appendChild(el("dd", {}, r[1])); });
   }
 
-  // Tab lantai: klik lantai -> tampil denah + spesifikasi, lalu loncat ke scene pertama lantai itu.
-  var floorsEl = $("floors"), navEl = $("floors-nav");
-  D.floors.forEach(function (f) {
-    var b = el("button", { type: "button", role: "tab", "data-floor": f.id }, f.label);
-    b.addEventListener("click", function () {
-      showFloor(f.id);
-      var first = D.scenes.filter(function (s) { return s.floor === f.id; })[0];
-      if (first && (!current || byId[current].floor !== f.id)) viewer.loadScene(first.id);
+  // Tab lantai (per tipe): klik lantai -> tampil denah + spesifikasi, lalu loncat ke scene pertama lantai itu.
+  var floorsEl = $("floors"), navEl = $("floors-nav"), typesEl = $("types");
+  function buildFloors() {
+    floorsEl.textContent = ""; navEl.textContent = "";
+    var list = allFloors.filter(function (f) { return f.type === curType; });
+    list.forEach(function (f) {
+      var b = el("button", { type: "button", role: "tab", "data-floor": f.id }, f.label);
+      b.addEventListener("click", function () {
+        showFloor(f.id);
+        var first = allScenes.filter(function (s) { return s.floor === f.id; })[0];
+        if (first && (!current || byId[current].floor !== f.id)) viewer.loadScene(first.id);
+      });
+      floorsEl.appendChild(b);
+      var n = el("button", { type: "button", "data-floor": f.id }, f.label);
+      n.addEventListener("click", function () { b.click(); openPanel(); });
+      navEl.appendChild(n);
     });
-    floorsEl.appendChild(b);
-    var n = el("button", { type: "button", "data-floor": f.id }, f.label);
-    n.addEventListener("click", function () { b.click(); openPanel(); });
-    navEl.appendChild(n);
+    floorsEl.hidden = navEl.hidden = list.length < 2;
+  }
+  function setType(id) {
+    var t = typeById[id];
+    if (!t || curType === id) return;
+    curType = id; shownFloor = null;
+    $("unit-name").textContent = t.unit || t.name;
+    document.title = D.title + " — " + (t.unit || t.name);
+    fillSpecs($("summary"), t.summary || []);
+    Array.prototype.forEach.call(typesEl.children, function (b) {
+      b.setAttribute("aria-selected", b.getAttribute("data-type") === id ? "true" : "false");
+    });
+    buildFloors();
+  }
+  types.forEach(function (t) {
+    var b = el("button", { type: "button", "data-type": t.id, "aria-selected": "false" }, t.name);
+    b.addEventListener("click", function () {
+      setType(t.id);
+      viewer.loadScene(t.scenes[0].id);
+      closePanel();
+    });
+    typesEl.appendChild(b);
   });
-  fillSpecs($("summary"), D.summary || []);
-  if (D.floors.length < 2) { floorsEl.hidden = true; navEl.hidden = true; }
+  typesEl.hidden = types.length < 2;
+  setType(byId[startId].type);
 
   function showFloor(id) {
     var f = floorById[id];
@@ -88,7 +119,7 @@
     fillSpecs($("specs"), f.specs || []);
     var dots = $("plan-dots"), rooms = $("rooms");
     dots.textContent = ""; rooms.textContent = "";
-    D.scenes.filter(function (s) { return s.floor === id; }).forEach(function (s) {
+    allScenes.filter(function (s) { return s.floor === id; }).forEach(function (s) {
       var d = el("button", { type: "button", class: "dot", title: s.title, "aria-label": s.title, "data-scene": s.id });
       if (s.plan) {
       d.style.left = s.plan.x + "%"; d.style.top = s.plan.y + "%";
@@ -110,9 +141,9 @@
   var heroEl = $("scene-title"), heroTimer;
   function pad(n) { return (n < 10 ? "0" : "") + n; }
   function announce(id) {
-    var i = D.scenes.indexOf(byId[id]);
+    var list = typeById[byId[id].type].scenes, i = list.indexOf(byId[id]);
     $("count-cur").textContent = pad(i + 1);
-    $("count-all").textContent = "/" + pad(D.scenes.length);
+    $("count-all").textContent = "/" + pad(list.length);
     heroEl.classList.remove("show");
     clearTimeout(heroTimer);
     heroTimer = setTimeout(function () {
@@ -122,6 +153,7 @@
   }
   viewer.on("scenechange", function (id) {
     current = id;
+    setType(byId[id].type);
     fitView();
     announce(id);
     if (shownFloor !== byId[id].floor) showFloor(byId[id].floor); else markCurrent();
