@@ -25,9 +25,9 @@ window.SURVEY = {
         desc: "Selamat datang. Jelajahi kawasan, cluster, dan tipe rumah secara virtual. Geser untuk melihat area lainnya.",
         cta: "Mulai Jelajah", enter: { next: true } },
       { id: "sierra", tag: "Cluster", name: "Sierra", image: "photos/home-sierra.jpg",
-        desc: "Gerbang cluster Sierra dengan hunian dua lantai, fasad panel kayu, dan atap pelana." },
+        desc: "Modern Scandinavian Contemporary Urban Living. Rumah 2 lantai dengan opsi private pool. Setiap unit dilengkapi balkon dan smartdoor lock." },
       { id: "montana", tag: "Cluster", name: "Montana", image: "photos/home-montana.jpg",
-        desc: "Gerbang cluster Montana dengan hunian berpintu arch dan atap genteng metal.",
+        desc: "American style with mezzanine. Rumah 1 lantai dengan ruang fleksibel santai atau workspace (mezzanine), dan semua unit dilengkapi smartdoor lock.",
         cta: "Pilih Unit", enter: { units: ["gwen", "new-gwen", "arnica", "bianca"] } },
       { id: "komersial", tag: "Area Komersial", name: "Ruko", image: "photos/home-komersial.jpg",
         desc: "Ruko dua lantai di area depan kawasan." }

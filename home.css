@@ -11,7 +11,7 @@
 .home__content{position:absolute;z-index:2;left:32px;top:46%;transform:translateY(-50%);max-width:min(560px,60%)}
 .home__tag{margin:0 0 14px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
 .home__title{margin:0;font-weight:500;font-size:clamp(40px,7.4vw,112px);line-height:.98;letter-spacing:-.035em;text-shadow:0 2px 30px rgba(0,0,0,.3)}
-.home__desc{margin:18px 0 26px;max-width:420px;font-size:14px;line-height:1.65;font-weight:300;color:rgba(255,255,255,.86)}
+.home__desc{margin:18px 0 26px;max-width:420px;font-size:14px;line-height:1.65;font-weight:300;color:rgba(255,255,255,.92);text-shadow:0 1px 14px rgba(0,0,0,.65)}
 .home__cta{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;padding:13px 24px;background:#fff;color:var(--ink);font:500 13px var(--serif);letter-spacing:.03em;cursor:pointer;transition:transform .2s,background .2s}
 .home__cta:hover{transform:translateY(-1px)}
 .home__cta[disabled]{background:rgba(255,255,255,.16);color:rgba(255,255,255,.78);cursor:default;backdrop-filter:blur(10px);border:1px solid var(--line)}
