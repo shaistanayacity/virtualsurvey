@@ -51,13 +51,16 @@ transform:translateX(calc(100% + 24px));opacity:0;visibility:hidden;transition:t
 .floors{display:flex;gap:6px;margin-bottom:14px}
 .floors button{flex:1;padding:9px 8px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--soft);font:400 12px var(--serif);letter-spacing:.04em;cursor:pointer}
 .floors button[aria-selected=true]{background:#fff;color:var(--ink);border-color:#fff;font-weight:500}
-.plan{position:relative;border-radius:12px;overflow:hidden;background:#faf8f2}
+.plan{position:relative;border-radius:12px;overflow:hidden;background:#e4ddd2;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
 .plan img{display:block;width:100%;height:auto}
 .plan__hint{margin:8px 2px 0;font-size:11px;line-height:1.5;font-weight:300;color:var(--soft)}
-.dot{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:2px solid #fff;background:#2f6f55;cursor:pointer;padding:0;box-shadow:0 1px 4px rgba(0,0,0,.4)}
-.dot:hover{background:#3f8f70}
-.dot[aria-current=true]{background:#e0453a;width:26px;height:26px;margin:-13px 0 0 -13px;animation:pulse 1.6s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(224,69,58,.6)}100%{box-shadow:0 0 0 14px rgba(224,69,58,0)}}
+.dot{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;padding:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.95);background:rgba(24,28,25,.82);cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.35);transition:transform .2s,background .2s}
+.dot::after{content:"";position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:rgba(255,255,255,.9)}
+.dot:hover{transform:scale(1.25);background:rgba(24,28,25,.95)}
+.dot:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dot[aria-current=true]{width:24px;height:24px;margin:-12px 0 0 -12px;background:var(--accent);border:2px solid #fff;box-shadow:0 0 0 0 rgba(232,201,138,.75),0 2px 8px rgba(0,0,0,.4);animation:pulse 2.2s infinite}
+.dot[aria-current=true]::after{width:6px;height:6px;margin:-3px 0 0 -3px;background:#2a2113}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,201,138,.7),0 2px 8px rgba(0,0,0,.4)}100%{box-shadow:0 0 0 16px rgba(232,201,138,0),0 2px 8px rgba(0,0,0,.4)}}
 .info h2{font-weight:500;font-size:20px;letter-spacing:-.01em;margin:20px 0 6px}
 .info h3{font-weight:500;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--soft);margin:24px 0 6px}
 .specs{margin:0;display:grid;grid-template-columns:auto 1fr}

@@ -46,8 +46,8 @@ Ganti pemilik/sumber dengan mengubah fungsi tersebut di Supabase.
 
 ## Denah
 `plans/*.webp` dipotong dari Product Knowledge Nov 2026. Satu lantai/area = satu gambar (`floors[].plan`). Titik posisi tiap ruangan
-diatur lewat `scenes[].plan: { x, y }` (persen dari gambar denah, 0–100). Di panel, titik merah = ruangan yang sedang dilihat;
-titik hijau bisa diketuk untuk pindah. Titik di New Gwen Hook adalah perkiraan dari denah dan foto, jadi cek sesuai kenyataan.
+diatur lewat `scenes[].plan: { x, y }` (persen dari gambar denah, 0–100). Di panel, titik emas = ruangan yang sedang dilihat;
+titik putih-gelap bisa diketuk untuk pindah. Titik di New Gwen Hook adalah perkiraan dari denah dan foto, jadi cek sesuai kenyataan.
 Denah Gwen Hook, Arnica Pool, dan Bianca Deluxe sudah disiapkan (lihat komentar di `data.js`); tinggal tambah scene dengan `floor` yang sesuai.
 
 ## Kecepatan
