@@ -30,6 +30,15 @@
       <nav class="floornav" id="floors-nav" aria-label="Pilih lantai"></nav>
     </footer>
 
+    <nav class="rail" id="rail" aria-label="Daftar ruangan"></nav>
+    <p class="hint" id="hint" aria-hidden="true"></p>
+    <div class="dock" id="dock" role="group" aria-label="Kontrol tur">
+      <button id="dock-prev" type="button" aria-label="Ruangan sebelumnya">←</button>
+      <button id="dock-play" class="dock__play" type="button" aria-pressed="false" aria-label="Putar tur otomatis"><span class="dock__ico">▶</span><span class="dock__lbl">Tur Otomatis</span></button>
+      <button id="dock-next" type="button" aria-label="Ruangan berikutnya">→</button>
+      <button id="dock-full" class="dock__full" type="button" aria-label="Layar penuh">⛶</button>
+    </div>
+
     <aside class="panel" id="panel" aria-hidden="true">
       <button class="panel__close" id="panel-close" type="button" aria-label="Tutup">×</button>
       <p class="eyebrow" id="unit-name"></p>

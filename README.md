@@ -17,3 +17,9 @@ Tipe yang `scenes`-nya kosong otomatis disembunyikan; begitu `scenes` diisi, tab
 3. `survey.js` tidak perlu diubah. Jalankan lokal: `python3 -m http.server` lalu buka `/`.
 
 Deep link: `/#<id-scene>`, mis. `/#dalam-tv`.
+
+## Interaksi
+- **Scroll / panah keyboard / tombol ← →** pindah ruangan berurutan; **spasi** = putar/jeda **Tur Otomatis**.
+- Rel progres di kanan (klik titik = loncat ke ruangan), dock kontrol di bawah (prev, tur otomatis, next, layar penuh).
+- Kamera zoom pelan di tiap ruangan; titik info (mis. Smart Door Lock) dibuat dengan `hotspots: [{ info: { title, text }, x, y }]`.
+- Beranda: scroll / panah / geser ganti slide, latar bergeser mengikuti mouse.

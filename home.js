@@ -118,6 +118,7 @@
     root.classList.add("hide");
     if (instant) { void root.offsetWidth; root.classList.remove("instant"); }
     root.setAttribute("aria-hidden", "true");
+    if (!instant && VS.onEnter) VS.onEnter();
   }
   VS.showHome = function () {
     closeUnits(); root.classList.remove("hide"); root.setAttribute("aria-hidden", "false");
@@ -130,6 +131,30 @@
     if (e.key === "ArrowRight") go(cur + 1);
     else if (e.key === "ArrowLeft") go(cur - 1);
   });
+  // Scroll = ganti slide; gerak mouse = latar bergeser halus (parallax).
+  var wAcc = 0, wLock = false;
+  root.addEventListener("wheel", function (e) {
+    if (units.classList.contains("open")) return;
+    e.preventDefault();
+    if (wLock) return;
+    wAcc += e.deltaY;
+    if (Math.abs(wAcc) < 40) return;
+    var d = wAcc > 0 ? 1 : -1; wAcc = 0; wLock = true;
+    go(cur + d);
+    setTimeout(function () { wLock = false; wAcc = 0; }, 900);
+  }, { passive: false });
+  var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches, raf = 0, mx = 0, my = 0;
+  if (!still) {
+    root.addEventListener("mousemove", function (e) {
+      mx = e.clientX / window.innerWidth - 0.5; my = e.clientY / window.innerHeight - 0.5;
+      if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0;
+        root.style.setProperty("--px", (-mx * 26).toFixed(1) + "px");
+        root.style.setProperty("--py", (-my * 16).toFixed(1) + "px");
+      });
+    });
+  }
   var x0 = null;
   root.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
   root.addEventListener("touchend", function (e) {

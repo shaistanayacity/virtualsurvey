@@ -19,6 +19,17 @@
   }
 
   // Pannellum multi-scene config dari data.js
+  // Titik info (mis. "Smart Door Lock"): pin berdenyut + kartu kecil saat disorot / diketuk.
+  function pinTip(div, a) {
+    div.classList.add("pin");
+    var dot = document.createElement("i"); dot.textContent = "i";
+    var card = document.createElement("span"); card.className = "pin__card";
+    var t = document.createElement("strong"); t.textContent = a.title;
+    card.appendChild(t);
+    if (a.text) { var p = document.createElement("small"); p.textContent = a.text; card.appendChild(p); }
+    div.appendChild(dot); div.appendChild(card);
+    div.addEventListener("click", function (e) { e.stopPropagation(); div.classList.toggle("open"); });
+  }
   var scenes = {};
   allScenes.forEach(function (s) {
     var fov = s.fov || 360, partial = fov < 360;
@@ -29,6 +40,7 @@
       hotSpots: (s.hotspots || []).map(function (h) {
         var yaw = h.yaw, pitch = h.pitch || 0;
         if (h.x != null) { yaw = (h.x / 100 - 0.5) * haov; pitch = (0.5 - h.y / 100) * vaov; }
+        if (h.info) return { type: "info", yaw: yaw, pitch: pitch, cssClass: "pin", createTooltipFunc: pinTip, createTooltipArgs: h.info };
         return { type: "scene", sceneId: h.to, yaw: yaw, pitch: pitch, text: h.label };
       })
     };
@@ -37,11 +49,13 @@
   });
   var startId = (location.hash.slice(1) in byId) ? location.hash.slice(1) : allScenes[0].id;
   var viewer = pannellum.viewer("pano", {
-    default: { firstScene: startId, autoLoad: true, showControls: false, compass: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
+    default: { firstScene: startId, autoLoad: true, showControls: false, compass: false, mouseZoom: false, autoRotateInactivityDelay: 4000, sceneFadeDuration: 900 },
     scenes: scenes
   });
 
   var current = null, shownFloor = null;
+  var homeEl = $("home");
+  function homeOpen() { return homeEl && !homeEl.classList.contains("hide"); }
 
   // Foto biasa: batasi zoom-out supaya tepi foto tidak terbuka (pita hitam), terutama di layar portrait.
   function fitView() {
@@ -51,8 +65,19 @@
     var vaov = sc.fov * sc.h / sc.w, rad = Math.PI / 180;
     var maxH = Math.min(sc.fov, 2 * Math.atan(Math.tan(vaov / 2 * rad) * a) / rad);
     var minH = Math.min(30, maxH);
+    lastBounds = [minH, maxH];
     viewer.setHfovBounds([minH, maxH]);
     if (viewer.getHfov() > maxH) viewer.setHfov(maxH, false);
+  }
+  var lastBounds = null, dollyT;
+  // "Kamera" bergerak: mulai dari bingkai penuh lalu zoom pelan ke dalam.
+  function dolly() {
+    var sc = current && byId[current];
+    if (!sc || !sc.fov || sc.fov >= 360 || !lastBounds) return;
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    clearTimeout(dollyT);
+    viewer.setHfov(lastBounds[1], false);
+    dollyT = setTimeout(function () { viewer.setHfov(Math.max(lastBounds[0], lastBounds[1] * 0.86), 6500); }, 200);
   }
   window.addEventListener("resize", fitView);
 
@@ -95,6 +120,7 @@
     fillSpecs($("summary"), t.summary || []);
     buildTypeTabs();
     buildFloors();
+    buildRail();
   }
   // Pemilih unit di dalam survey: unit-unit se-cluster (urutan sesuai home.slides[].enter.units).
   // Unit yang belum punya scene tampil redup + "segera" dan tidak bisa diklik.
@@ -184,19 +210,113 @@
     fitView();
     announce(id);
     if (shownFloor !== byId[id].floor) showFloor(byId[id].floor); else markCurrent();
+    updateRail();
     try { history.replaceState(null, "", "#" + id); } catch (e) {}
   });
   viewer.on("load", function () {
     if (!current) { current = viewer.getScene(); announce(current); showFloor(byId[current].floor); }
     fitView();
+    dolly();
+    updateRail();
+    scheduleTour();
   });
+
+  // ---- Interaksi: urutan ruangan, rel progres, dock, tur otomatis ----
+  var railEl = $("rail"), hintEl = $("hint"), playBtn = $("dock-play");
+  function list() { return curType ? typeById[curType].scenes : []; }
+  function step(d) {
+    var l = list(), i = l.indexOf(byId[current]), n = i + d;
+    if (i < 0 || n < 0 || n >= l.length) return false;
+    viewer.loadScene(l[n].id);
+    return true;
+  }
+  function buildRail() {
+    if (!railEl) return;
+    railEl.textContent = "";
+    var l = list();
+    railEl.hidden = l.length < 2;
+    l.forEach(function (s) {
+      var b = el("button", { type: "button", "data-rail": s.id, "data-title": s.title, "aria-label": s.title });
+      b.addEventListener("click", function () { stopTour(); if (current !== s.id) viewer.loadScene(s.id); });
+      railEl.appendChild(b);
+    });
+    updateRail();
+  }
+  function updateRail() {
+    if (!railEl) return;
+    Array.prototype.forEach.call(railEl.children, function (b) {
+      if (b.getAttribute("data-rail") === current) b.setAttribute("aria-current", "true"); else b.removeAttribute("aria-current");
+    });
+  }
+  function showHint(msg) {
+    hintEl.textContent = msg; hintEl.classList.add("show");
+    clearTimeout(showHint.t); showHint.t = setTimeout(function () { hintEl.classList.remove("show"); }, 6500);
+  }
+  var stepped = false;
+  function userStep(d) { stopTour(); if (step(d)) { stepped = true; hintEl.classList.remove("show"); } }
+
+  // Scroll / roda mouse pindah ruangan (zoom lewat pinch atau tombol +/-).
+  var wheelAcc = 0, wheelLock = false;
+  $("pano").addEventListener("wheel", function (e) {
+    e.preventDefault();
+    if (wheelLock) return;
+    wheelAcc += e.deltaY;
+    if (Math.abs(wheelAcc) < 50) return;
+    var d = wheelAcc > 0 ? 1 : -1; wheelAcc = 0; wheelLock = true;
+    userStep(d);
+    setTimeout(function () { wheelLock = false; wheelAcc = 0; }, 1100);
+  }, { passive: false });
+  document.addEventListener("keydown", function (e) {
+    if (homeOpen() || panel.classList.contains("open")) return;
+    if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); userStep(1); }
+    else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); userStep(-1); }
+    else if (e.key === " ") { e.preventDefault(); toggleTour(); }
+  });
+  $("pano").addEventListener("pointerdown", function () { stopTour(); });
+  $("dock-prev").addEventListener("click", function () { userStep(-1); });
+  $("dock-next").addEventListener("click", function () { userStep(1); });
+
+  // Tur otomatis
+  var touring = false, tourT;
+  function scheduleTour() {
+    clearTimeout(tourT);
+    if (!touring) return;
+    tourT = setTimeout(function () { if (!step(1)) stopTour(); }, 6800);
+  }
+  function setTouring(on) {
+    touring = on;
+    playBtn.setAttribute("aria-pressed", on ? "true" : "false");
+    playBtn.setAttribute("aria-label", on ? "Hentikan tur otomatis" : "Putar tur otomatis");
+    playBtn.querySelector(".dock__ico").textContent = on ? "❚❚" : "▶";
+    playBtn.querySelector(".dock__lbl").textContent = on ? "Jeda" : "Tur Otomatis";
+  }
+  function stopTour() { clearTimeout(tourT); if (touring) setTouring(false); }
+  function toggleTour() {
+    if (touring) { stopTour(); return; }
+    var l = list();
+    setTouring(true);
+    hintEl.classList.remove("show");
+    if (l.length && l[l.length - 1].id === current) viewer.loadScene(l[0].id); else scheduleTour();
+  }
+  playBtn.addEventListener("click", toggleTour);
+  $("dock-full").addEventListener("click", function () {
+    var st = document.querySelector(".stage");
+    if (document.fullscreenElement) document.exitFullscreen();
+    else if (st.requestFullscreen) st.requestFullscreen();
+  });
+
+  buildRail();
 
   // API untuk beranda (home.js)
   window.VS = {
     hasScene: function (id) { return !!byId[id]; },
-    enter: function (id) { if (byId[id] && current !== id) viewer.loadScene(id); }
+    enter: function (id) { if (byId[id] && current !== id) viewer.loadScene(id); },
+    onEnter: function () {
+      stepped = false;
+      showHint(window.matchMedia && matchMedia("(hover: hover)").matches ? "Scroll untuk lanjut ke ruangan berikutnya" : "Seret untuk melihat sekeliling · tombol → untuk lanjut");
+    }
   };
-  $("brand").addEventListener("click", function () { closePanel(); if (window.VS.showHome) window.VS.showHome(); });
+  $("brand").addEventListener("click", function () { stopTour(); hintEl.classList.remove("show"); closePanel(); if (window.VS.showHome) window.VS.showHome(); });
 
   // Panel mobile
   var panel = $("panel");

@@ -8,7 +8,7 @@
  *                    Foto biasa: isi perkiraan lebar pandang kamera (±70–85). Tinggi dihitung otomatis dari rasio foto.
  * scenes[].w / h   : ukuran piksel foto (wajib untuk foto biasa, fov < 360)
  * scenes[].plan    : posisi titik scene di denah, persen {x, y} dari gambar denah (kosongkan jika lantai tanpa denah)
- * hotspots[]       : titik pindah scene. x/y = posisi di foto dalam persen (0–100) untuk foto biasa,
+ * hotspots[]       : titik pindah scene (atau titik info: { info: { title, text }, x, y }). x/y = posisi di foto dalam persen (0–100) untuk foto biasa,
  *                    atau yaw/pitch (derajat) untuk foto 360. to = id scene tujuan
  * floors[].plan    : gambar denah di folder plans/ (boleh dikosongkan)
  * floors[].specs   : tabel spesifikasi (label, nilai) */
@@ -46,7 +46,7 @@ window.SURVEY = {
         { id: "luar-sudut", floor: "luar", title: "Tampak Sudut", photo: "photos/luar-sudut.jpg", fov: 80, w: 2000, h: 1500,
           hotspots: [{ to: "luar-depan", x: 46, y: 52, label: "Fasad Depan" }, { to: "luar-teras", x: 72, y: 62, label: "Teras" }] },
         { id: "luar-depan", floor: "luar", title: "Fasad Depan", photo: "photos/luar-depan.jpg", fov: 55, w: 1500, h: 2000,
-          hotspots: [{ to: "luar-sudut", x: 20, y: 88, label: "Tampak Sudut" }, { to: "luar-samping", x: 88, y: 60, label: "Tampak Samping" }, { to: "dalam-tamu", x: 61, y: 73, label: "Masuk ke Dalam" }] },
+          hotspots: [{ to: "luar-sudut", x: 20, y: 88, label: "Tampak Sudut" }, { to: "luar-samping", x: 88, y: 60, label: "Tampak Samping" }, { to: "dalam-tamu", x: 61, y: 73, label: "Masuk ke Dalam" }, { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 59.5, y: 74.3 }] },
         { id: "luar-samping", floor: "luar", title: "Tampak Samping", photo: "photos/luar-samping.jpg", fov: 55, w: 1500, h: 2000,
           hotspots: [{ to: "luar-teras", x: 40, y: 82, label: "Teras" }, { to: "luar-depan", x: 15, y: 70, label: "Fasad Depan" }] },
         { id: "luar-teras", floor: "luar", title: "Teras Samping", photo: "photos/luar-teras.jpg", fov: 80, w: 2000, h: 1500,
@@ -55,7 +55,7 @@ window.SURVEY = {
           hotspots: [{ to: "luar-teras", x: 20, y: 85, label: "Teras Samping" }] },
 
         { id: "dalam-tamu", floor: "dalam", title: "Ruang Tamu", photo: "photos/dalam-tamu.jpg", fov: 80, w: 2000, h: 1500,
-          hotspots: [{ to: "luar-depan", x: 47, y: 52, label: "Keluar" }, { to: "dalam-tv", x: 22, y: 58, label: "Area TV" }, { to: "dalam-keluarga", x: 75, y: 72, label: "Ruang Keluarga" }, { to: "dalam-makan", x: 55, y: 92, label: "Ruang Makan" }] },
+          hotspots: [{ to: "luar-depan", x: 47, y: 52, label: "Keluar" }, { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 54.7, y: 46.1 }, { to: "dalam-tv", x: 22, y: 58, label: "Area TV" }, { to: "dalam-keluarga", x: 75, y: 72, label: "Ruang Keluarga" }, { to: "dalam-makan", x: 55, y: 92, label: "Ruang Makan" }] },
         { id: "dalam-keluarga", floor: "dalam", title: "Ruang Keluarga", photo: "photos/dalam-keluarga.jpg", fov: 80, w: 2000, h: 1500,
           hotspots: [{ to: "dalam-makan", x: 65, y: 58, label: "Ruang Makan" }, { to: "dalam-tv", x: 88, y: 62, label: "Area TV" }, { to: "dalam-kamar-utama", x: 43, y: 50, label: "Kamar Utama" }, { to: "dalam-dapur", x: 57, y: 62, label: "Dapur" }] },
         { id: "dalam-tv", floor: "dalam", title: "Area TV", photo: "photos/dalam-tv.jpg", fov: 80, w: 2000, h: 1500,
