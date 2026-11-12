@@ -102,9 +102,6 @@
   function buildFloors() {
     floorsEl.textContent = ""; navEl.textContent = "";
     var list = allFloors.filter(function (f) { return f.type === curType; });
-    var cap = el("button", { type: "button", class: "nav-spec", "aria-label": "Buka spesifikasi unit" }, "Spesifikasi");
-    cap.addEventListener("click", function () { setPanel(!panel.classList.contains("open")); });
-    navEl.appendChild(cap);
     list.forEach(function (f) {
       var b = el("button", { type: "button", role: "tab", "data-floor": f.id }, f.label);
       b.addEventListener("click", function () {
