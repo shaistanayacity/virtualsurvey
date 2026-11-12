@@ -29,3 +29,8 @@ Deep link: `/#<id-scene>`, mis. `/#dalam-tv`.
 Timer jalan hanya saat pengunjung di dalam tour (bukan beranda, tab aktif). Tiap `everySeconds` detik muncul form nama + nomor WhatsApp;
 "Nanti saja" menutup, lalu muncul lagi sampai diisi. Setelah diisi, WhatsApp admin terbuka dengan pesan berisi nama, nomor, unit,
 cluster, ruangan yang sudah dilihat, dan lama keliling. Status "sudah mengisi" disimpan di browser (localStorage `vs_lead_v1`).
+
+**Penyimpanan lead:** sebelum WhatsApp dibuka, data disimpan ke tabel `public.leads_virtualsurvey` di Supabase project
+"Shaistanaya City CRM" (RLS: pengunjung/anon hanya bisa INSERT, tidak bisa baca/ubah/hapus). Jadi lead tetap tercatat walau pengunjung
+tidak menekan kirim di WhatsApp. Jika penyimpanan gagal (koneksi), WhatsApp tetap dibuka sebagai cadangan. Lihat data di dashboard Supabase
+(Table Editor → `leads_virtualsurvey`). `openWhatsApp: false` di `data.js` = hanya simpan, tanpa membuka WhatsApp.

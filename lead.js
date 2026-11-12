@@ -57,10 +57,32 @@
     else if (d.indexOf("8") === 0) d = "62" + d;
     return d;
   }
-  function message(name, phone) {
-    var s = VS.state(), mins = Math.max(1, Math.round(total / 60)), byUnit = {}, order = [];
+  function roomsByUnit() {
+    var s = VS.state(), byUnit = {}, order = [];
     s.visited.forEach(function (v) { if (!byUnit[v.unit]) { byUnit[v.unit] = []; order.push(v.unit); } byUnit[v.unit].push(v.title); });
-    var rooms = order.map(function (u) { return "• " + u + ": " + byUnit[u].join(", "); }).join("\n");
+    return order.map(function (u) { return { unit: u, rooms: byUnit[u] }; });
+  }
+  // Simpan lead ke Supabase. Resolve true bila tersimpan (atau Supabase tidak dikonfigurasi).
+  function save(name, phone) {
+    var S = L.supabase;
+    if (!S || !S.url || !S.key) return Promise.resolve(true);
+    var st = VS.state();
+    var body = {
+      name: name, phone: phone, unit: st.unit || null, cluster: st.cluster || null,
+      rooms: roomsByUnit().map(function (g) { return g.unit + ": " + g.rooms.join(", "); }).join(" | ").slice(0, 900) || null,
+      duration_seconds: Math.min(86400, Math.round(total)),
+      wa_opened: !!(L.whatsapp && L.openWhatsApp !== false)
+    };
+    var ctl = window.AbortController ? new AbortController() : null, to = setTimeout(function () { if (ctl) ctl.abort(); }, 9000);
+    return fetch(S.url.replace(/\/$/, "") + "/rest/v1/" + (S.table || "leads_virtualsurvey"), {
+      method: "POST", signal: ctl ? ctl.signal : undefined, keepalive: true,
+      headers: { "Content-Type": "application/json", apikey: S.key, Authorization: "Bearer " + S.key, Prefer: "return=minimal" },
+      body: JSON.stringify(body)
+    }).then(function (r) { clearTimeout(to); return r.ok; }, function () { clearTimeout(to); return false; });
+  }
+  function message(name, phone) {
+    var s = VS.state(), mins = Math.max(1, Math.round(total / 60));
+    var rooms = roomsByUnit().map(function (g) { return "• " + g.unit + ": " + g.rooms.join(", "); }).join("\n");
     return "Halo Admin " + (D.home && D.home.brand ? D.home.brand : "") + ", saya " + name + " (+" + phone + ").\n" +
       "Saya sedang melihat virtual survey *" + s.unit + "*" + (s.cluster ? " (cluster " + s.cluster + ")" : "") + ".\n" +
       "Ruangan yang sudah saya lihat:\n" + rooms + "\n" +
@@ -78,13 +100,21 @@
       err.textContent = bad === iName ? "Mohon isi nama Anda." : "Nomor WhatsApp belum benar. Contoh: 0812 3456 7890.";
       return;
     }
-    var url = "https://wa.me/" + String(L.whatsapp).replace(/\D/g, "") + "?text=" + encodeURIComponent(message(name, phone));
-    write(JSON.stringify({ name: name, phone: phone, at: Date.now() }));
-    clearInterval(timer);                                       // sudah mengisi: berhenti total
-    hide();
-    thanks.textContent = "Terima kasih, " + name.split(" ")[0] + "! WhatsApp akan terbuka. Tinggal tekan kirim.";
-    thanks.classList.add("show"); setTimeout(function () { thanks.classList.remove("show"); }, 5500);
-    var w = window.open(url, "_blank");
-    if (w) { try { w.opener = null; } catch (er) {} } else window.location.href = url;   // pop-up diblokir: buka di tab ini
+    go.disabled = true; later.disabled = true; var goLabel = go.textContent; go.textContent = "Menyimpan…";
+    save(name, phone).then(function (saved) {
+      write(JSON.stringify({ name: name, phone: phone, saved: saved, at: Date.now() }));
+      clearInterval(timer);                                     // sudah mengisi: berhenti total
+      var openWa = L.whatsapp && L.openWhatsApp !== false, first = name.split(" ")[0];
+      hide(); go.disabled = false; later.disabled = false; go.textContent = goLabel;
+      thanks.textContent = !saved ? "Data belum tersimpan, jadi WhatsApp kami buka. Tinggal tekan kirim, " + first + "."
+        : openWa ? "Terima kasih, " + first + "! Data tersimpan. WhatsApp akan terbuka, tinggal tekan kirim."
+        : "Terima kasih, " + first + "! Data tersimpan. Tim kami akan segera menghubungi Anda.";
+      thanks.classList.add("show"); setTimeout(function () { thanks.classList.remove("show"); }, 6000);
+      if (openWa || !saved) {
+        var url = "https://wa.me/" + String(L.whatsapp).replace(/\D/g, "") + "?text=" + encodeURIComponent(message(name, phone));
+        var w = window.open(url, "_blank");
+        if (w) { try { w.opener = null; } catch (er) {} } else window.location.href = url;   // pop-up diblokir: buka di tab ini
+      }
+    });
   });
 })();
