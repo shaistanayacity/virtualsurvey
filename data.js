@@ -65,7 +65,19 @@ window.SURVEY = {
   },
   types: [
     { id: "gwen-hook", name: "Gwen Hook", unit: "Gwen Hook", cover: "photos/cover-gwen-hook.webp", summary: [["Luas Bangunan", "38 m²"], ["Luas Tanah", "106 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Smartdoor Lock", "Ya"]], building: SPEC_MONTANA,
-      floors: [{ id: "gh-luar", label: "Tampak Luar", plan: null }, { id: "gh-dalam", label: "Tampak Dalam", plan: "plans/gwen-hook.webp" }], scenes: [] },
+      floors: [
+        { id: "gh-luar", label: "Tampak Luar", plan: null, area: "",
+          specs: [["Penutup atap", "Genteng beton flat"], ["Eksterior", "Conwood & cat"], ["Kusen", "Aluminium, powder coating"], ["Pintu", "Engineer door"], ["Kunci", "Smartdoor lock"], ["Carport", "Paving block"]] },
+        { id: "gh-dalam", label: "Tampak Dalam", plan: "plans/gwen-hook.webp", area: "",
+          specs: [["Lantai", "Granite tile 60 × 60"], ["Plafon", "Gypsum & kalsi board"], ["Penerangan", "LED downlight"], ["Dapur", "Concrete-based kitchen & kitchen sink"], ["Kamar mandi", "Keramik 25 × 40, monoblock & shower"]] }
+      ],
+      scenes: [
+        // Foto 360: sudut pandang dibatasi ke sisi rumah yang sudah jadi (tenda, lahan kosong, dan puing tidak terlihat), tidak berputar sendiri.
+        { id: "gwen-sudut", floor: "gh-luar", title: "Tampak Sudut", photo: "photos/gwen-sudut.webp", yaw: 18, pitch: -2,
+          still: true, limits: { minYaw: -68, maxYaw: 62, minPitch: -32, maxPitch: 38 }, hotspots: [] },
+        { id: "gwen-depan", floor: "gh-luar", title: "Tampak Depan", photo: "photos/gwen-depan.webp", yaw: 45, pitch: -3,
+          still: true, limits: { minYaw: 9, maxYaw: 109, minPitch: -32, maxPitch: 38 }, hotspots: [] }
+      ] },
     { id: "new-gwen-hook", name: "New Gwen Hook", unit: "New Gwen Hook · F5-08", cover: "photos/cover-new-gwen-hook.webp",
       summary: [["Luas Bangunan", "45 m²"], ["Luas Tanah", "112 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Mezzanine", "Ya"], ["Smartdoor Lock", "Ya"]],
       building: SPEC_MONTANA,
