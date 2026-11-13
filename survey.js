@@ -44,6 +44,8 @@
         return { type: "scene", sceneId: h.to, yaw: yaw, pitch: pitch, text: h.label };
       })
     };
+    // Foto 360 beresolusi 4096 px: batasi zoom-in agar tidak pecah (bisa diatur per scene dengan minHfov).
+    if (!partial) cfg.minHfov = s.minHfov || 70;
     if (s.limits) {
       ["minYaw", "maxYaw", "minPitch", "maxPitch"].forEach(function (k) { if (s.limits[k] != null) cfg[k] = s.limits[k]; });
       if (s.limits.maxYaw != null && s.limits.minYaw != null) cfg.hfov = Math.min(cfg.hfov, s.limits.maxYaw - s.limits.minYaw - 2);

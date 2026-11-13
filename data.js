@@ -8,6 +8,10 @@
  * scenes[].fov     : lebar pandang foto dalam derajat. 360 = foto 360° equirectangular (2:1).
  *                    Foto biasa: isi perkiraan lebar pandang kamera (±70–85). Tinggi dihitung otomatis dari rasio foto.
  * scenes[].w / h   : ukuran piksel foto (wajib untuk foto biasa, fov < 360)
+ * scenes[].limits   : batas sudut pandang { minYaw, maxYaw, minPitch, maxPitch } (derajat). Dipakai untuk menyembunyikan bagian foto yang jelek
+ *                    (sambungan penjahitan yang patah, bayangan ganda, noda lantai) atau sisi yang belum selesai dibangun.
+ * scenes[].still     : true = foto 360 tidak berputar sendiri.
+ * scenes[].minHfov   : batas zoom-in foto 360 (lebar pandang terkecil, derajat; default 70). Makin besar, makin tidak bisa di-zoom.
  * scenes[].plan    : posisi titik scene di denah, persen {x, y} dari gambar denah (kosongkan jika lantai tanpa denah)
  * hotspots[]       : titik pindah scene (atau titik info: { info: { title, text }, x, y }). x/y = posisi di foto dalam persen (0–100) untuk foto biasa,
  *                    atau yaw/pitch (derajat) untuk foto 360. to = id scene tujuan
@@ -92,6 +96,8 @@ window.SURVEY = {
           hotspots: [{ to: "ngh-ruang-utama", yaw: 36.5, pitch: 2, label: "Masuk ke Dalam" }] },
         // Interior: foto 360 (iPhone, dijahit PTGui). Posisi titik pindah antar ruangan adalah perkiraan.
         { id: "ngh-ruang-utama", floor: "dalam", title: "Ruang Utama", photo: "photos/ngh-ruang-utama.webp", plan: { x: 48, y: 44 }, yaw: 40, pitch: -4,
+          // Sambungan plafon yang patah, bercak di dinding atas, dan bayangan ganda di tepi meja (akibat penjahitan foto) disembunyikan lewat batas sudut.
+          limits: { minPitch: -28, maxPitch: 38 },
           hotspots: [
             { to: "ngh-depan", yaw: -141, pitch: 8, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: -130, pitch: -8 },
@@ -100,7 +106,7 @@ window.SURVEY = {
             { to: "ngh-kamar-utama", yaw: -8, pitch: -6, label: "Kamar Utama" },
             { to: "ngh-dapur", yaw: 45, pitch: -4, label: "Dapur & Area Belakang" }
           ] },
-        { id: "ngh-dapur", floor: "dalam", title: "Dapur & Area Belakang", photo: "photos/ngh-dapur.webp", plan: { x: 60, y: 13 }, yaw: 20, pitch: -4,
+        { id: "ngh-dapur", floor: "dalam", title: "Dapur & Area Belakang", photo: "photos/ngh-dapur.webp", plan: { x: 60, y: 13 }, yaw: 20, pitch: -4, limits: { minPitch: -45, maxPitch: 40 },
           hotspots: [{ to: "ngh-ruang-utama", yaw: -36, pitch: -9, label: "Ruang Utama" }] },
         { id: "ngh-kamar-mandi", floor: "dalam", title: "Kamar Mandi", photo: "photos/ngh-kamar-mandi.webp", plan: { x: 18, y: 31 }, yaw: -60, pitch: -4, limits: { minPitch: -45, maxPitch: 60 },
           hotspots: [{ to: "ngh-ruang-utama", yaw: 16, pitch: -8, label: "Keluar" }] },
