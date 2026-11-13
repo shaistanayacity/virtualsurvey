@@ -3,7 +3,7 @@
   var D = window.SURVEY, L = D && D.lead, VS = window.VS, stage = document.querySelector(".stage");
   if (!L || !L.whatsapp || !VS || !VS.state || !stage) return;   // nonaktif bila nomor admin kosong
 
-  var EVERY = L.everySeconds || 120, KEY = "vs_lead_v1";
+  var EVERY = L.everySeconds || 60, KEY = "vs_lead_v1";
   function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function write(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
   if (read()) return;                                           // sudah mengisi: tidak ditanya lagi

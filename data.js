@@ -41,7 +41,7 @@ window.SURVEY = {
   // jadi lead tetap tercatat walau pengunjung tidak menekan kirim di WhatsApp. Key di bawah adalah publishable key (aman untuk publik).
   lead: {
     whatsapp: "6282330034200",
-    everySeconds: 120,
+    everySeconds: 60,
     openWhatsApp: true,
     supabase: { url: "https://onulndjicgdopsmtdoei.supabase.co", key: "sb_publishable_o_Z91MJPmAYjb4Kz2lG3VQ_8ssYhGF_", table: "leads_virtualsurvey" }
   },

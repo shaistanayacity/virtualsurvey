@@ -27,7 +27,7 @@ Deep link: `/#<id-scene>`, mis. `/#dalam-tv`.
 - Beranda: scroll / panah / geser ganti slide, latar bergeser mengikuti mouse.
 
 ## Pop-up lead WhatsApp
-`data.js` → `lead: { whatsapp: "62...", everySeconds: 120 }`. Kosongkan `whatsapp` = nonaktif.
+`data.js` → `lead: { whatsapp: "62...", everySeconds: 60 }`. Kosongkan `whatsapp` = nonaktif.
 Timer jalan hanya saat pengunjung di dalam tour (bukan beranda, tab aktif). Tiap `everySeconds` detik muncul form nama + nomor WhatsApp;
 "Nanti saja" menutup, lalu muncul lagi sampai diisi. Setelah diisi, WhatsApp admin terbuka dengan pesan berisi nama, nomor, unit,
 cluster, ruangan yang sudah dilihat, dan lama keliling. Status "sudah mengisi" disimpan di browser (localStorage `vs_lead_v1`).
