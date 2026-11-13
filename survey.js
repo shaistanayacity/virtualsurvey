@@ -102,7 +102,9 @@
   var floorsEl = $("floors"), navEl = $("floors-nav"), typesEl = $("types");
   function buildFloors() {
     floorsEl.textContent = ""; navEl.textContent = "";
-    var list = allFloors.filter(function (f) { return f.type === curType; });
+    var list = allFloors.filter(function (f) {   // hanya lantai/area yang sudah punya scene
+      return f.type === curType && allScenes.some(function (sc) { return sc.floor === f.id; });
+    });
     list.forEach(function (f) {
       var b = el("button", { type: "button", role: "tab", "data-floor": f.id }, f.label);
       b.addEventListener("click", function () {

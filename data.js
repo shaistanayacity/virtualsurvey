@@ -11,7 +11,7 @@
  * scenes[].plan    : posisi titik scene di denah, persen {x, y} dari gambar denah (kosongkan jika lantai tanpa denah)
  * hotspots[]       : titik pindah scene (atau titik info: { info: { title, text }, x, y }). x/y = posisi di foto dalam persen (0–100) untuk foto biasa,
  *                    atau yaw/pitch (derajat) untuk foto 360. to = id scene tujuan
- * floors[].plan    : gambar denah di folder plans/ (boleh null). Denah Gwen Hook, Arnica Pool, dan Bianca Deluxe sudah disiapkan; tinggal isi scenes dengan floor: "gh-dalam" / "ar-l1" / "ar-l2" / "bi-l1" / "bi-l2".
+ * floors[].plan    : gambar denah di folder plans/ (boleh null). Lantai tanpa scene otomatis disembunyikan. Denah Gwen Hook ("gh-dalam") dan Arnica Pool ("ar-l1"/"ar-l2") sudah disiapkan; Bianca Deluxe aktif (lantai 2 menunggu foto).
  * floors[].specs   : tabel spesifikasi (label, nilai) */
 /* Spesifikasi bangunan per cluster, dari Product Knowledge Nov 2026 (Montana & Sierra). */
 var SPEC_MONTANA = [
@@ -113,6 +113,25 @@ window.SURVEY = {
     { id: "arnica", name: "Arnica Pool", unit: "Arnica Pool", cover: "photos/cover-arnica-pool.webp", summary: [["Luas Bangunan", "91 m²"], ["Luas Tanah", "90 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Private Pool", "Ya"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA,
       floors: [{ id: "ar-l1", label: "Lantai 1", plan: "plans/arnica-pool-l1.webp" }, { id: "ar-l2", label: "Lantai 2", plan: "plans/arnica-pool-l2.webp" }], scenes: [] },
     { id: "bianca", name: "Bianca Deluxe", unit: "Bianca Deluxe", cover: "photos/cover-bianca-deluxe.webp", summary: [["Luas Bangunan", "65 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA,
-      floors: [{ id: "bi-l1", label: "Lantai 1", plan: "plans/bianca-deluxe-l1.webp" }, { id: "bi-l2", label: "Lantai 2", plan: "plans/bianca-deluxe-l2.webp" }], scenes: [] }
+      floors: [
+        { id: "bi-luar", label: "Tampak Luar", plan: null, area: "",
+          specs: [["Penutup atap", "Genteng beton flat"], ["Kusen", "Aluminium, powder coating"], ["Pintu", "Engineer door"], ["Gagang pintu", "Smartdoor lock"], ["Carport", "Paving block"], ["Balkon", "Ya"]] },
+        { id: "bi-l1", label: "Lantai 1", plan: "plans/bianca-deluxe-l1.webp", area: "",
+          specs: [["Lantai", "Granite tile 80 × 80"], ["Plafon", "Gypsum & kalsi board"], ["Penerangan", "LED downlight"], ["Dapur", "Concrete-based kitchen & kitchen sink"], ["Kamar mandi", "Keramik 30 × 60, monoblock & shower"], ["Kamar tidur", "1 di lantai 1"]] },
+        { id: "bi-l2", label: "Lantai 2", plan: "plans/bianca-deluxe-l2.webp", area: "",
+          specs: [["Kamar tidur", "2 di lantai 2"], ["Balkon", "Ya"]] }
+      ],
+      scenes: [
+        { id: "bianca-depan", floor: "bi-luar", title: "Tampak Depan", photo: "photos/bianca-depan.webp", yaw: -168, pitch: 2,
+          hotspots: [{ to: "bianca-lantai1", yaw: -168.7, pitch: 1, label: "Masuk ke Dalam" }] },
+        { id: "bianca-lantai1", floor: "bi-l1", title: "Ruang Utama", photo: "photos/bianca-lantai1.webp", plan: { x: 46, y: 50 }, yaw: -40, pitch: -3,
+          hotspots: [
+            { to: "bianca-depan", yaw: 132.5, pitch: 1, label: "Keluar" },
+            { to: "bianca-kamar", yaw: -137, pitch: -6, label: "Kamar Tidur" },
+            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: 131, pitch: -14 }
+          ] },
+        { id: "bianca-kamar", floor: "bi-l1", title: "Kamar Tidur", photo: "photos/bianca-kamar.webp", plan: { x: 24, y: 17 }, yaw: 40, pitch: -10,
+          hotspots: [{ to: "bianca-lantai1", yaw: -119, pitch: -6, label: "Keluar ke Ruang Utama" }] }
+      ] }
   ]
 };
