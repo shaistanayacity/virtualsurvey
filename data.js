@@ -102,12 +102,16 @@ window.SURVEY = {
           ] },
         { id: "ngh-dapur", floor: "dalam", title: "Dapur & Area Belakang", photo: "photos/ngh-dapur.webp", plan: { x: 60, y: 13 }, yaw: 20, pitch: -4,
           hotspots: [{ to: "ngh-ruang-utama", yaw: -36, pitch: -9, label: "Ruang Utama" }] },
-        { id: "ngh-kamar-mandi", floor: "dalam", title: "Kamar Mandi", photo: "photos/ngh-kamar-mandi.webp", plan: { x: 18, y: 31 }, yaw: -60, pitch: -4,
+        { id: "ngh-kamar-mandi", floor: "dalam", title: "Kamar Mandi", photo: "photos/ngh-kamar-mandi.webp", plan: { x: 18, y: 31 }, yaw: -60, pitch: -4, limits: { minPitch: -45, maxPitch: 60 },
           hotspots: [{ to: "ngh-ruang-utama", yaw: 16, pitch: -8, label: "Keluar" }] },
-        { id: "ngh-kamar-anak", floor: "dalam", title: "Kamar Anak", photo: "photos/ngh-kamar-anak.webp", plan: { x: 23, y: 12 }, yaw: -130, pitch: -6,
-          hotspots: [{ to: "ngh-ruang-utama", yaw: -81, pitch: -9, label: "Keluar" }] },
-        { id: "ngh-kamar-utama", floor: "dalam", title: "Kamar Utama", photo: "photos/ngh-kamar-utama.webp", plan: { x: 22, y: 47 }, yaw: -135, pitch: -10,
-          hotspots: [{ to: "ngh-ruang-utama", yaw: 134, pitch: -5, label: "Keluar" }] }
+        { id: "ngh-kamar-anak", floor: "dalam", title: "Kamar Anak", photo: "photos/ngh-kamar-anak-b.webp", plan: { x: 23, y: 12 }, yaw: -29, pitch: -6,
+          // Foto digeser +101 deg: tirai yang rusak akibat penjahitan ada di ujung bingkai dan disembunyikan lewat batas sudut.
+          limits: { minYaw: -146, maxYaw: 148, minPitch: -42, maxPitch: 60 },
+          hotspots: [{ to: "ngh-ruang-utama", yaw: 20, pitch: -9, label: "Keluar" }] },
+        { id: "ngh-kamar-utama", floor: "dalam", title: "Kamar Utama", photo: "photos/ngh-kamar-utama-b.webp", plan: { x: 22, y: 47 }, yaw: -12, pitch: -10,
+          // Foto digeser +123 deg: tirai yang rusak akibat penjahitan ada di ujung bingkai dan disembunyikan lewat batas sudut.
+          limits: { minYaw: -122, maxYaw: 118, minPitch: -42, maxPitch: 60 },
+          hotspots: [{ to: "ngh-ruang-utama", yaw: -103, pitch: -5, label: "Keluar" }] }
       ]
     },
     { id: "arnica", name: "Arnica Pool", unit: "Arnica Pool", cover: "photos/cover-arnica-pool.webp", summary: [["Luas Bangunan", "91 m²"], ["Luas Tanah", "90 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Private Pool", "Ya"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA,
