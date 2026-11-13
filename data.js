@@ -72,11 +72,9 @@ window.SURVEY = {
           specs: [["Lantai", "Granite tile 60 × 60"], ["Plafon", "Gypsum & kalsi board"], ["Penerangan", "LED downlight"], ["Dapur", "Concrete-based kitchen & kitchen sink"], ["Kamar mandi", "Keramik 25 × 40, monoblock & shower"]] }
       ],
       scenes: [
-        // Foto 360: sudut pandang dibatasi ke sisi rumah yang sudah jadi (tenda, lahan kosong, dan puing tidak terlihat), tidak berputar sendiri.
-        { id: "gwen-sudut", floor: "gh-luar", title: "Tampak Sudut", photo: "photos/gwen-sudut.webp", yaw: 18, pitch: -2,
-          still: true, limits: { minYaw: -68, maxYaw: 62, minPitch: -32, maxPitch: 38 }, hotspots: [] },
-        { id: "gwen-depan", floor: "gh-luar", title: "Tampak Depan", photo: "photos/gwen-depan.webp", yaw: 45, pitch: -3,
-          still: true, limits: { minYaw: 9, maxYaw: 109, minPitch: -32, maxPitch: 38 }, hotspots: [] }
+        // Foto 360, rumah ditengah (sudah digeser). Sudut pandang dibatasi ke rumah yang sudah jadi (tenda, puing, dan lahan kosong tidak terlihat), tidak berputar sendiri.
+        { id: "gwen-depan", floor: "gh-luar", title: "Tampak Depan", photo: "photos/gwen-depan-b.webp", yaw: 18, pitch: -2,
+          still: true, limits: { minYaw: -50, maxYaw: 70, minPitch: -30, maxPitch: 40 }, hotspots: [] }
       ] },
     { id: "new-gwen-hook", name: "New Gwen Hook", unit: "New Gwen Hook · F5-08", cover: "photos/cover-new-gwen-hook.webp",
       summary: [["Luas Bangunan", "45 m²"], ["Luas Tanah", "112 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Mezzanine", "Ya"], ["Smartdoor Lock", "Ya"]],
