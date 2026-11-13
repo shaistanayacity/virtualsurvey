@@ -86,10 +86,10 @@ window.SURVEY = {
           specs: [["Lantai", "Granite tile 60 × 60"], ["Plafon", "Gypsum & kalsi board"], ["Penerangan", "LED downlight"], ["Dapur", "Concrete-based kitchen & kitchen sink"], ["Kamar mandi", "Keramik 25 × 40, monoblock & shower"], ["Mezzanine", "Ya"]] }
       ],
       scenes: [
-        // Tampak depan: foto 360 baru. Sudut pandang dibatasi ke deretan rumah yang sudah jadi (tenda, puing, dan lahan kosong tidak terlihat), tidak berputar sendiri.
-        { id: "ngh-depan", floor: "luar", title: "Tampak Depan", photo: "photos/ngh-depan.webp", yaw: 55, pitch: -3,
-          still: true, limits: { minYaw: 14, maxYaw: 140, minPitch: -30, maxPitch: 40 },
-          hotspots: [{ to: "ngh-ruang-utama", yaw: 38, pitch: 3, label: "Masuk ke Dalam" }] },
+        // Tampak depan: foto 360, digeser supaya rumah unit ada di tengah. Sudut pandang dibatasi (tenda, puing, dan lahan kosong tidak terlihat), tidak berputar sendiri.
+        { id: "ngh-depan", floor: "luar", title: "Tampak Depan", photo: "photos/ngh-depan-b.webp", yaw: 22, pitch: -3,
+          still: true, limits: { minYaw: -45, maxYaw: 72, minPitch: -30, maxPitch: 40 },
+          hotspots: [{ to: "ngh-ruang-utama", yaw: 36.5, pitch: 2, label: "Masuk ke Dalam" }] },
         // Interior: foto 360 (iPhone, dijahit PTGui). Posisi titik pindah antar ruangan adalah perkiraan.
         { id: "ngh-ruang-utama", floor: "dalam", title: "Ruang Utama", photo: "photos/ngh-ruang-utama.webp", plan: { x: 48, y: 44 }, yaw: 40, pitch: -4,
           hotspots: [
