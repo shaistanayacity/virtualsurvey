@@ -36,7 +36,7 @@
     var haov = fov, vaov = partial ? fov * s.h / s.w : 180;
     var cfg = {
       type: "equirectangular", panorama: s.photo, yaw: s.yaw || 0, pitch: s.pitch || 0, hfov: partial ? fov : 100,
-      autoRotate: partial ? 0 : -2,
+      autoRotate: (partial || s.still) ? 0 : -2,
       hotSpots: (s.hotspots || []).map(function (h) {
         var yaw = h.yaw, pitch = h.pitch || 0;
         if (h.x != null) { yaw = (h.x / 100 - 0.5) * haov; pitch = (0.5 - h.y / 100) * vaov; }
@@ -44,6 +44,10 @@
         return { type: "scene", sceneId: h.to, yaw: yaw, pitch: pitch, text: h.label };
       })
     };
+    if (s.limits) {
+      ["minYaw", "maxYaw", "minPitch", "maxPitch"].forEach(function (k) { if (s.limits[k] != null) cfg[k] = s.limits[k]; });
+      if (s.limits.maxYaw != null && s.limits.minYaw != null) cfg.hfov = Math.min(cfg.hfov, s.limits.maxYaw - s.limits.minYaw - 2);
+    }
     if (partial) { cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = fov; }
     scenes[s.id] = cfg;
   });

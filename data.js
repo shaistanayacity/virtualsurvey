@@ -122,8 +122,10 @@ window.SURVEY = {
           specs: [["Kamar tidur", "2 di lantai 2"], ["Balkon", "Ya"]] }
       ],
       scenes: [
-        { id: "bianca-depan", floor: "bi-luar", title: "Tampak Depan", photo: "photos/bianca-depan.webp", yaw: -168, pitch: 2,
-          hotspots: [{ to: "bianca-lantai1", yaw: -168.7, pitch: 1, label: "Masuk ke Dalam" }] },
+        { id: "bianca-depan", floor: "bi-luar", title: "Tampak Depan", photo: "photos/bianca-depan-b.webp", yaw: 0, pitch: -2,
+          // Fokus ke rumah: sudut pandang dibatasi (sisi yang masih dibangun tidak terlihat) dan tidak berputar sendiri.
+          still: true, limits: { minYaw: -52, maxYaw: 44, minPitch: -32, maxPitch: 38 },
+          hotspots: [{ to: "bianca-lantai1", yaw: 11.3, pitch: 1, label: "Masuk ke Dalam" }] },
         { id: "bianca-lantai1", floor: "bi-l1", title: "Ruang Utama", photo: "photos/bianca-lantai1.webp", plan: { x: 46, y: 50 }, yaw: -40, pitch: -3,
           hotspots: [
             { to: "bianca-depan", yaw: 132.5, pitch: 1, label: "Keluar" },
