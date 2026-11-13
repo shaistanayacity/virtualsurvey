@@ -14,18 +14,20 @@
   var overlay = el("div", "lead"), card = el("form", "lead__card");
   overlay.setAttribute("role", "dialog"); overlay.setAttribute("aria-modal", "true"); overlay.setAttribute("aria-labelledby", "lead-title");
   card.noValidate = true;
+  var logo = el("img", "lead__logo"); logo.src = "assets/logo.png"; logo.alt = ""; logo.width = 52; logo.height = 52;
+  var xbtn = el("button", "lead__x", "×"); xbtn.type = "button"; xbtn.setAttribute("aria-label", "Tutup");
   var eyebrow = el("p", "lead__eyebrow", "Tertarik?"), title = el("h2", "lead__title"), lead = el("p", "lead__lead",
-    "Isi data Anda dan tim kami akan menghubungi lewat WhatsApp dengan info unit, harga, dan simulasi.");
+    "Tinggalkan kontak Anda. Tim kami akan menghubungi lewat WhatsApp dengan info unit dan simulasi.");
   title.id = "lead-title";
   var lName = el("label", null, "Nama"), iName = el("input"), lPhone = el("label", null, "Nomor WhatsApp"), iPhone = el("input");
   iName.type = "text"; iName.name = "name"; iName.autocomplete = "name"; iName.placeholder = "Nama lengkap"; iName.maxLength = 60;
   iPhone.type = "tel"; iPhone.name = "phone"; iPhone.autocomplete = "tel"; iPhone.inputMode = "tel"; iPhone.placeholder = "08xx xxxx xxxx"; iPhone.maxLength = 20;
   lName.appendChild(iName); lPhone.appendChild(iPhone);
   var err = el("p", "lead__err"); err.setAttribute("role", "alert");
-  var go = el("button", "lead__go", "Hubungi via WhatsApp  →"); go.type = "submit";
+  var go = el("button", "lead__go", "Hubungi via WhatsApp"); go.type = "submit";
   var later = el("button", "lead__later", "Nanti saja"); later.type = "button";
-  var note = el("p", "lead__note", "Dengan mengirim, Anda setuju dihubungi tim kami lewat WhatsApp. Data hanya dipakai untuk keperluan informasi unit.");
-  [eyebrow, title, lead, lName, lPhone, err, go, later, note].forEach(function (n) { card.appendChild(n); });
+  var note = el("p", "lead__note", "Dengan mengirim, Anda setuju dihubungi lewat WhatsApp. Data hanya untuk informasi unit.");
+  [xbtn, logo, eyebrow, title, lead, lName, lPhone, err, go, later, note].forEach(function (n) { card.appendChild(n); });
   overlay.appendChild(card); stage.appendChild(overlay);
   var thanks = el("p", "lead__thanks"); thanks.setAttribute("role", "status"); stage.appendChild(thanks);
 
@@ -40,14 +42,19 @@
   function show() {
     isOpen = true; active = 0;
     try { VS.stopTour(); } catch (e) {}
-    title.textContent = "Suka dengan " + (VS.state().unit || "unit ini") + "?";
+    title.textContent = "Suka dengan ";
+    title.appendChild(el("em", null, (VS.state().unit || "unit ini") + "?"));
     err.textContent = ""; iName.removeAttribute("aria-invalid"); iPhone.removeAttribute("aria-invalid");
     overlay.classList.add("open");
     setTimeout(function () { (iName.value ? iPhone : iName).focus(); }, 380);
   }
   function hide() { isOpen = false; active = 0; overlay.classList.remove("open"); }
+  [iName, iPhone].forEach(function (i) {
+    i.addEventListener("input", function () { i.removeAttribute("aria-invalid"); err.textContent = ""; });
+  });
   later.addEventListener("click", hide);
-  overlay.addEventListener("keydown", function (e) { if (e.key === "Escape") { e.stopPropagation(); hide(); } });
+  xbtn.addEventListener("click", hide);
+  document.addEventListener("keydown", function (e) { if (isOpen && e.key === "Escape") { e.stopPropagation(); hide(); } }, true);
   overlay.addEventListener("pointerdown", function (e) { if (e.target === overlay) hide(); });
 
   // ---- Kirim ----
