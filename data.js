@@ -86,21 +86,14 @@ window.SURVEY = {
           specs: [["Lantai", "Granite tile 60 × 60"], ["Plafon", "Gypsum & kalsi board"], ["Penerangan", "LED downlight"], ["Dapur", "Concrete-based kitchen & kitchen sink"], ["Kamar mandi", "Keramik 25 × 40, monoblock & shower"], ["Mezzanine", "Ya"]] }
       ],
       scenes: [
-        { id: "luar-sudut", floor: "luar", title: "Tampak Sudut", photo: "photos/luar-sudut.webp", fov: 80, w: 2000, h: 1500,
-          hotspots: [{ to: "luar-depan", x: 46, y: 52, label: "Fasad Depan" }, { to: "luar-teras", x: 72, y: 62, label: "Teras" }] },
-        { id: "luar-depan", floor: "luar", title: "Fasad Depan", photo: "photos/luar-depan.webp", fov: 55, w: 1500, h: 2000,
-          hotspots: [{ to: "luar-sudut", x: 20, y: 88, label: "Tampak Sudut" }, { to: "luar-samping", x: 88, y: 60, label: "Tampak Samping" }, { to: "ngh-ruang-utama", x: 61, y: 73, label: "Masuk ke Dalam" }, { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 59.5, y: 74.3 }] },
-        { id: "luar-samping", floor: "luar", title: "Tampak Samping", photo: "photos/luar-samping.webp", fov: 55, w: 1500, h: 2000,
-          hotspots: [{ to: "luar-teras", x: 40, y: 82, label: "Teras" }, { to: "luar-depan", x: 15, y: 70, label: "Fasad Depan" }] },
-        { id: "luar-teras", floor: "luar", title: "Teras Samping", photo: "photos/luar-teras.webp", fov: 80, w: 2000, h: 1500,
-          hotspots: [{ to: "luar-duduk", x: 50, y: 80, label: "Area Duduk" }, { to: "luar-samping", x: 90, y: 60, label: "Tampak Samping" }] },
-        { id: "luar-duduk", floor: "luar", title: "Area Duduk", photo: "photos/luar-duduk.webp", fov: 80, w: 2000, h: 1500,
-          hotspots: [{ to: "luar-teras", x: 20, y: 85, label: "Teras Samping" }] },
-
+        // Tampak depan: foto 360 baru. Sudut pandang dibatasi ke deretan rumah yang sudah jadi (tenda, puing, dan lahan kosong tidak terlihat), tidak berputar sendiri.
+        { id: "ngh-depan", floor: "luar", title: "Tampak Depan", photo: "photos/ngh-depan.webp", yaw: 55, pitch: -3,
+          still: true, limits: { minYaw: 14, maxYaw: 140, minPitch: -30, maxPitch: 40 },
+          hotspots: [{ to: "ngh-ruang-utama", yaw: 38, pitch: 3, label: "Masuk ke Dalam" }] },
         // Interior: foto 360 (iPhone, dijahit PTGui). Posisi titik pindah antar ruangan adalah perkiraan.
         { id: "ngh-ruang-utama", floor: "dalam", title: "Ruang Utama", photo: "photos/ngh-ruang-utama.webp", plan: { x: 48, y: 44 }, yaw: 40, pitch: -4,
           hotspots: [
-            { to: "luar-depan", yaw: -141, pitch: 8, label: "Keluar" },
+            { to: "ngh-depan", yaw: -141, pitch: 8, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: -130, pitch: -8 },
             { to: "ngh-kamar-anak", yaw: -43, pitch: -6, label: "Kamar Anak" },
             { to: "ngh-kamar-mandi", yaw: -29, pitch: -6, label: "Kamar Mandi" },
