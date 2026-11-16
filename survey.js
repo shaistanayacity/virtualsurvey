@@ -76,7 +76,17 @@
   // Foto biasa: batasi zoom-out supaya tepi foto tidak terbuka (pita hitam), terutama di layar portrait.
   function fitView() {
     var sc = current && byId[current];
-    if (!sc || !sc.fov || sc.fov >= 360) return;
+    if (!sc) return;
+    if (!sc.fov || sc.fov >= 360) {
+      // Foto 360: batasi sudut pandang vertikal (~100°) sesuai bentuk layar, supaya di HP tegak tidak melar/penyet.
+      var b360 = $("pano"), a360 = b360.clientWidth / Math.max(1, b360.clientHeight);
+      var maxH360 = Math.min(120, 2 * Math.atan(Math.tan(50 * Math.PI / 180) * a360) * 180 / Math.PI);
+      var minH360 = Math.min(sc.minHfov || 70, maxH360 * 0.7);
+      lastBounds = [minH360, maxH360];
+      viewer.setHfovBounds([minH360, maxH360]);
+      if (viewer.getHfov() > maxH360) viewer.setHfov(maxH360, false);
+      return;
+    }
     var box = $("pano"), a = box.clientWidth / Math.max(1, box.clientHeight);
     var vaov = sc.fov * sc.h / sc.w, rad = Math.PI / 180;
     var maxH = Math.min(sc.fov, 110, 2 * Math.atan(Math.tan(vaov / 2 * rad) * a) / rad);
