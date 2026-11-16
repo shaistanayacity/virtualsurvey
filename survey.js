@@ -35,7 +35,7 @@
     var fov = s.fov || 360, partial = fov < 360;
     var haov = fov, vaov = partial ? fov * s.h / s.w : 180;
     var cfg = {
-      type: "equirectangular", panorama: s.photo, yaw: s.yaw || 0, pitch: s.pitch || 0, hfov: partial ? fov : 100,
+      type: "equirectangular", panorama: s.photo, yaw: s.yaw || 0, pitch: s.pitch || 0, hfov: partial ? Math.min(fov, s.hfov || 85) : 100,
       autoRotate: (partial || s.still) ? 0 : -2,
       hotSpots: (s.hotspots || []).map(function (h) {
         var yaw = h.yaw, pitch = h.pitch || 0;
@@ -50,7 +50,7 @@
       ["minYaw", "maxYaw", "minPitch", "maxPitch"].forEach(function (k) { if (s.limits[k] != null) cfg[k] = s.limits[k]; });
       if (s.limits.maxYaw != null && s.limits.minYaw != null) cfg.hfov = Math.min(cfg.hfov, s.limits.maxYaw - s.limits.minYaw - 2);
     }
-    if (partial) { cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = fov; }
+    if (partial) { cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = Math.min(fov, 110); }
     scenes[s.id] = cfg;
   });
   var deepLink = location.hash.slice(1) in byId;
@@ -75,7 +75,7 @@
     if (!sc || !sc.fov || sc.fov >= 360) return;
     var box = $("pano"), a = box.clientWidth / Math.max(1, box.clientHeight);
     var vaov = sc.fov * sc.h / sc.w, rad = Math.PI / 180;
-    var maxH = Math.min(sc.fov, 2 * Math.atan(Math.tan(vaov / 2 * rad) * a) / rad);
+    var maxH = Math.min(sc.fov, 110, 2 * Math.atan(Math.tan(vaov / 2 * rad) * a) / rad);
     var minH = Math.min(30, maxH);
     lastBounds = [minH, maxH];
     viewer.setHfovBounds([minH, maxH]);

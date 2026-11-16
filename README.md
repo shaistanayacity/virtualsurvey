@@ -62,7 +62,7 @@ Tag Open Graph ada di `index.html`; gambarnya `og.jpg` (1200×630). WhatsApp men
 gambar bisa baru terlihat di link yang belum pernah dibagikan.
 
 ## Foto biasa (bukan 360) untuk tour
-Unit **New Gwen Hook** bagian dalam memakai foto iPhone ultra-wide portrait (`photos/ngh-*.webp`, 1800×2400), bukan 360°.
+Unit **New Gwen Hook** (tampak luar & dalam) memakai 60 foto iPhone ultra-wide yang **dijahit jadi panorama** (`photos/ngh-*.webp`, 22 scene), bukan 360°: tiap scene bisa digeser kiri-kanan dengan sudut pandang foto sebenarnya (`fov` = lebar sudut panorama, `w`/`h` = piksel). Foto yang tidak bertumpang tindih ditampilkan satu per satu dengan proyeksi yang sama.
 Cara menambah ruangan dari foto biasa: konversi ke WebP 1800×2400 (kualitas ±78, metadata dibuang), lalu di `data.js` buat scene dengan
 `fov: 60, w: 1800, h: 2400` dan `hotspots` berformat persen foto `{ to, x, y, label }` (x/y 0–100 dari kiri/atas foto).
 Foto 360° lama New Gwen Hook ada di riwayat git (commit `9393c14` dan sebelumnya).
