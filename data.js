@@ -97,7 +97,7 @@ window.SURVEY = {
             { to: "ngh-tamu", x: 59, y: 57, label: "Masuk ke Dalam" }
           ] },
         // Ruang Tamu: panorama iPhone yang tajam (utama) + foto 360° (resolusi 2000 px, zoom-in dibatasi minHfov 100 supaya tidak pecah).
-        { id: "ngh-tamu", floor: "dalam", title: "Ruang Tamu", photo: "photos/ngh-tamu-foto.webp", plan: { x: 48, y: 52 }, fov: 150, w: 2000, h: 848,
+        { id: "ngh-tamu", floor: "dalam", title: "Ruang Tamu", photo: "photos/ngh-tamu-pano.webp", plan: { x: 48, y: 52 }, fov: 150, w: 2000, h: 848,
           hotspots: [
             { to: "ngh-fasad", x: 90, y: 33, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 89.5, y: 60 },
@@ -106,7 +106,7 @@ window.SURVEY = {
             { to: "ngh-dapur", x: 35.5, y: 52, label: "Dapur & Area Belakang" },
             { to: "ngh-tamu-360", x: 62, y: 88, label: "Tampilan 360°" }
           ] },
-        { id: "ngh-tamu-360", floor: "dalam", title: "Ruang Tamu · 360°", photo: "photos/ngh-tamu.webp", plan: { x: 46, y: 54 }, yaw: -130, pitch: -6, still: true, minHfov: 100,
+        { id: "ngh-tamu-360", floor: "dalam", title: "Ruang Tamu · 360°", photo: "photos/ngh-tamu-360.webp", plan: { x: 46, y: 54 }, yaw: -130, pitch: -6, still: true, minHfov: 100,
           hotspots: [
             { to: "ngh-fasad", yaw: -168.6, pitch: 4, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: -163.5, pitch: -4 },
