@@ -101,9 +101,17 @@ window.SURVEY = {
           hotspots: [
             { to: "ngh-fasad", yaw: -168.6, pitch: 4, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: -163.5, pitch: -4 },
+            { to: "ngh-tamu-foto", yaw: -112, pitch: -12, label: "Foto Tajam" },
             { to: "ngh-lorong", yaw: -64.8, pitch: 10, label: "Lorong" },
             { to: "ngh-makan", yaw: 23.4, pitch: -22, label: "Ruang Makan" },
             { to: "ngh-dapur", yaw: 97, pitch: -2, label: "Dapur & Area Belakang" }
+          ] },
+        { id: "ngh-tamu-foto", floor: "dalam", title: "Ruang Tamu · Foto", photo: "photos/ngh-tamu-foto.webp", plan: { x: 46, y: 54 }, fov: 86.3, w: 1822, h: 1794,
+          hotspots: [
+            { to: "ngh-tamu", x: 50, y: 93, label: "Tampilan 360°" },
+            { to: "ngh-fasad", x: 21, y: 38, label: "Keluar" },
+            { to: "ngh-makan", x: 4, y: 82, label: "Ruang Makan" },
+            { to: "ngh-lorong", x: 62, y: 55, label: "Lorong" }
           ] },
         { id: "ngh-makan", floor: "dalam", title: "Ruang Makan", photo: "photos/ngh-makan.webp", plan: { x: 52, y: 36 }, fov: 173.3, w: 3619, h: 1779,
           hotspots: [
