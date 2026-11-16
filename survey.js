@@ -242,7 +242,7 @@
     warmed[current] = true;
     warmAround(current);
     fitView();
-    dolly();
+    // zoom otomatis dimatikan (mengganggu)
     updateRail();
     scheduleTour();
   });
