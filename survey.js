@@ -50,7 +50,11 @@
       ["minYaw", "maxYaw", "minPitch", "maxPitch"].forEach(function (k) { if (s.limits[k] != null) cfg[k] = s.limits[k]; });
       if (s.limits.maxYaw != null && s.limits.minYaw != null) cfg.hfov = Math.min(cfg.hfov, s.limits.maxYaw - s.limits.minYaw - 2);
     }
-    if (partial) { cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = Math.min(fov, 110); }
+    if (partial) {
+      cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = Math.min(fov, 110);
+      // Kunci batas geser persis di tepi foto: tidak pernah terlihat area kosong/hitam.
+      cfg.minYaw = -haov / 2; cfg.maxYaw = haov / 2; cfg.minPitch = -vaov / 2; cfg.maxPitch = vaov / 2;
+    }
     scenes[s.id] = cfg;
   });
   var deepLink = location.hash.slice(1) in byId;
@@ -92,6 +96,39 @@
     dollyT = setTimeout(function () { viewer.setHfov(Math.max(lastBounds[0], lastBounds[1] * 0.86), 6500); }, 200);
   }
   window.addEventListener("resize", fitView);
+
+  // Jepit tampilan supaya keempat sudut layar tetap di dalam foto: tidak pernah ada area kosong/hitam,
+  // sampai di tepi foto tidak bisa digeser lagi (sudut proyeksi lebih lebar dari tengah, jadi dihitung per sudut).
+  (function clampLoop() {
+    var sc = current && byId[current];
+    if (sc && sc.fov && sc.fov < 360) {
+      var box = $("pano"), a = box.clientWidth / Math.max(1, box.clientHeight), rad = Math.PI / 180;
+      var haov = sc.fov, vaov = sc.fov * sc.h / sc.w, H = viewer.getHfov();
+      var tx = Math.tan(H / 2 * rad), ty = tx / a, y0 = viewer.getYaw(), p0 = viewer.getPitch();
+      var pts = [[-1, -1], [1, -1], [-1, 1], [1, 1], [0, -1], [0, 1], [-1, 0], [1, 0]];
+      var ext = function (p) {
+        var cp = Math.cos(p * rad), sp = Math.sin(p * rad), r = { yMin: 1e9, yMax: -1e9, pMin: 1e9, pMax: -1e9 };
+        pts.forEach(function (q) {
+          var x = q[0] * tx, yy = q[1] * ty, z = 1;
+          var y2 = yy * cp + z * sp, z2 = z * cp - yy * sp;
+          var yaw = Math.atan2(x, z2) / rad, pit = Math.atan2(y2, Math.sqrt(x * x + z2 * z2)) / rad;
+          r.yMin = Math.min(r.yMin, yaw); r.yMax = Math.max(r.yMax, yaw); r.pMin = Math.min(r.pMin, pit); r.pMax = Math.max(r.pMax, pit);
+        });
+        return r;
+      };
+      var p1 = p0, e = ext(p1);
+      for (var i = 0; i < 12; i++) {
+        if (e.pMax > vaov / 2) p1 -= e.pMax - vaov / 2; else if (e.pMin < -vaov / 2) p1 += -vaov / 2 - e.pMin; else break;
+        e = ext(p1);
+      }
+      var lo = -haov / 2 - e.yMin, hi = haov / 2 - e.yMax, y1 = y0;
+      if (lo > hi) { viewer.setHfov(Math.max(30, H * 0.97), false); y1 = 0; }
+      else y1 = Math.min(hi, Math.max(lo, y0));
+      if (Math.abs(p1 - p0) > 0.02) viewer.setPitch(p1, false);
+      if (Math.abs(y1 - y0) > 0.02) viewer.setYaw(y1, false);
+    }
+    requestAnimationFrame(clampLoop);
+  })();
 
   function el(tag, attrs, text) {
     var e = document.createElement(tag);
