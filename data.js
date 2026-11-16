@@ -97,7 +97,7 @@ window.SURVEY = {
             { to: "ngh-tamu", x: 59, y: 57, label: "Masuk ke Dalam" }
           ] },
         // Ruang Tamu: foto 360° (resolusi 2000 px, jadi zoom-in dibatasi minHfov 100 supaya tidak pecah).
-        { id: "ngh-tamu", floor: "dalam", title: "Ruang Tamu", photo: "photos/ngh-tamu.webp", plan: { x: 48, y: 52 }, yaw: -60, pitch: 0, still: true, minHfov: 100,
+        { id: "ngh-tamu", floor: "dalam", title: "Ruang Tamu", photo: "photos/ngh-tamu.webp", plan: { x: 48, y: 52 }, yaw: -130, pitch: -6, still: true, minHfov: 100,
           hotspots: [
             { to: "ngh-fasad", yaw: -168.6, pitch: 4, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: -163.5, pitch: -4 },
