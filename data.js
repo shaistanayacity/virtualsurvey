@@ -108,7 +108,7 @@ window.SURVEY = {
             { to: "ngh-tamu", x: 64, y: 49, label: "Masuk ke Dalam" },
             { to: "ngh-depan", x: 22, y: 62, label: "Tampak Depan" }
           ] },
-        { id: "ngh-tamu", floor: "dalam", title: "Ruang Tamu & Makan", photo: "photos/ngh-tamu.webp", plan: { x: 52, y: 48 }, fov: 177.9, w: 6144, h: 2417,
+        { id: "ngh-tamu", floor: "dalam", title: "Ruang Tamu & Makan", photo: "photos/ngh-tamu-v2.webp", plan: { x: 52, y: 48 }, fov: 177.9, w: 6144, h: 2417,
           hotspots: [
             { to: "ngh-depan", x: 21, y: 40, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 24.5, y: 59 },
