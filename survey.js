@@ -324,10 +324,11 @@
   function updateFlat(id, offDelay) {
     var sc = byId[id];
     if (!flatEl) return;
+    if (!offDelay) flatEl.classList.remove("busy");
     if (!sc || !sc.flat) {
       if (!flatId) return;
       clearTimeout(flatOffT);
-      flatOffT = setTimeout(function () { if (current === id) { flatId = null; flatEl.classList.remove("on"); } }, offDelay || 0);
+      flatOffT = setTimeout(function () { if (current === id) { flatId = null; flatEl.classList.remove("on"); flatEl.classList.remove("busy"); } }, offDelay || 0);
       return;
     }
     clearTimeout(flatOffT);
@@ -341,7 +342,7 @@
       var b = el("button", { type: "button", "class": "flat-hs" + (h.video ? " vidpin__dot" : ""), "data-x": h.x, "data-y": h.y, "aria-label": h.label || "" });
       if (h.video) b.appendChild(el("i", {}, "\u25B6"));
       b.appendChild(el("span", {}, h.label || ""));
-      b.addEventListener("click", function () { if (h.video) { openVideo(h.video); return; } stopTour(); viewer.loadScene(h.to); });
+      b.addEventListener("click", function () { if (h.video) { openVideo(h.video); return; } stopTour(); flatEl.classList.add("busy"); b.classList.add("go"); viewer.loadScene(h.to); });
       flatEl.appendChild(b);
     });
     layoutFlat();
@@ -539,7 +540,10 @@
   function warmAround(id) {
     if (slowNet()) return;
     var l = typeById[byId[id].type].scenes, i = l.indexOf(byId[id]);
-    var order = [l[i + 1], l[i - 1], l[i + 2]];
+    var order = [];
+    (byId[id].hotspots || []).forEach(function (h) { if (h.to && byId[h.to] && order.indexOf(byId[h.to]) < 0) order.push(byId[h.to]); });
+    [l[i + 1], l[i - 1]].forEach(function (x) { if (x && order.indexOf(x) < 0) order.push(x); });
+    order = order.slice(0, 5);
     var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 600); };
     order.forEach(function (s, k) { if (s) idle(function () { setTimeout(function () { warm(s.id); }, k * 400); }); });
   }
