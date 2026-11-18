@@ -230,7 +230,14 @@ window.SURVEY = {
         { id: "ar-dapur", floor: "ar-l1", title: "Dapur & Area Kolam", photo: "photos/ar-dapur.webp", plan: { x: 68, y: 33 }, fov: 92.4, w: 5198, h: 3938,
           hotspots: [
             { to: "ar-ruang-a", x: 95, y: 40, label: "Masuk ke Rumah" },
-            { to: "ar-kolam", x: 25, y: 66, label: "Kolam Pribadi" }
+            { to: "ar-kolam", x: 25, y: 66, label: "Kolam Pribadi" },
+            { to: "ar-dapur-b", x: 62, y: 58, label: "Sudut Lain" }
+          ] },
+        { id: "ar-dapur-b", floor: "ar-l1", title: "Dapur & Area Kolam · Sudut 2", photo: "photos/ar-dapur-b.webp", plan: { x: 66, y: 30 }, fov: 155.4, w: 6144, h: 2768,
+          hotspots: [
+            { to: "ar-ruang-a", x: 85, y: 58, label: "Masuk ke Rumah" },
+            { to: "ar-kolam", x: 20, y: 62, label: "Kolam Pribadi" },
+            { to: "ar-dapur", x: 56, y: 60, label: "Sudut Lain" }
           ] },
         { id: "ar-kolam", floor: "ar-l1", title: "Kolam Pribadi", photo: "photos/ar-kolam.webp", plan: { x: 50, y: 18 }, fov: 96.1, w: 5410, h: 3940,
           hotspots: [
