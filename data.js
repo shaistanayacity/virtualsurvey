@@ -258,17 +258,17 @@ window.SURVEY = {
           hotspots: [
             { to: "ar-dapur", x: 8, y: 62, label: "Dapur" }
           ] },
-        { id: "ar-tangga-a", group: "ar-tangga", floor: "ar-l2", title: "Tangga & Ruang Utama", photo: "photos/ar-tangga-a.webp", plan: { x: 24, y: 48 }, fov: 230.3, w: 6144, h: 1867,
+        { id: "ar-tangga-a", group: "ar-ruang", floor: "ar-l2", title: "Ruang Utama · Dari Tangga", photo: "photos/ar-tangga-a.webp", plan: { x: 24, y: 48 }, fov: 230.3, w: 6144, h: 1867,
           hotspots: [
             { to: "ar-ruang-a", x: 30, y: 62, label: "Turun ke Lantai 1" },
             { to: "ar-tangga-b", x: 90, y: 40, label: "Lantai Atas" }
           ] },
-        { id: "ar-tangga-b", group: "ar-tangga", floor: "ar-l2", title: "Dari Lantai Atas", photo: "photos/ar-tangga-b.webp", plan: { x: 22, y: 45 }, fov: 116.0, w: 6144, h: 3707,
+        { id: "ar-tangga-b", group: "ar-ruang", floor: "ar-l2", title: "Ruang Utama · Dari Lantai Atas", photo: "photos/ar-tangga-b.webp", plan: { x: 22, y: 45 }, fov: 116.0, w: 6144, h: 3707,
           hotspots: [
             { to: "ar-ruang-a", x: 18, y: 62, label: "Turun ke Lantai 1" },
             { to: "ar-tangga-c", x: 70, y: 60, label: "Sisi Lain" }
           ] },
-        { id: "ar-tangga-c", group: "ar-tangga", floor: "ar-l2", title: "Dari Lantai Atas · Sisi Lain", photo: "photos/ar-tangga-c.webp", plan: { x: 20, y: 42 }, fov: 202.2, w: 6144, h: 2127,
+        { id: "ar-tangga-c", group: "ar-ruang", floor: "ar-l2", title: "Ruang Utama · Dari Lantai Atas 2", photo: "photos/ar-tangga-c.webp", plan: { x: 20, y: 42 }, fov: 202.2, w: 6144, h: 2127,
           hotspots: [
             { to: "ar-ruang-a", x: 12, y: 62, label: "Turun ke Lantai 1" }
           ] }
