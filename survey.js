@@ -353,7 +353,7 @@
   // ---- Layar TV interaktif: thumbnail/video yang menempel di TV (perspektif mengikuti arah pandang) ----
   var tvEl = document.getElementById("tv"), tvScene = null, tvPlaying = false, TVW = 320, TVH = 180;
   function tvReset(sc) {
-    tvPlaying = false;
+    tvPlaying = false; if (tvEl) tvEl.classList.remove("playing");
     if (!tvEl) return;
     tvEl.textContent = "";
     tvScene = sc && sc.tv ? sc : null;
@@ -364,9 +364,9 @@
     var l = document.createElement("div"); l.className = "tv__lbl"; l.textContent = "Putar video";
     tvEl.appendChild(img); tvEl.appendChild(p); tvEl.appendChild(l);
   }
-  if (tvEl) tvEl.addEventListener("click", function () {
-    if (!tvScene || tvPlaying) return;
-    tvPlaying = true; stopTour();
+  if (tvEl) tvEl.addEventListener("click", function (e) {
+    if (!tvScene || tvPlaying || !(e.target.classList && e.target.classList.contains("tv__play"))) return;
+    tvPlaying = true; stopTour(); tvEl.classList.add("playing");
     tvEl.textContent = "";
     var f = document.createElement("iframe");
     f.src = "https://www.youtube.com/embed/" + ytId(tvScene.tv.video) + "?autoplay=1&rel=0&playsinline=1";
@@ -401,11 +401,15 @@
         var yw = (c[0] / 100 - 0.5) * haov * rad, pt = (0.5 - c[1] / 100) * vaov * rad;
         var dx = Math.cos(pt) * Math.sin(yw), dy = Math.sin(pt), dz = Math.cos(pt) * Math.cos(yw);
         var X = dx * cy - dz * sy, Y = dx * (-sp * sy) + dy * cp + dz * (-sp * cy), Z = dx * (cp * sy) + dy * sp + dz * (cp * cy);
-        if (Z <= 0.05) { ok = false; return; }
+        if (Z <= 0.35) { ok = false; return; }
         pts.push([w / 2 + F * X / Z, hh / 2 - F * Y / Z]);
       });
       var hm = ok && homography(pts);
       var vis = hm && pts.some(function (p) { return p[0] > -50 && p[0] < w + 50 && p[1] > -50 && p[1] < hh + 50; });
+      if (vis) {
+        var xs = pts.map(function (p) { return p[0]; }), ys = pts.map(function (p) { return p[1]; });
+        if (Math.max.apply(null, xs) - Math.min.apply(null, xs) > w * 0.9 || Math.max.apply(null, ys) - Math.min.apply(null, ys) > hh * 0.9) vis = false;
+      }
       if (vis) {
         tvEl.style.transform = "matrix3d(" + [hm[0], hm[3], 0, hm[6], hm[1], hm[4], 0, hm[7], 0, 0, 1, 0, hm[2], hm[5], 0, 1].join(",") + ")";
         tvEl.classList.add("on");
