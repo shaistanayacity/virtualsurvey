@@ -188,35 +188,20 @@ window.SURVEY = {
           hotspots: [
             { to: "ar-tamu", x: 47.5, y: 46, label: "Masuk ke Dalam" }
           ] },
-        { id: "ar-tamu", group: "ar-ruang", floor: "ar-l1", title: "Ruang Tamu", photo: "photos/ar-tamu.webp", plan: { x: 72, y: 52 }, fov: 131.4, w: 6144, h: 3273,
+        { id: "ar-tamu", group: "ar-ruang", floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu.webp", plan: { x: 72, y: 52 }, fov: 131.4, w: 6144, h: 3273,
           hotspots: [
             { to: "ar-depan", x: 4, y: 62, label: "Keluar" },
             { to: "ar-kamar-a", x: 47, y: 51, label: "Kamar Tidur" },
             { to: "ar-mandi-a", x: 38, y: 49, label: "Kamar Mandi" },
-            { to: "ar-ruang-a", x: 33, y: 53, label: "Ruang Utama" },
+            { to: "ar-ruang-a", x: 33, y: 53, label: "Sudut Lain" },
             { to: "ar-dapur", x: 53.5, y: 47, label: "Dapur & Kolam" }
           ] },
-        { id: "ar-ruang-a", group: "ar-ruang", floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-ruang-a.webp", plan: { x: 58, y: 48 }, fov: 177.6, w: 6144, h: 2422,
+        { id: "ar-ruang-a", group: "ar-ruang", floor: "ar-l1", title: "Ruang Utama · Sudut 2", photo: "photos/ar-ruang-a.webp", plan: { x: 58, y: 48 }, fov: 177.6, w: 6144, h: 2422,
           hotspots: [
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 23, y: 55 },
             { to: "ar-depan", x: 21.8, y: 44, label: "Keluar" },
             { to: "ar-kamar-a", x: 74.3, y: 51, label: "Kamar Tidur" },
-            { to: "ar-dapur", x: 84, y: 51, label: "Dapur & Kolam" },
-            { to: "ar-tangga-a", x: 52.5, y: 48, label: "Tangga ke Lantai 2" }
-          ] },
-        { id: "ar-ruang-b", group: "ar-ruang", floor: "ar-l1", title: "Ruang Utama · Sudut 2", photo: "photos/ar-ruang-b.webp", plan: { x: 62, y: 47 }, fov: 179.7, w: 6144, h: 2393,
-          hotspots: [
-            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 28.3, y: 57 },
-            { to: "ar-kamar-a", x: 78.9, y: 51, label: "Kamar Tidur" },
-            { to: "ar-dapur", x: 87.5, y: 55, label: "Dapur & Kolam" },
-            { to: "ar-tangga-a", x: 58.5, y: 48.8, label: "Tangga ke Lantai 2" }
-          ] },
-        { id: "ar-ruang-c", group: "ar-ruang", floor: "ar-l1", title: "Ruang Utama · Sudut 3", photo: "photos/ar-ruang-c.webp", plan: { x: 56, y: 50 }, fov: 188.7, w: 6144, h: 2279,
-          hotspots: [
-            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 29, y: 55 },
-            { to: "ar-kamar-a", x: 76.8, y: 54, label: "Kamar Tidur" },
-            { to: "ar-dapur", x: 88.5, y: 54, label: "Dapur & Kolam" },
-            { to: "ar-tangga-a", x: 56.5, y: 54, label: "Tangga ke Lantai 2" }
+            { to: "ar-dapur", x: 84, y: 51, label: "Dapur & Kolam" }
           ] },
         { id: "ar-kamar-a", group: "ar-kamar", floor: "ar-l1", title: "Kamar Tidur", photo: "photos/ar-kamar-a.webp", plan: { x: 26, y: 29 }, fov: 92.7, w: 5232, h: 3952,
           hotspots: [
@@ -258,20 +243,6 @@ window.SURVEY = {
           hotspots: [
             { to: "ar-dapur", x: 8, y: 62, label: "Dapur" }
           ] },
-        { id: "ar-tangga-a", group: "ar-ruang", floor: "ar-l2", title: "Ruang Utama · Dari Tangga", photo: "photos/ar-tangga-a.webp", plan: { x: 24, y: 48 }, fov: 230.3, w: 6144, h: 1867,
-          hotspots: [
-            { to: "ar-ruang-a", x: 30, y: 62, label: "Turun ke Lantai 1" },
-            { to: "ar-tangga-b", x: 90, y: 40, label: "Lantai Atas" }
-          ] },
-        { id: "ar-tangga-b", group: "ar-ruang", floor: "ar-l2", title: "Ruang Utama · Dari Lantai Atas", photo: "photos/ar-tangga-b.webp", plan: { x: 22, y: 45 }, fov: 116.0, w: 6144, h: 3707,
-          hotspots: [
-            { to: "ar-ruang-a", x: 18, y: 62, label: "Turun ke Lantai 1" },
-            { to: "ar-tangga-c", x: 70, y: 60, label: "Sisi Lain" }
-          ] },
-        { id: "ar-tangga-c", group: "ar-ruang", floor: "ar-l2", title: "Ruang Utama · Dari Lantai Atas 2", photo: "photos/ar-tangga-c.webp", plan: { x: 20, y: 42 }, fov: 202.2, w: 6144, h: 2127,
-          hotspots: [
-            { to: "ar-ruang-a", x: 12, y: 62, label: "Turun ke Lantai 1" }
-          ] }
       ] },
     { id: "bianca", name: "Bianca Deluxe", unit: "Bianca Deluxe", cover: "photos/cover-bianca-deluxe.webp", summary: [["Luas Bangunan", "65 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA,
       floors: [
