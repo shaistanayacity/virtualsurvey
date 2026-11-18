@@ -228,32 +228,54 @@
     }
     return types.map(function (t) { return t.id; });
   }
+  function clusterName(typeId) {
+    var sl = (D.home && D.home.slides) || [];
+    for (var i = 0; i < sl.length; i++) { var u = sl[i].enter && sl[i].enter.units; if (u && u.indexOf(typeId) > -1) return sl[i].name; }
+    return "";
+  }
+  function closeTypeMenu() {
+    var m = typesEl.querySelector(".types__menu"), c = typesEl.querySelector(".types__cur");
+    if (m) m.hidden = true; if (c) c.setAttribute("aria-expanded", "false");
+  }
+  // Pemilih unit: tombol menyebut tipe yang sedang dilihat; daftar unit lain baru terbuka saat diketuk (tidak langsung berpindah).
   function buildTypeTabs() {
     typesEl.textContent = "";
     var list = clusterIds(curType).map(function (id) { return rawTypeById[id] || typeById[id]; }).filter(Boolean);
-    list.forEach(function (t) {
-      var ready = !!typeById[t.id];
-      var b = el("button", { type: "button", "data-type": t.id, "aria-selected": t.id === curType ? "true" : "false" }, t.name);
-      if (!ready) {
-        b.className = "off"; b.setAttribute("aria-disabled", "true"); b.title = "Segera hadir";
-        b.appendChild(el("em", {}, "segera"));
-      } else {
-        b.addEventListener("click", function () {
-          if (t.id === curType) return;
-          setType(t.id);
-          viewer.loadScene(typeById[t.id].scenes[0].id);
-          closePanel();
-        });
-      }
-      typesEl.appendChild(b);
-    });
     typesEl.hidden = list.length < 2;
-    // Tab aktif ke tengah (penting di HP saat tab tidak muat).
-    requestAnimationFrame(function () {
-      var sel = typesEl.querySelector('[aria-selected="true"]');
-      if (sel && typesEl.scrollWidth > typesEl.clientWidth) typesEl.scrollLeft = sel.offsetLeft - (typesEl.clientWidth - sel.offsetWidth) / 2;
+    if (list.length < 2) return;
+    var cl = clusterName(curType), cur = typeById[curType];
+    var btn = el("button", { type: "button", "class": "types__cur", "aria-haspopup": "true", "aria-expanded": "false" });
+    if (cl) btn.appendChild(el("small", {}, "Cluster " + cl));
+    btn.appendChild(el("b", {}, cur.name));
+    btn.appendChild(el("i", {}, "\u25BE"));
+    var menu = el("div", { "class": "types__menu", role: "menu" }); menu.hidden = true;
+    menu.appendChild(el("p", {}, cl ? "Unit lain di Cluster " + cl : "Unit lain"));
+    list.forEach(function (t) {
+      var ready = !!typeById[t.id], isCur = t.id === curType;
+      var it = el("button", { type: "button", role: "menuitem", "class": "types__item" + (isCur ? " cur" : "") + (ready ? "" : " off") });
+      if (t.cover) { var im = el("img", { alt: "", src: t.cover, loading: "lazy" }); it.appendChild(im); }
+      var tx = el("span", {});
+      tx.appendChild(el("b", {}, t.name));
+      var sm = (t.summary || []).filter(function (r) { return r[0] === "Luas Bangunan"; })[0];
+      if (sm) tx.appendChild(el("small", {}, "LB " + sm[1]));
+      it.appendChild(tx);
+      it.appendChild(el("em", {}, isCur ? "Sedang dilihat" : (ready ? "Lihat" : "Segera hadir")));
+      if (ready && !isCur) it.addEventListener("click", function () {
+        closeTypeMenu();
+        setType(t.id);
+        viewer.loadScene(typeById[t.id].scenes[0].id);
+        closePanel();
+      });
+      menu.appendChild(it);
     });
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = menu.hidden; menu.hidden = !open; btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    typesEl.appendChild(btn); typesEl.appendChild(menu);
   }
+  document.addEventListener("click", function (e) { if (!typesEl.contains(e.target)) closeTypeMenu(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeTypeMenu(); });
   setType(byId[startId].type);
 
   function showFloor(id) {
