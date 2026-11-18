@@ -51,7 +51,7 @@
       if (s.limits.maxYaw != null && s.limits.minYaw != null) cfg.hfov = Math.min(cfg.hfov, s.limits.maxYaw - s.limits.minYaw - 2);
     }
     if (partial) {
-      cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = Math.min(30, fov * 0.5); cfg.maxHfov = Math.min(fov, 110);
+      cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = Math.min(fov, 110);
       // Kunci batas geser persis di tepi foto: tidak pernah terlihat area kosong/hitam.
       cfg.minYaw = -haov / 2; cfg.maxYaw = haov / 2; cfg.minPitch = -vaov / 2; cfg.maxPitch = vaov / 2;
     }
@@ -90,7 +90,7 @@
     var box = $("pano"), a = box.clientWidth / Math.max(1, box.clientHeight);
     var vaov = sc.fov * sc.h / sc.w, rad = Math.PI / 180;
     var maxH = Math.min(sc.fov, 110, 2 * Math.atan(Math.tan(vaov / 2 * rad) * a) / rad);
-    var minH = Math.min(30, maxH * 0.5);
+    var minH = Math.min(30, maxH);
     lastBounds = [minH, maxH];
     viewer.setHfovBounds([minH, maxH]);
     if (viewer.getHfov() > maxH) viewer.setHfov(maxH, false);
