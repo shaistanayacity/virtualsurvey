@@ -262,8 +262,24 @@
 
   var heroEl = $("scene-title"), heroTimer;
   function pad(n) { return (n < 10 ? "0" : "") + n; }
+  // Pilihan sudut: scene yang punya "group" yang sama dianggap satu ruangan dengan beberapa sudut.
+  var anglesEl = $("angles");
+  function buildAngles(id) {
+    if (!anglesEl) return;
+    var sc = byId[id], sibs = sc.group ? typeById[sc.type].scenes.filter(function (x) { return x.group === sc.group; }) : [];
+    anglesEl.textContent = "";
+    anglesEl.classList.toggle("on", sibs.length > 1);
+    if (sibs.length < 2) return;
+    sibs.forEach(function (x, i) {
+      var b = el("button", { type: "button", "aria-label": "Sudut " + (i + 1) + ": " + x.title }, "Sudut " + (i + 1));
+      if (x.id === id) { b.className = "cur"; b.setAttribute("aria-current", "true"); }
+      b.addEventListener("click", function () { if (current !== x.id) { stopTour(); viewer.loadScene(x.id); } });
+      anglesEl.appendChild(b);
+    });
+  }
   function announce(id) {
     var list = typeById[byId[id].type].scenes, i = list.indexOf(byId[id]);
+    buildAngles(id);
     $("count-cur").textContent = pad(i + 1);
     $("count-all").textContent = "/" + pad(list.length);
     heroEl.classList.remove("show");
