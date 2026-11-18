@@ -358,11 +358,21 @@
     tvScene = sc && sc.tv ? sc : null;
     if (!tvScene) { tvEl.classList.remove("on"); return; }
     var img = document.createElement("img"); img.alt = ""; img.src = "https://i.ytimg.com/vi/" + ytId(sc.tv.video) + "/hqdefault.jpg";
-    var f = document.createElement("iframe");
-    f.src = "https://www.youtube.com/embed/" + ytId(sc.tv.video) + "?rel=0&playsinline=1";
-    f.title = "Video"; f.loading = "lazy"; f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"; f.referrerPolicy = "strict-origin-when-cross-origin"; f.allowFullscreen = true;
-    tvEl.appendChild(img); tvEl.appendChild(f);
+    img.onerror = function () { img.style.display = "none"; };
+    var p = document.createElement("div"); p.className = "tv__play"; p.textContent = "\u25B6";
+    var l = document.createElement("div"); l.className = "tv__lbl"; l.textContent = "Putar video";
+    tvEl.appendChild(img); tvEl.appendChild(p); tvEl.appendChild(l);
   }
+  if (tvEl) tvEl.addEventListener("click", function () {
+    if (!tvScene || tvPlaying) return;
+    tvPlaying = true; stopTour();
+    tvEl.textContent = "";
+    var f = document.createElement("iframe");
+    f.src = "https://www.youtube.com/embed/" + ytId(tvScene.tv.video) + "?autoplay=1&rel=0&playsinline=1";
+    f.title = "Video"; f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    f.referrerPolicy = "strict-origin-when-cross-origin"; f.allowFullscreen = true;
+    tvEl.appendChild(f);
+  });
   function homography(dst) {
     var src = [[0, 0], [TVW, 0], [TVW, TVH], [0, TVH]], A = [], b = [], i, j, k;
     for (i = 0; i < 4; i++) {
