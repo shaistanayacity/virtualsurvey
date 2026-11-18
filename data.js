@@ -184,9 +184,9 @@ window.SURVEY = {
       ],
       scenes: [
         // Foto panorama iPhone (resolusi tinggi), bisa digeser sesuai foto. Posisi titik pindah & titik denah adalah perkiraan.
-        { id: "ar-depan", floor: "ar-luar", title: "Tampak Depan", photo: "photos/ar-depan.webp", fov: 77.4, w: 4330, h: 3918,
+        { id: "ar-depan", floor: "ar-luar", title: "Tampak Depan", photo: "photos/ar-depan-v2.webp", flat: true, focusY: 0.5, fov: 60, w: 1684, h: 2528,
           hotspots: [
-            { to: "ar-tamu", x: 47.5, y: 46, label: "Masuk ke Dalam" }
+            { to: "ar-tamu", x: 46.3, y: 56, label: "Masuk ke Dalam" }
           ] },
         { id: "ar-tamu", group: "ar-ruang", floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu.webp", plan: { x: 72, y: 52 }, fov: 131.4, w: 6144, h: 3273,
           hotspots: [
