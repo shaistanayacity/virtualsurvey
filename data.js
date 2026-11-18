@@ -220,14 +220,14 @@ window.SURVEY = {
           hotspots: [
             { to: "ar-ruang-a", x: 88, y: 37, label: "Keluar" }
           ] },
-        { id: "ar-dapur", floor: "ar-l1", title: "Dapur & Area Kolam", photo: "photos/ar-dapur-v2.webp", plan: { x: 68, y: 33 }, fov: 41.1, w: 2115, h: 3600,
+        { id: "ar-dapur", floor: "ar-l1", title: "Dapur & Area Kolam", photo: "photos/ar-dapur-v3.webp", plan: { x: 68, y: 33 }, fov: 92.4, w: 5198, h: 3938,
           hotspots: [
-            { to: "ar-ruang-a", x: 88.8, y: 40, label: "Masuk ke Rumah" },
-            { to: "ar-kolam", x: 8, y: 62, label: "Kolam Pribadi" }
+            { to: "ar-ruang-a", x: 95, y: 40, label: "Masuk ke Rumah" },
+            { to: "ar-kolam", x: 25, y: 66, label: "Kolam Pribadi" }
           ] },
-        { id: "ar-kolam", floor: "ar-l1", title: "Kolam Pribadi", photo: "photos/ar-kolam-v2.webp", plan: { x: 50, y: 18 }, fov: 96.1, w: 5410, h: 2187,
+        { id: "ar-kolam", floor: "ar-l1", title: "Kolam Pribadi", photo: "photos/ar-kolam-v3.webp", plan: { x: 50, y: 18 }, fov: 96.1, w: 5410, h: 3940,
           hotspots: [
-            { to: "ar-dapur", x: 8, y: 32, label: "Dapur" }
+            { to: "ar-dapur", x: 8, y: 62, label: "Dapur" }
           ] },
       ] },
     { id: "bianca", name: "Bianca Deluxe", unit: "Bianca Deluxe", cover: "photos/cover-bianca-deluxe.webp", summary: [["Luas Bangunan", "65 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA,
