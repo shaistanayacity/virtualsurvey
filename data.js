@@ -133,15 +133,14 @@ window.SURVEY = {
             { to: "ngh-tamu", x: 40, y: 68, label: "Sudut Lain" },
             { video: "qnagZMb5LtI", x: 4.5, y: 49, label: "Putar video di TV" }
           ] },
-        { id: "ngh-tamu-d", floor: "dalam", title: "Ruang Tamu (360°)", photo: "photos/ngh-tamu-360-v2.webp", plan: { x: 46, y: 54 }, yaw: -130, pitch: -6, still: true, minHfov: 100, limits: { minPitch: -30, maxPitch: 38 },
+        { id: "ngh-tamu-d", tv: { video: "qnagZMb5LtI", c: [[91.0, 44.1], [97.7, 45.2], [97.5, 57.3], [90.6, 58.8]] }, floor: "dalam", title: "Ruang Tamu (360°)", photo: "photos/ngh-tamu-360-v2.webp", plan: { x: 46, y: 54 }, yaw: -130, pitch: -6, still: true, minHfov: 100, limits: { minPitch: -30, maxPitch: 38 },
           hotspots: [
             { to: "ngh-depan", yaw: -168.6, pitch: 4, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: -163.5, pitch: -4 },
             { to: "ngh-mandi", yaw: -64.8, pitch: 10, label: "Kamar Mandi" },
             { to: "ngh-tamu-b", yaw: 23.4, pitch: -22, label: "Ruang Makan" },
             { to: "ngh-dapur", yaw: 97, pitch: -2, label: "Dapur" },
-            { to: "ngh-tamu", yaw: -112, pitch: -12, label: "Sudut Lain" },
-            { video: "qnagZMb5LtI", yaw: 160, pitch: 5, label: "Putar video di TV" }
+            { to: "ngh-tamu", yaw: -112, pitch: -12, label: "Sudut Lain" }
           ] },
         { id: "ngh-anak", floor: "dalam", title: "Kamar Anak", photo: "photos/ngh-anak.webp", plan: { x: 23, y: 12 }, fov: 84.5, w: 4748, h: 3932,
           hotspots: [
@@ -191,14 +190,13 @@ window.SURVEY = {
           hotspots: [
             { to: "ar-tamu", x: 46.3, y: 56, label: "Masuk ke Dalam" }
           ] },
-        { id: "ar-tamu", floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu.webp", plan: { x: 72, y: 52 }, fov: 131.4, w: 6144, h: 3273,
+        { id: "ar-tamu", tv: { video: "qnagZMb5LtI", c: [[66.9, 46.5], [72.9, 45.8], [73.9, 62.4], [67.7, 57.3]] }, floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu.webp", plan: { x: 72, y: 52 }, fov: 131.4, w: 6144, h: 3273,
           hotspots: [
             { to: "ar-depan", x: 4, y: 62, label: "Keluar" },
             { to: "ar-kamar-a", x: 47, y: 51, label: "Kamar Tidur" },
             { to: "ar-mandi-a", x: 38, y: 49, label: "Kamar Mandi" },
             { to: "ar-ruang-a", x: 33, y: 53, label: "Sudut Lain" },
-            { to: "ar-dapur", x: 53.5, y: 47, label: "Dapur & Kolam" },
-            { video: "qnagZMb5LtI", x: 70.5, y: 50, label: "Putar video di TV" }
+            { to: "ar-dapur", x: 53.5, y: 47, label: "Dapur & Kolam" }
           ] },
         { id: "ar-ruang-a", floor: "ar-l1", title: "Ruang Utama · Meja Makan", photo: "photos/ar-ruang-a.webp", plan: { x: 58, y: 48 }, fov: 177.6, w: 6144, h: 2422,
           hotspots: [

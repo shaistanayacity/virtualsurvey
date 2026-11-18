@@ -348,9 +348,64 @@
     if (flatImg.complete && flatImg.naturalWidth) show();
   }
   window.addEventListener("resize", layoutFlat);
+
+  // ---- Layar TV interaktif: thumbnail/video yang menempel di TV (perspektif mengikuti arah pandang) ----
+  var tvEl = document.getElementById("tv"), tvScene = null, tvPlaying = false, TVW = 320, TVH = 180;
+  function tvReset(sc) {
+    tvPlaying = false;
+    if (!tvEl) return;
+    tvEl.textContent = "";
+    tvScene = sc && sc.tv ? sc : null;
+    if (!tvScene) { tvEl.classList.remove("on"); return; }
+    var img = document.createElement("img"); img.alt = ""; img.src = "https://i.ytimg.com/vi/" + ytId(sc.tv.video) + "/hqdefault.jpg";
+    var f = document.createElement("iframe");
+    f.src = "https://www.youtube-nocookie.com/embed/" + ytId(sc.tv.video) + "?rel=0&playsinline=1&modestbranding=1";
+    f.title = "Video"; f.loading = "lazy"; f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true;
+    tvEl.appendChild(img); tvEl.appendChild(f);
+  }
+  function homography(dst) {
+    var src = [[0, 0], [TVW, 0], [TVW, TVH], [0, TVH]], A = [], b = [], i, j, k;
+    for (i = 0; i < 4; i++) {
+      var x = src[i][0], y = src[i][1], u = dst[i][0], v = dst[i][1];
+      A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]); b.push(u);
+      A.push([0, 0, 0, x, y, 1, -v * x, -v * y]); b.push(v);
+    }
+    for (i = 0; i < 8; i++) {
+      var m = i; for (j = i + 1; j < 8; j++) if (Math.abs(A[j][i]) > Math.abs(A[m][i])) m = j;
+      var t = A[i]; A[i] = A[m]; A[m] = t; t = b[i]; b[i] = b[m]; b[m] = t;
+      if (Math.abs(A[i][i]) < 1e-9) return null;
+      for (j = i + 1; j < 8; j++) { var q = A[j][i] / A[i][i]; for (k = i; k < 8; k++) A[j][k] -= q * A[i][k]; b[j] -= q * b[i]; }
+    }
+    var h = new Array(8);
+    for (i = 7; i >= 0; i--) { var sum = b[i]; for (j = i + 1; j < 8; j++) sum -= A[i][j] * h[j]; h[i] = sum / A[i][i]; }
+    return h;
+  }
+  (function tvLoop() {
+    if (tvEl && tvScene && current === tvScene.id && !tvScene.flat) {
+      var box = $("pano"), w = box.clientWidth, hh = box.clientHeight, rad = Math.PI / 180;
+      var haov = tvScene.fov && tvScene.fov < 360 ? tvScene.fov : 360, vaov = tvScene.fov && tvScene.fov < 360 ? tvScene.fov * tvScene.h / tvScene.w : 180;
+      var y0 = viewer.getYaw() * rad, p0 = viewer.getPitch() * rad, F = (w / 2) / Math.tan(viewer.getHfov() / 2 * rad);
+      var cp = Math.cos(p0), sp = Math.sin(p0), cy = Math.cos(y0), sy = Math.sin(y0), pts = [], ok = true;
+      tvScene.tv.c.forEach(function (c) {
+        var yw = (c[0] / 100 - 0.5) * haov * rad, pt = (0.5 - c[1] / 100) * vaov * rad;
+        var dx = Math.cos(pt) * Math.sin(yw), dy = Math.sin(pt), dz = Math.cos(pt) * Math.cos(yw);
+        var X = dx * cy - dz * sy, Y = dx * (-sp * sy) + dy * cp + dz * (-sp * cy), Z = dx * (cp * sy) + dy * sp + dz * (cp * cy);
+        if (Z <= 0.05) { ok = false; return; }
+        pts.push([w / 2 + F * X / Z, hh / 2 - F * Y / Z]);
+      });
+      var hm = ok && homography(pts);
+      var vis = hm && pts.some(function (p) { return p[0] > -50 && p[0] < w + 50 && p[1] > -50 && p[1] < hh + 50; });
+      if (vis) {
+        tvEl.style.transform = "matrix3d(" + [hm[0], hm[3], 0, hm[6], hm[1], hm[4], 0, hm[7], 0, 0, 1, 0, hm[2], hm[5], 0, 1].join(",") + ")";
+        tvEl.classList.add("on");
+      } else tvEl.classList.remove("on");
+    } else if (tvEl && tvEl.classList.contains("on") && !(tvScene && current === tvScene.id)) tvEl.classList.remove("on");
+    requestAnimationFrame(tvLoop);
+  })();
   viewer.on("scenechange", function (id) {
     closeVideo();
     current = id;
+    tvReset(byId[id]);
     if (byId[id].flat) updateFlat(id);
     markVisited(id);
     setType(byId[id].type);
@@ -362,6 +417,7 @@
   });
   viewer.on("load", function () {
     if (!current) { current = viewer.getScene(); announce(current); showFloor(byId[current].floor); }
+    if (!tvScene || tvScene.id !== current) tvReset(byId[current]);
     updateFlat(current, 1100);
     markVisited(current);
     warmed[current] = true;
