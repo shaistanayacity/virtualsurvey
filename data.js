@@ -203,7 +203,8 @@ window.SURVEY = {
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 23, y: 55 },
             { to: "ar-depan", x: 21.8, y: 44, label: "Keluar" },
             { to: "ar-kamar-a", x: 74.3, y: 51, label: "Kamar Tidur" },
-            { to: "ar-dapur", x: 84, y: 51, label: "Dapur & Kolam" }
+            { to: "ar-dapur", x: 84, y: 51, label: "Dapur & Kolam" },
+            { to: "ar-tamu", x: 8, y: 62, label: "Sudut Lain" }
           ] },
         { id: "ar-kamar-a", trim: { r: 0.15 }, floor: "ar-l1", title: "Kamar Tidur", photo: "photos/ar-kamar-a.webp", plan: { x: 26, y: 29 }, fov: 92.7, w: 5232, h: 3952,
           hotspots: [
