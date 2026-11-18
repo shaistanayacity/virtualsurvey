@@ -90,131 +90,120 @@ window.SURVEY = {
           specs: [["Lantai", "Granite tile 60 × 60"], ["Plafon", "Gypsum & kalsi board"], ["Penerangan", "LED downlight"], ["Dapur", "Concrete-based kitchen & kitchen sink"], ["Kamar mandi", "Keramik 25 × 40, monoblock & shower"], ["Mezzanine", "Ya"]] }
       ],
       scenes: [
-        // Tampak luar & dalam: foto iPhone ultra-wide yang dijahit jadi panorama (semua foto terpakai). Sudut pandang foto sungguhan, bisa digeser; bukan 360°.
-        // Posisi titik pindah & titik denah adalah perkiraan.
-        { id: "ngh-fasad", floor: "luar", title: "Fasad Rumah", photo: "photos/ngh-fasad.webp", fov: 99.9, w: 2112, h: 1813,
+        // Foto panorama iPhone (resolusi tinggi), bisa digeser sesuai foto. Posisi titik pindah & titik denah adalah perkiraan.
+        { id: "ngh-depan", floor: "luar", title: "Tampak Depan", photo: "photos/ngh-depan.webp", fov: 96.0, w: 5316, h: 3878,
           hotspots: [
-            { to: "ngh-tamu", x: 59, y: 57, label: "Masuk ke Dalam" }
+            { to: "ngh-tamu", x: 43.5, y: 47, label: "Masuk ke Dalam" },
+            { to: "ngh-teras", x: 60, y: 56, label: "Teras Samping" }
           ] },
-        // Ruang Tamu: panorama iPhone yang tajam (utama) + foto 360° (resolusi 2000 px, zoom-in dibatasi minHfov 100 supaya tidak pecah).
-        { id: "ngh-tamu", floor: "dalam", title: "Ruang Tamu", photo: "photos/ngh-tamu-pano.webp", plan: { x: 48, y: 52 }, fov: 150, w: 2000, h: 848,
+        { id: "ngh-teras", floor: "luar", title: "Teras Samping", photo: "photos/ngh-teras.webp", fov: 79.3, w: 4426, h: 3906,
           hotspots: [
-            { to: "ngh-fasad", x: 90, y: 33, label: "Keluar" },
-            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 89.5, y: 60 },
-            { to: "ngh-lorong", x: 28, y: 48, label: "Lorong" },
-            { to: "ngh-makan", x: 46, y: 62, label: "Ruang Makan" },
-            { to: "ngh-dapur", x: 35.5, y: 52, label: "Dapur & Area Belakang" },
-            { to: "ngh-tamu-360", x: 62, y: 88, label: "Tampilan 360°" }
+            { to: "ngh-tamu", x: 64, y: 49, label: "Masuk ke Dalam" },
+            { to: "ngh-depan", x: 50, y: 93, label: "Tampak Depan" }
           ] },
-        { id: "ngh-tamu-360", floor: "dalam", title: "Ruang Tamu · 360°", photo: "photos/ngh-tamu-360.webp", plan: { x: 46, y: 54 }, yaw: -130, pitch: -6, still: true, minHfov: 100,
+        { id: "ngh-tamu", floor: "dalam", title: "Ruang Tamu & Makan", photo: "photos/ngh-tamu.webp", plan: { x: 52, y: 48 }, fov: 177.9, w: 6144, h: 2417,
           hotspots: [
-            { to: "ngh-fasad", yaw: -168.6, pitch: 4, label: "Keluar" },
-            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: -163.5, pitch: -4 },
-            { to: "ngh-lorong", yaw: -64.8, pitch: 10, label: "Lorong" },
-            { to: "ngh-makan", yaw: 23.4, pitch: -22, label: "Ruang Makan" },
-            { to: "ngh-dapur", yaw: 97, pitch: -2, label: "Dapur & Area Belakang" },
-            { to: "ngh-tamu", yaw: -112, pitch: -12, label: "Tampilan Panorama" }
+            { to: "ngh-depan", x: 21, y: 40, label: "Keluar" },
+            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 24.5, y: 59 },
+            { to: "ngh-anak", x: 48.3, y: 52, label: "Kamar Anak" }
           ] },
-        { id: "ngh-makan", floor: "dalam", title: "Ruang Makan", photo: "photos/ngh-makan.webp", plan: { x: 52, y: 36 }, fov: 173.3, w: 3619, h: 1779,
+        { id: "ngh-anak", floor: "dalam", title: "Kamar Anak", photo: "photos/ngh-anak.webp", plan: { x: 23, y: 12 }, fov: 84.5, w: 4748, h: 3932,
           hotspots: [
-            { to: "ngh-tamu", x: 36, y: 60, label: "Ruang Tamu" },
-            { to: "ngh-lorong", x: 53, y: 52, label: "Lorong" },
-            { to: "ngh-dapur", x: 78, y: 48, label: "Dapur & Area Belakang" }
-          ] },
-        { id: "ngh-lorong", floor: "dalam", title: "Lorong", photo: "photos/ngh-lorong.webp", plan: { x: 34, y: 36 }, fov: 86.3, w: 1822, h: 1794,
-          hotspots: [
-            { to: "ngh-anak-pintu", x: 24, y: 52, label: "Kamar Anak" },
-            { to: "ngh-mandi", x: 41, y: 57, label: "Kamar Mandi" },
-            { to: "ngh-utama-pintu", x: 74, y: 52, label: "Kamar Utama" },
-            { to: "ngh-makan", x: 50, y: 93, label: "Ruang Makan" }
-          ] },
-        { id: "ngh-anak-pintu", floor: "dalam", title: "Pintu Kamar Anak", photo: "photos/ngh-anak-pintu.webp", plan: { x: 27, y: 19 }, fov: 86.3, w: 1822, h: 1794,
-          hotspots: [
-            { to: "ngh-anak", x: 45, y: 72, label: "Masuk ke Kamar" },
-            { to: "ngh-lorong", x: 50, y: 94, label: "Keluar" }
-          ] },
-        { id: "ngh-anak", floor: "dalam", title: "Kamar Anak", photo: "photos/ngh-anak.webp", plan: { x: 22, y: 12 }, fov: 160.1, w: 3383, h: 1807,
-          hotspots: [
-            { to: "ngh-lorong", x: 81, y: 50, label: "Keluar" },
-            { to: "ngh-anak-jendela", x: 5, y: 60, label: "Jendela & Tangga Laci" },
-            { to: "ngh-ranjang", x: 28, y: 60, label: "Ranjang Tingkat" }
-          ] },
-        { id: "ngh-anak-jendela", floor: "dalam", title: "Jendela & Tangga Laci", photo: "photos/ngh-anak-jendela.webp", plan: { x: 12, y: 10 }, fov: 153.5, w: 3252, h: 1808,
-          hotspots: [
-            { to: "ngh-ranjang", x: 85, y: 52, label: "Ranjang Tingkat" },
-            { to: "ngh-anak", x: 50, y: 93, label: "Kamar Anak" }
-          ] },
-        { id: "ngh-ranjang", floor: "dalam", title: "Ranjang Tingkat", photo: "photos/ngh-ranjang.webp", plan: { x: 14, y: 16 }, fov: 133.3, w: 2824, h: 1793,
-          hotspots: [
-            { to: "ngh-lorong", x: 83, y: 52, label: "Keluar" },
-            { to: "ngh-anak", x: 10, y: 62, label: "Kamar Anak" }
-          ] },
-        { id: "ngh-mandi", floor: "dalam", title: "Kamar Mandi", photo: "photos/ngh-mandi.webp", plan: { x: 18, y: 31 }, fov: 107.6, w: 2257, h: 1796,
-          hotspots: [
-            { to: "ngh-lorong", x: 50, y: 94, label: "Keluar" },
-            { to: "ngh-shower", x: 72, y: 40, label: "Area Shower" }
-          ] },
-        { id: "ngh-mandi-niche", floor: "dalam", title: "Niche & Kloset", photo: "photos/ngh-mandi-niche.webp", plan: { x: 17, y: 28 }, fov: 86.3, w: 1822, h: 1794,
-          hotspots: [
-            { to: "ngh-mandi", x: 50, y: 93, label: "Kamar Mandi" }
-          ] },
-        { id: "ngh-shower", floor: "dalam", title: "Area Shower", photo: "photos/ngh-shower.webp", plan: { x: 15, y: 27 }, fov: 115.3, w: 2441, h: 1811,
-          hotspots: [
-            { to: "ngh-mandi", x: 50, y: 93, label: "Kamar Mandi" }
-          ] },
-        { id: "ngh-mandi-pintu", floor: "dalam", title: "Shower & Pintu", photo: "photos/ngh-mandi-pintu.webp", plan: { x: 15, y: 31 }, fov: 104.8, w: 2246, h: 1808,
-          hotspots: [
-            { to: "ngh-lorong", x: 74, y: 55, label: "Keluar" }
-          ] },
-        { id: "ngh-mandi-utuh", floor: "dalam", title: "Kamar Mandi Utuh", photo: "photos/ngh-mandi-utuh.webp", plan: { x: 18, y: 29 }, fov: 129.8, w: 2717, h: 1797,
-          hotspots: [
-            { to: "ngh-lorong", x: 3, y: 55, label: "Keluar" }
-          ] },
-        { id: "ngh-utama-pintu", floor: "dalam", title: "Pintu Kamar Utama", photo: "photos/ngh-utama-pintu.webp", plan: { x: 27, y: 40 }, fov: 113.7, w: 2409, h: 1803,
-          hotspots: [
-            { to: "ngh-utama", x: 40, y: 62, label: "Masuk ke Kamar" },
-            { to: "ngh-lorong", x: 50, y: 94, label: "Keluar" }
-          ] },
-        { id: "ngh-utama", floor: "dalam", title: "Kamar Utama", photo: "photos/ngh-utama.webp", plan: { x: 22, y: 47 }, fov: 158.5, w: 3339, h: 1801,
-          hotspots: [
-            { to: "ngh-lorong", x: 13, y: 50, label: "Keluar" },
-            { to: "ngh-tidur", x: 75, y: 68, label: "Tempat Tidur" }
-          ] },
-        { id: "ngh-tidur", floor: "dalam", title: "Tempat Tidur", photo: "photos/ngh-tidur.webp", plan: { x: 16, y: 50 }, fov: 107.9, w: 2251, h: 1783,
-          hotspots: [
-            { to: "ngh-utama", x: 4, y: 62, label: "Kamar Utama" },
-            { to: "ngh-jendela", x: 90, y: 45, label: "Jendela & Lukisan" }
-          ] },
-        { id: "ngh-bantal", floor: "dalam", title: "Headboard & Bantal", photo: "photos/ngh-bantal.webp", plan: { x: 13, y: 52 }, fov: 86.3, w: 1822, h: 1794,
-          hotspots: [
-            { to: "ngh-utama", x: 50, y: 93, label: "Kamar Utama" }
-          ] },
-        { id: "ngh-jendela", floor: "dalam", title: "Jendela & Lukisan", photo: "photos/ngh-jendela.webp", plan: { x: 10, y: 46 }, fov: 109.8, w: 2320, h: 1795,
-          hotspots: [
-            { to: "ngh-tidur", x: 6, y: 70, label: "Tempat Tidur" }
-          ] },
-        { id: "ngh-dapur", floor: "dalam", title: "Dapur", photo: "photos/ngh-dapur.webp", plan: { x: 68, y: 16 }, fov: 111.2, w: 2367, h: 1830,
-          hotspots: [
-            { to: "ngh-dapur-dinding", x: 92, y: 50, label: "Dinding Dapur" },
-            { to: "ngh-makan", x: 50, y: 93, label: "Ruang Makan" }
-          ] },
-        { id: "ngh-dapur-dinding", floor: "dalam", title: "Dinding Dapur", photo: "photos/ngh-dapur-dinding.webp", plan: { x: 72, y: 14 }, fov: 115.2, w: 2426, h: 1794,
-          hotspots: [
-            { to: "ngh-dapur", x: 50, y: 93, label: "Dapur" }
-          ] },
-        { id: "ngh-belakang", floor: "dalam", title: "Area Belakang", photo: "photos/ngh-belakang.webp", plan: { x: 62, y: 9 }, fov: 138.2, w: 2939, h: 1802,
-          hotspots: [
-            { to: "ngh-makan", x: 52, y: 52, label: "Masuk ke Rumah" },
-            { to: "ngh-belakang2", x: 82, y: 60, label: "Jendela Belakang" }
-          ] },
-        { id: "ngh-belakang2", floor: "dalam", title: "Jendela Belakang", photo: "photos/ngh-belakang2.webp", plan: { x: 66, y: 8 }, fov: 120.4, w: 2538, h: 1800,
-          hotspots: [
-            { to: "ngh-makan", x: 14, y: 50, label: "Masuk ke Rumah" }
+            { to: "ngh-tamu", x: 96, y: 50, label: "Keluar ke Ruang Tamu" }
           ] }
       ]
     },
     { id: "arnica", name: "Arnica Pool", unit: "Arnica Pool", cover: "photos/cover-arnica-pool.webp", summary: [["Luas Bangunan", "91 m²"], ["Luas Tanah", "90 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Private Pool", "Ya"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA,
-      floors: [{ id: "ar-l1", label: "Lantai 1", plan: "plans/arnica-pool-l1.webp" }, { id: "ar-l2", label: "Lantai 2", plan: "plans/arnica-pool-l2.webp" }], scenes: [] },
+      floors: [
+        { id: "ar-luar", label: "Tampak Luar", plan: null, area: "",
+          specs: [["Penutup atap", "Genteng beton flat"], ["Kusen", "Aluminium, powder coating"], ["Pintu", "Engineer door"], ["Kunci", "Smartdoor lock"], ["Carport", "Paving block"], ["Balkon", "Ya"], ["Private pool", "Ya"]] },
+        { id: "ar-l1", label: "Lantai 1", plan: "plans/arnica-pool-l1.webp" },
+        { id: "ar-l2", label: "Lantai 2", plan: "plans/arnica-pool-l2.webp" }
+      ],
+      scenes: [
+        // Foto panorama iPhone (resolusi tinggi), bisa digeser sesuai foto. Posisi titik pindah & titik denah adalah perkiraan.
+        { id: "ar-depan", floor: "ar-luar", title: "Tampak Depan", photo: "photos/ar-depan.webp", fov: 77.4, w: 4330, h: 3918,
+          hotspots: [
+            { to: "ar-tamu", x: 47.5, y: 46, label: "Masuk ke Dalam" }
+          ] },
+        { id: "ar-tamu", floor: "ar-l1", title: "Ruang Tamu", photo: "photos/ar-tamu.webp", plan: { x: 72, y: 52 }, fov: 131.4, w: 6144, h: 3273,
+          hotspots: [
+            { to: "ar-depan", x: 3, y: 80, label: "Keluar" },
+            { to: "ar-kamar-a", x: 47, y: 51, label: "Kamar Tidur" },
+            { to: "ar-mandi-a", x: 38, y: 49, label: "Kamar Mandi" },
+            { to: "ar-ruang-a", x: 33, y: 53, label: "Ruang Utama" },
+            { to: "ar-dapur", x: 53.5, y: 47, label: "Dapur & Kolam" }
+          ] },
+        { id: "ar-ruang-a", floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-ruang-a.webp", plan: { x: 58, y: 48 }, fov: 177.6, w: 6144, h: 2422,
+          hotspots: [
+            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 23, y: 55 },
+            { to: "ar-depan", x: 21.8, y: 44, label: "Keluar" },
+            { to: "ar-kamar-a", x: 74.3, y: 51, label: "Kamar Tidur" },
+            { to: "ar-dapur", x: 84, y: 51, label: "Dapur & Kolam" },
+            { to: "ar-tangga-a", x: 52.5, y: 48, label: "Tangga ke Lantai 2" }
+          ] },
+        { id: "ar-ruang-b", floor: "ar-l1", title: "Ruang Utama · Sudut 2", photo: "photos/ar-ruang-b.webp", plan: { x: 62, y: 47 }, fov: 179.7, w: 6144, h: 2393,
+          hotspots: [
+            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 28.3, y: 57 },
+            { to: "ar-kamar-a", x: 78.9, y: 51, label: "Kamar Tidur" },
+            { to: "ar-dapur", x: 87.5, y: 55, label: "Dapur & Kolam" },
+            { to: "ar-tangga-a", x: 58.5, y: 48.8, label: "Tangga ke Lantai 2" }
+          ] },
+        { id: "ar-ruang-c", floor: "ar-l1", title: "Ruang Utama · Sudut 3", photo: "photos/ar-ruang-c.webp", plan: { x: 56, y: 50 }, fov: 188.7, w: 6144, h: 2279,
+          hotspots: [
+            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 29, y: 55 },
+            { to: "ar-kamar-a", x: 76.8, y: 54, label: "Kamar Tidur" },
+            { to: "ar-dapur", x: 88.5, y: 54, label: "Dapur & Kolam" },
+            { to: "ar-tangga-a", x: 56.5, y: 54, label: "Tangga ke Lantai 2" }
+          ] },
+        { id: "ar-kamar-a", floor: "ar-l1", title: "Kamar Tidur", photo: "photos/ar-kamar-a.webp", plan: { x: 26, y: 29 }, fov: 92.7, w: 5232, h: 3952,
+          hotspots: [
+            { to: "ar-ruang-a", x: 5, y: 50, label: "Keluar ke Ruang Utama" }
+          ] },
+        { id: "ar-kamar-b", floor: "ar-l1", title: "Kamar Tidur · Jendela", photo: "photos/ar-kamar-b.webp", plan: { x: 30, y: 27 }, fov: 131.9, w: 6144, h: 3260,
+          hotspots: [
+            { to: "ar-ruang-a", x: 6, y: 50, label: "Keluar ke Ruang Utama" }
+          ] },
+        { id: "ar-kamar-c", floor: "ar-l1", title: "Kamar Tidur · Dari Pintu", photo: "photos/ar-kamar-c.webp", plan: { x: 24, y: 31 }, fov: 94.4, w: 5314, h: 3942,
+          hotspots: [
+            { to: "ar-ruang-a", x: 24, y: 50, label: "Keluar ke Ruang Utama" }
+          ] },
+        { id: "ar-kamar-d", floor: "ar-l1", title: "Kamar Tidur · Meja Kerja", photo: "photos/ar-kamar-d.webp", plan: { x: 27, y: 26 }, fov: 98.1, w: 5530, h: 3944,
+          hotspots: [
+            { to: "ar-ruang-a", x: 28.7, y: 49, label: "Keluar ke Ruang Utama" }
+          ] },
+        { id: "ar-mandi-a", floor: "ar-l1", title: "Kamar Mandi", photo: "photos/ar-mandi-a.webp", plan: { x: 22, y: 41 }, fov: 86.6, w: 4756, h: 3846,
+          hotspots: [
+            { to: "ar-ruang-a", x: 85, y: 43, label: "Keluar" }
+          ] },
+        { id: "ar-mandi-b", floor: "ar-l1", title: "Kamar Mandi · Pintu", photo: "photos/ar-mandi-b.webp", plan: { x: 23, y: 43 }, fov: 173.4, w: 6144, h: 2480,
+          hotspots: [
+            { to: "ar-ruang-a", x: 88, y: 37, label: "Keluar" }
+          ] },
+        { id: "ar-dapur", floor: "ar-l1", title: "Dapur & Area Kolam", photo: "photos/ar-dapur.webp", plan: { x: 68, y: 33 }, fov: 92.4, w: 5198, h: 3938,
+          hotspots: [
+            { to: "ar-ruang-a", x: 95, y: 40, label: "Masuk ke Rumah" },
+            { to: "ar-kolam", x: 25, y: 66, label: "Kolam Pribadi" }
+          ] },
+        { id: "ar-kolam", floor: "ar-l1", title: "Kolam Pribadi", photo: "photos/ar-kolam.webp", plan: { x: 50, y: 18 }, fov: 96.1, w: 5410, h: 3940,
+          hotspots: [
+            { to: "ar-dapur", x: 6, y: 75, label: "Dapur" }
+          ] },
+        { id: "ar-tangga-a", floor: "ar-l2", title: "Tangga & Ruang Utama", photo: "photos/ar-tangga-a.webp", plan: { x: 24, y: 48 }, fov: 230.3, w: 6144, h: 1867,
+          hotspots: [
+            { to: "ar-ruang-a", x: 50, y: 90, label: "Turun ke Lantai 1" },
+            { to: "ar-tangga-b", x: 90, y: 40, label: "Lantai Atas" }
+          ] },
+        { id: "ar-tangga-b", floor: "ar-l2", title: "Dari Lantai Atas", photo: "photos/ar-tangga-b.webp", plan: { x: 22, y: 45 }, fov: 116.0, w: 6144, h: 3707,
+          hotspots: [
+            { to: "ar-ruang-a", x: 20, y: 85, label: "Turun ke Lantai 1" },
+            { to: "ar-tangga-c", x: 70, y: 60, label: "Sisi Lain" }
+          ] },
+        { id: "ar-tangga-c", floor: "ar-l2", title: "Dari Lantai Atas · Sisi Lain", photo: "photos/ar-tangga-c.webp", plan: { x: 20, y: 42 }, fov: 202.2, w: 6144, h: 2127,
+          hotspots: [
+            { to: "ar-ruang-a", x: 8, y: 88, label: "Turun ke Lantai 1" }
+          ] }
+      ] },
     { id: "bianca", name: "Bianca Deluxe", unit: "Bianca Deluxe", cover: "photos/cover-bianca-deluxe.webp", summary: [["Luas Bangunan", "65 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA,
       floors: [
         { id: "bi-luar", label: "Tampak Luar", plan: null, area: "",
