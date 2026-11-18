@@ -115,20 +115,28 @@ window.SURVEY = {
             { to: "ngh-anak", x: 48.3, y: 52, label: "Kamar Anak" },
             { to: "ngh-mandi", x: 50.5, y: 48, label: "Kamar Mandi" },
             { to: "ngh-utama", x: 55, y: 52, label: "Kamar Utama" },
-            { to: "ngh-dapur", x: 66.8, y: 51, label: "Dapur & Area Belakang" }
+            { to: "ngh-dapur", x: 66.8, y: 51, label: "Dapur & Area Belakang" },
+            { to: "ngh-tamu-b", x: 74, y: 64, label: "Sudut Lain" }
+          ] },
+        { id: "ngh-tamu-b", floor: "dalam", title: "Ruang Tamu · Sudut 2", photo: "photos/ngh-tamu-b.webp", plan: { x: 52, y: 36 }, fov: 173.3, w: 3619, h: 1779,
+          hotspots: [
+            { to: "ngh-tamu", x: 36, y: 60, label: "Sudut Lain" },
+            { to: "ngh-mandi", x: 53, y: 52, label: "Kamar Mandi" },
+            { to: "ngh-dapur", x: 78, y: 48, label: "Dapur & Area Belakang" }
           ] },
         { id: "ngh-anak", floor: "dalam", title: "Kamar Anak", photo: "photos/ngh-anak.webp", plan: { x: 23, y: 12 }, fov: 84.5, w: 4748, h: 3932,
           hotspots: [
-            { to: "ngh-tamu", x: 96, y: 50, label: "Keluar ke Ruang Tamu" }
+            { to: "ngh-tamu", x: 96, y: 50, label: "Keluar ke Ruang Tamu" },
+            { to: "ngh-anak-b", x: 47, y: 52, label: "Ranjang Tingkat" }
+          ] },
+        { id: "ngh-anak-b", floor: "dalam", title: "Kamar Anak · Sudut 2", photo: "photos/ngh-anak-b.webp", plan: { x: 14, y: 16 }, fov: 133.3, w: 2824, h: 1793,
+          hotspots: [
+            { to: "ngh-tamu", x: 83, y: 52, label: "Ruang Tamu" },
+            { to: "ngh-anak", x: 10, y: 62, label: "Sudut Lain" }
           ] },
         { id: "ngh-mandi", floor: "dalam", title: "Kamar Mandi", photo: "photos/ngh-mandi.webp", plan: { x: 18, y: 31 }, fov: 107.6, w: 2257, h: 1796,
           hotspots: [
-            { to: "ngh-tamu", x: 28, y: 60, label: "Ruang Tamu" },
-            { to: "ngh-shower", x: 72, y: 40, label: "Area Shower" }
-          ] },
-        { id: "ngh-shower", floor: "dalam", title: "Area Shower", photo: "photos/ngh-shower.webp", plan: { x: 15, y: 27 }, fov: 115.3, w: 2441, h: 1811,
-          hotspots: [
-            { to: "ngh-mandi", x: 25, y: 60, label: "Kamar Mandi" }
+            { to: "ngh-tamu", x: 28, y: 60, label: "Ruang Tamu" }
           ] },
         { id: "ngh-utama", floor: "dalam", title: "Kamar Utama", photo: "photos/ngh-utama.webp", plan: { x: 22, y: 47 }, fov: 158.5, w: 3339, h: 1801,
           hotspots: [
@@ -140,10 +148,10 @@ window.SURVEY = {
             { to: "ngh-utama", x: 4, y: 62, label: "Kamar Utama" },
             { to: "ngh-tamu", x: 90, y: 45, label: "Jendela & Lukisan" }
           ] },
-        { id: "ngh-dapur", floor: "dalam", title: "Dapur", photo: "photos/ngh-dapur.webp", plan: { x: 68, y: 16 }, fov: 111.2, w: 2367, h: 1830,
+        { id: "ngh-dapur", floor: "dalam", title: "Dapur", photo: "photos/ngh-dapur-v2.webp", flat: true, focusY: 0.55, plan: { x: 68, y: 16 }, fov: 60, w: 1800, h: 2400,
           hotspots: [
-            { to: "ngh-tamu", x: 92, y: 50, label: "Ruang Tamu" },
-            { to: "ngh-belakang", x: 25, y: 62, label: "Area Belakang" }
+            { to: "ngh-tamu", x: 82, y: 60, label: "Ruang Tamu" },
+            { to: "ngh-belakang", x: 18, y: 60, label: "Area Belakang" }
           ] },
         { id: "ngh-belakang", floor: "dalam", title: "Area Belakang", photo: "photos/ngh-belakang.webp", plan: { x: 62, y: 9 }, fov: 138.2, w: 2939, h: 1802,
           hotspots: [

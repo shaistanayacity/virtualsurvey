@@ -288,13 +288,23 @@
       hs[i].style.top = oy + sc.h * s * hs[i].getAttribute("data-y") / 100 + "px";
     }
   }
-  function updateFlat(id) {
+  var flatOffT;
+  // Menutup foto statis hanya setelah scene tujuan selesai dimuat dan memudar, supaya render melengkung Pannellum tidak sempat terlihat.
+  function updateFlat(id, offDelay) {
     var sc = byId[id];
     if (!flatEl) return;
-    if (!sc || !sc.flat) { flatId = null; flatEl.classList.remove("on"); return; }
+    if (!sc || !sc.flat) {
+      if (!flatId) return;
+      clearTimeout(flatOffT);
+      flatOffT = setTimeout(function () { if (current === id) { flatId = null; flatEl.classList.remove("on"); } }, offDelay || 0);
+      return;
+    }
+    clearTimeout(flatOffT);
     flatId = id;
     Array.prototype.slice.call(flatEl.querySelectorAll(".flat-hs")).forEach(function (n) { n.parentNode.removeChild(n); });
-    flatImg.src = sc.photo;
+    var show = function () { if (flatId === id) { layoutFlat(); flatEl.classList.add("on"); } };
+    flatImg.onload = show;
+    if (flatImg.getAttribute("src") !== sc.photo) flatImg.src = sc.photo;
     (sc.hotspots || []).forEach(function (h) {
       if (!h.to) return;
       var b = el("button", { type: "button", "class": "flat-hs", "data-x": h.x, "data-y": h.y, "aria-label": h.label || "" });
@@ -303,12 +313,12 @@
       flatEl.appendChild(b);
     });
     layoutFlat();
-    flatEl.classList.add("on");
+    if (flatImg.complete && flatImg.naturalWidth) show();
   }
   window.addEventListener("resize", layoutFlat);
   viewer.on("scenechange", function (id) {
     current = id;
-    updateFlat(id);
+    if (byId[id].flat) updateFlat(id);
     markVisited(id);
     setType(byId[id].type);
     fitView();
@@ -319,7 +329,7 @@
   });
   viewer.on("load", function () {
     if (!current) { current = viewer.getScene(); announce(current); showFloor(byId[current].floor); }
-    updateFlat(current);
+    updateFlat(current, 1100);
     markVisited(current);
     warmed[current] = true;
     warmAround(current);
