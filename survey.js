@@ -53,7 +53,9 @@
     if (partial) {
       cfg.haov = haov; cfg.vaov = vaov; cfg.vOffset = 0; cfg.minHfov = 30; cfg.maxHfov = Math.min(fov, 110);
       // Kunci batas geser persis di tepi foto: tidak pernah terlihat area kosong/hitam.
-      cfg.minYaw = -haov / 2; cfg.maxYaw = haov / 2; cfg.minPitch = -vaov / 2; cfg.maxPitch = vaov / 2;
+      var tr = s.trim || {};
+      s._b = { yMin: -haov / 2 + (tr.l || 0) * haov, yMax: haov / 2 - (tr.r || 0) * haov, pMin: -vaov / 2 + (tr.b || 0) * vaov, pMax: vaov / 2 - (tr.t || 0) * vaov };
+      cfg.minYaw = s._b.yMin; cfg.maxYaw = s._b.yMax; cfg.minPitch = s._b.pMin; cfg.maxPitch = s._b.pMax;
     }
     scenes[s.id] = cfg;
   });
@@ -128,10 +130,10 @@
       };
       var p1 = p0, e = ext(p1);
       for (var i = 0; i < 12; i++) {
-        if (e.pMax > vaov / 2) p1 -= e.pMax - vaov / 2; else if (e.pMin < -vaov / 2) p1 += -vaov / 2 - e.pMin; else break;
+        if (e.pMax > sc._b.pMax) p1 -= e.pMax - sc._b.pMax; else if (e.pMin < sc._b.pMin) p1 += sc._b.pMin - e.pMin; else break;
         e = ext(p1);
       }
-      var lo = -haov / 2 - e.yMin, hi = haov / 2 - e.yMax, y1 = y0;
+      var lo = sc._b.yMin - e.yMin, hi = sc._b.yMax - e.yMax, y1 = y0;
       if (lo > hi) { viewer.setHfov(Math.max(30, H * 0.97), false); y1 = 0; }
       else y1 = Math.min(hi, Math.max(lo, y0));
       if (Math.abs(p1 - p0) > 0.02) viewer.setPitch(p1, false);
