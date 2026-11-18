@@ -129,3 +129,14 @@ transform:translateX(calc(100% + 24px));opacity:0;visibility:hidden;transition:t
  .panel.open{transform:none}
 }
 [hidden]{display:none!important}
+
+/* Foto statis (tanpa proyeksi/lengkung): foto memenuhi layar, tombol pindah di atasnya */
+.flat{position:absolute;inset:0;z-index:1;overflow:hidden;background:#111;opacity:0;visibility:hidden;transition:opacity .5s}
+.flat.on{opacity:1;visibility:visible}
+.flat img{position:absolute;max-width:none;user-select:none;-webkit-user-drag:none}
+.flat-hs{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.85);
+backdrop-filter:blur(6px);animation:ring 2.2s infinite;cursor:pointer;padding:0}
+.flat-hs:hover{background:rgba(255,255,255,.4)}
+.flat-hs span{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;
+background:rgba(13,13,13,.85);color:#fff;font-family:var(--serif);font-size:12px;letter-spacing:.04em;border-radius:999px;padding:6px 12px}
+.flat-hs:hover span,.flat-hs:focus-visible span{opacity:1}

@@ -273,8 +273,42 @@
       heroEl.classList.add("show");
     }, 250);
   }
+  // Foto statis (scene dengan flat: true): ditampilkan datar tanpa proyeksi Pannellum.
+  var flatEl = $("flat"), flatImg = flatEl && flatEl.querySelector("img"), flatId = null;
+  function layoutFlat() {
+    var sc = flatId && byId[flatId];
+    if (!sc || !flatImg) return;
+    var cw = flatEl.clientWidth, ch = flatEl.clientHeight, s = Math.max(cw / sc.w, ch / sc.h);
+    var ox = (cw - sc.w * s) * (sc.focusX != null ? sc.focusX : 0.5), oy = (ch - sc.h * s) * (sc.focusY != null ? sc.focusY : 0.5);
+    flatImg.style.width = sc.w * s + "px"; flatImg.style.height = sc.h * s + "px";
+    flatImg.style.left = ox + "px"; flatImg.style.top = oy + "px";
+    var hs = flatEl.querySelectorAll(".flat-hs");
+    for (var i = 0; i < hs.length; i++) {
+      hs[i].style.left = ox + sc.w * s * hs[i].getAttribute("data-x") / 100 + "px";
+      hs[i].style.top = oy + sc.h * s * hs[i].getAttribute("data-y") / 100 + "px";
+    }
+  }
+  function updateFlat(id) {
+    var sc = byId[id];
+    if (!flatEl) return;
+    if (!sc || !sc.flat) { flatId = null; flatEl.classList.remove("on"); return; }
+    flatId = id;
+    Array.prototype.slice.call(flatEl.querySelectorAll(".flat-hs")).forEach(function (n) { n.parentNode.removeChild(n); });
+    flatImg.src = sc.photo;
+    (sc.hotspots || []).forEach(function (h) {
+      if (!h.to) return;
+      var b = el("button", { type: "button", "class": "flat-hs", "data-x": h.x, "data-y": h.y, "aria-label": h.label || "" });
+      b.appendChild(el("span", {}, h.label || ""));
+      b.addEventListener("click", function () { stopTour(); viewer.loadScene(h.to); });
+      flatEl.appendChild(b);
+    });
+    layoutFlat();
+    flatEl.classList.add("on");
+  }
+  window.addEventListener("resize", layoutFlat);
   viewer.on("scenechange", function (id) {
     current = id;
+    updateFlat(id);
     markVisited(id);
     setType(byId[id].type);
     fitView();
@@ -285,6 +319,7 @@
   });
   viewer.on("load", function () {
     if (!current) { current = viewer.getScene(); announce(current); showFloor(byId[current].floor); }
+    updateFlat(current);
     markVisited(current);
     warmed[current] = true;
     warmAround(current);
