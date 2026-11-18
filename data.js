@@ -124,6 +124,21 @@ window.SURVEY = {
             { to: "ngh-mandi", x: 53, y: 52, label: "Kamar Mandi" },
             { to: "ngh-dapur", x: 78, y: 48, label: "Dapur & Area Belakang" }
           ] },
+        { id: "ngh-tamu-c", group: "ngh-tamu", floor: "dalam", title: "Ruang Tamu · Sudut 3", photo: "photos/ngh-tamu-c.webp", flat: true, focusY: 0.5, plan: { x: 46, y: 54 }, fov: 86.3, w: 1822, h: 1794,
+          hotspots: [
+            { to: "ngh-depan", x: 21, y: 38, label: "Keluar" },
+            { to: "ngh-mandi", x: 62, y: 55, label: "Kamar Mandi" },
+            { to: "ngh-tamu", x: 40, y: 68, label: "Sudut Lain" }
+          ] },
+        { id: "ngh-tamu-d", group: "ngh-tamu", floor: "dalam", title: "Ruang Tamu · Sudut 4 (360°)", photo: "photos/ngh-tamu-360-v2.webp", plan: { x: 46, y: 54 }, yaw: -130, pitch: -6, still: true, minHfov: 100,
+          hotspots: [
+            { to: "ngh-depan", yaw: -168.6, pitch: 4, label: "Keluar" },
+            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: -163.5, pitch: -4 },
+            { to: "ngh-mandi", yaw: -64.8, pitch: 10, label: "Kamar Mandi" },
+            { to: "ngh-tamu-b", yaw: 23.4, pitch: -22, label: "Ruang Makan" },
+            { to: "ngh-dapur", yaw: 97, pitch: -2, label: "Dapur" },
+            { to: "ngh-tamu", yaw: -112, pitch: -12, label: "Sudut Lain" }
+          ] },
         { id: "ngh-anak", group: "ngh-anak", floor: "dalam", title: "Kamar Anak", photo: "photos/ngh-anak.webp", plan: { x: 23, y: 12 }, fov: 84.5, w: 4748, h: 3932,
           hotspots: [
             { to: "ngh-tamu", x: 96, y: 50, label: "Keluar ke Ruang Tamu" },
