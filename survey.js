@@ -30,6 +30,34 @@
     div.appendChild(dot); div.appendChild(card);
     div.addEventListener("click", function (e) { e.stopPropagation(); div.classList.toggle("open"); });
   }
+  // Video YouTube di TV: tombol putar membuka jendela mengambang; ditutup otomatis saat pindah ruangan.
+  function ytId(v) { var m = String(v).match(/(?:youtu\.be\/|v=|embed\/)([\w-]{11})/); return m ? m[1] : String(v).slice(0, 11); }
+  function vidTip(div, h) {
+    div.classList.add("vidpin__dot");
+    div.setAttribute("role", "button"); div.setAttribute("aria-label", h.label || "Putar video");
+    var i = document.createElement("i"); i.textContent = "\u25B6"; div.appendChild(i);
+    var sp = document.createElement("span"); sp.textContent = h.label || "Putar video"; div.appendChild(sp);
+  }
+  var vidEl = document.getElementById("vid");
+  function closeVideo() {
+    if (!vidEl) return;
+    vidEl.classList.remove("on"); vidEl.setAttribute("aria-hidden", "true");
+    var f = vidEl.querySelector(".vid__frame"); if (f) f.textContent = "";
+  }
+  function openVideo(v) {
+    if (!vidEl) return;
+    if (window.VS && VS.stopTour) VS.stopTour();
+    var f = vidEl.querySelector(".vid__frame"); f.textContent = "";
+    var ifr = document.createElement("iframe");
+    ifr.src = "https://www.youtube-nocookie.com/embed/" + ytId(v) + "?autoplay=1&rel=0&playsinline=1&modestbranding=1";
+    ifr.title = "Video"; ifr.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; ifr.allowFullscreen = true;
+    f.appendChild(ifr);
+    vidEl.classList.add("on"); vidEl.setAttribute("aria-hidden", "false");
+  }
+  if (vidEl) {
+    vidEl.addEventListener("click", function (e) { if (e.target === vidEl || e.target.classList.contains("vid__x")) closeVideo(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeVideo(); });
+  }
   var scenes = {};
   allScenes.forEach(function (s) {
     var fov = s.fov || 360, partial = fov < 360;
@@ -40,6 +68,7 @@
       hotSpots: (s.hotspots || []).map(function (h) {
         var yaw = h.yaw, pitch = h.pitch || 0;
         if (h.x != null) { yaw = (h.x / 100 - 0.5) * haov; pitch = (0.5 - h.y / 100) * vaov; }
+        if (h.video) return { type: "info", yaw: yaw, pitch: pitch, cssClass: "vidpin", createTooltipFunc: vidTip, createTooltipArgs: h, clickHandlerFunc: function () { openVideo(h.video); } };
         if (h.info) return { type: "info", yaw: yaw, pitch: pitch, cssClass: "pin", createTooltipFunc: pinTip, createTooltipArgs: h.info };
         return { type: "scene", sceneId: h.to, yaw: yaw, pitch: pitch, text: h.label };
       })
@@ -308,10 +337,11 @@
     flatImg.onload = show;
     if (flatImg.getAttribute("src") !== sc.photo) flatImg.src = sc.photo;
     (sc.hotspots || []).forEach(function (h) {
-      if (!h.to) return;
-      var b = el("button", { type: "button", "class": "flat-hs", "data-x": h.x, "data-y": h.y, "aria-label": h.label || "" });
+      if (!h.to && !h.video) return;
+      var b = el("button", { type: "button", "class": "flat-hs" + (h.video ? " vidpin__dot" : ""), "data-x": h.x, "data-y": h.y, "aria-label": h.label || "" });
+      if (h.video) b.appendChild(el("i", {}, "\u25B6"));
       b.appendChild(el("span", {}, h.label || ""));
-      b.addEventListener("click", function () { stopTour(); viewer.loadScene(h.to); });
+      b.addEventListener("click", function () { if (h.video) { openVideo(h.video); return; } stopTour(); viewer.loadScene(h.to); });
       flatEl.appendChild(b);
     });
     layoutFlat();
@@ -319,6 +349,7 @@
   }
   window.addEventListener("resize", layoutFlat);
   viewer.on("scenechange", function (id) {
+    closeVideo();
     current = id;
     if (byId[id].flat) updateFlat(id);
     markVisited(id);

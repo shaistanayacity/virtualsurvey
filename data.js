@@ -130,7 +130,8 @@ window.SURVEY = {
           hotspots: [
             { to: "ngh-depan", x: 21, y: 38, label: "Keluar" },
             { to: "ngh-mandi", x: 62, y: 55, label: "Kamar Mandi" },
-            { to: "ngh-tamu", x: 40, y: 68, label: "Sudut Lain" }
+            { to: "ngh-tamu", x: 40, y: 68, label: "Sudut Lain" },
+            { video: "qnagZMb5LtI", x: 4.5, y: 49, label: "Putar video di TV" }
           ] },
         { id: "ngh-tamu-d", floor: "dalam", title: "Ruang Tamu (360°)", photo: "photos/ngh-tamu-360-v2.webp", plan: { x: 46, y: 54 }, yaw: -130, pitch: -6, still: true, minHfov: 100, limits: { minPitch: -30, maxPitch: 38 },
           hotspots: [
@@ -139,7 +140,8 @@ window.SURVEY = {
             { to: "ngh-mandi", yaw: -64.8, pitch: 10, label: "Kamar Mandi" },
             { to: "ngh-tamu-b", yaw: 23.4, pitch: -22, label: "Ruang Makan" },
             { to: "ngh-dapur", yaw: 97, pitch: -2, label: "Dapur" },
-            { to: "ngh-tamu", yaw: -112, pitch: -12, label: "Sudut Lain" }
+            { to: "ngh-tamu", yaw: -112, pitch: -12, label: "Sudut Lain" },
+            { video: "qnagZMb5LtI", yaw: 160, pitch: 5, label: "Putar video di TV" }
           ] },
         { id: "ngh-anak", floor: "dalam", title: "Kamar Anak", photo: "photos/ngh-anak.webp", plan: { x: 23, y: 12 }, fov: 84.5, w: 4748, h: 3932,
           hotspots: [
@@ -195,7 +197,8 @@ window.SURVEY = {
             { to: "ar-kamar-a", x: 47, y: 51, label: "Kamar Tidur" },
             { to: "ar-mandi-a", x: 38, y: 49, label: "Kamar Mandi" },
             { to: "ar-ruang-a", x: 33, y: 53, label: "Sudut Lain" },
-            { to: "ar-dapur", x: 53.5, y: 47, label: "Dapur & Kolam" }
+            { to: "ar-dapur", x: 53.5, y: 47, label: "Dapur & Kolam" },
+            { video: "qnagZMb5LtI", x: 70.5, y: 50, label: "Putar video di TV" }
           ] },
         { id: "ar-ruang-a", floor: "ar-l1", title: "Ruang Utama · Meja Makan", photo: "photos/ar-ruang-a.webp", plan: { x: 58, y: 48 }, fov: 177.6, w: 6144, h: 2422,
           hotspots: [
