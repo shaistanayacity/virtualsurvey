@@ -94,7 +94,14 @@ window.SURVEY = {
         { id: "ngh-depan", floor: "luar", title: "Tampak Depan", photo: "photos/ngh-depan.webp", fov: 96.0, w: 5316, h: 3878,
           hotspots: [
             { to: "ngh-tamu", x: 43.5, y: 47, label: "Masuk ke Dalam" },
-            { to: "ngh-teras", x: 60, y: 56, label: "Teras Samping" }
+            { to: "ngh-teras", x: 60, y: 56, label: "Teras Samping" },
+            { to: "ngh-depan-b", x: 34, y: 56, label: "Tampak Depan · Dekat" }
+          ] },
+        { id: "ngh-depan-b", floor: "luar", title: "Tampak Depan · Dekat", photo: "photos/ngh-depan-b.webp", flat: true, focusY: 0.8, pitch: -15, fov: 60, w: 1500, h: 2000,
+          hotspots: [
+            { to: "ngh-tamu", x: 60.7, y: 68, label: "Masuk ke Dalam" },
+            { to: "ngh-teras", x: 78, y: 66, label: "Teras Samping" },
+            { to: "ngh-depan", x: 20, y: 60, label: "Tampak Depan" }
           ] },
         { id: "ngh-teras", floor: "luar", title: "Teras Samping", photo: "photos/ngh-teras.webp", fov: 79.3, w: 4426, h: 3906,
           hotspots: [
