@@ -380,14 +380,14 @@ window.SURVEY = {
         { id: "bi2-lorong", floor: "bi-l2", title: "Lorong & Tangga", photo: "photos/bi2-lorong-r.webp", plan: { x: 38, y: 36 }, fov: 116.5, w: 5958, h: 3224,
           hotspots: [
             { to: "bi2-kamar-a", x: 33, y: 52, label: "Kamar Tidur" },
-            { to: "bi2-kerja", x: 53, y: 48, label: "Ruang Kerja" },
+            { to: "bi2-kerja-c", x: 53, y: 48, label: "Ruang Kerja" },
             { to: "bi-tamu-b", x: 62.9, y: 66.4, label: "Turun ke Lantai 1" },
             { to: "bi2-lorong-b", x: 91.2, y: 47.6, label: "Lorong · Sudut Lain" }
           ] },
         { id: "bi2-lorong-b", floor: "bi-l2", title: "Lorong · Sudut Lain", photo: "photos/bi2-lorong-b-r.webp", plan: { x: 37, y: 40 }, fov: 130.3, w: 6075, h: 3130,
           hotspots: [
             { to: "bi2-kamar-a", x: 34.8, y: 49.4, label: "Kamar Tidur" },
-            { to: "bi2-kerja", x: 47.0, y: 47.8, label: "Ruang Kerja" },
+            { to: "bi2-kerja-c", x: 47.0, y: 47.8, label: "Ruang Kerja" },
             { to: "bi-tamu-b", x: 59.9, y: 67.1, label: "Turun ke Lantai 1" },
             { to: "bi2-lorong", x: 9.5, y: 50.4, label: "Lorong" }
           ] },
@@ -395,41 +395,22 @@ window.SURVEY = {
           hotspots: [
             { to: "bi2-lorong", x: 7.4, y: 43.3, label: "Keluar" },
             { to: "bi2-kamar-b", x: 47.3, y: 63.5, label: "Kamar Tidur Twin · Panorama" },
-            { to: "bi2-kerja", x: 18, y: 58, label: "Ruang Kerja" }
+            { to: "bi2-kerja-c", x: 18, y: 58, label: "Ruang Kerja" }
           ] },
         { id: "bi2-kamar-b", floor: "bi-l2", title: "Kamar Tidur Twin · Panorama", photo: "photos/bi2-kamar-b-r.webp", plan: { x: 79, y: 24 }, fov: 209.8, w: 6055, h: 1673,
           hotspots: [
             { to: "bi2-lorong", x: 91.7, y: 49.0, label: "Keluar" },
             { to: "bi2-kamar-a", x: 39.6, y: 64.8, label: "Kamar Tidur Twin" }
           ] },
-        { id: "bi2-kerja", trim: { r: 0.1 }, floor: "bi-l2", title: "Ruang Kerja", photo: "photos/bi2-kerja.webp", plan: { x: 78, y: 52 }, fov: 85.5, w: 4826, h: 3952,
-          hotspots: [
-            { to: "bi2-lorong", x: 84, y: 52, label: "Keluar" },
-            { to: "bi2-kerja-b", x: 40, y: 62, label: "Ruang Kerja · Rak" },
-            { to: "bi2-kerja-c", x: 39.3, y: 64, label: "Ruang Kerja · Meja" },
-            { to: "bi2-kerja-d", x: 60.7, y: 67, label: "Ruang Kerja · Pintu" },
-            { to: "bi2-kamar-a", x: 20, y: 62, label: "Kamar Tidur Twin" }
-          ] },
-        { id: "bi2-kerja-b", floor: "bi-l2", title: "Ruang Kerja · Rak", photo: "photos/bi2-kerja-b-r.webp", plan: { x: 79, y: 54 }, fov: 141.0, w: 6051, h: 2799,
-          hotspots: [
-            { to: "bi2-lorong", x: 72.3, y: 48.4, label: "Keluar" },
-            { to: "bi2-kerja-c", x: 29.9, y: 66.5, label: "Ruang Kerja · Meja" },
-            { to: "bi2-kerja", x: 39.3, y: 64, label: "Ruang Kerja" },
-            { to: "bi2-kerja-d", x: 60.7, y: 67, label: "Ruang Kerja · Pintu" }
-          ] },
-        { id: "bi2-kerja-c", floor: "bi-l2", title: "Ruang Kerja · Meja", photo: "photos/bi2-kerja-c-r.webp", plan: { x: 78, y: 53 }, fov: 162.5, w: 6080, h: 2462,
+        { id: "bi2-kerja-c", floor: "bi-l2", title: "Ruang Kerja", photo: "photos/bi2-kerja-c-r.webp", plan: { x: 78, y: 53 }, fov: 162.5, w: 6080, h: 2462,
           hotspots: [
             { to: "bi2-lorong", x: 74.2, y: 51.5, label: "Keluar" },
             { to: "bi2-kerja-d", x: 24.6, y: 63.3, label: "Ruang Kerja · Pintu" },
-            { to: "bi2-kerja", x: 39.3, y: 64, label: "Ruang Kerja" },
-            { to: "bi2-kerja-b", x: 60.7, y: 67, label: "Ruang Kerja · Rak" }
           ] },
         { id: "bi2-kerja-d", floor: "bi-l2", title: "Ruang Kerja · Pintu", photo: "photos/bi2-kerja-d.webp", plan: { x: 77, y: 52 }, fov: 126.4, w: 6144, h: 3402,
           hotspots: [
             { to: "bi2-lorong", x: 34, y: 48, label: "Keluar" },
-            { to: "bi2-kerja", x: 80, y: 66, label: "Ruang Kerja" },
-            { to: "bi2-kerja-b", x: 39.3, y: 64, label: "Ruang Kerja · Rak" },
-            { to: "bi2-kerja-c", x: 60.7, y: 67, label: "Ruang Kerja · Meja" }
+            { to: "bi2-kerja-c", x: 80, y: 66, label: "Ruang Kerja" },
           ] }      ] }
   ]
 };
