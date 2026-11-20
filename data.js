@@ -185,15 +185,14 @@ window.SURVEY = {
           hotspots: [
             { to: "ar-tamu", x: 46.3, y: 56, label: "Masuk ke Dalam" }
           ] },
-        { id: "ar-tamu", tv: { video: "qnagZMb5LtI", c: [[66.9, 46.5], [72.9, 45.8], [73.9, 62.4], [67.7, 57.3],
-            { to: "ar2-landing", x: 30, y: 38, label: "Naik ke Lantai 2" }
-          ] }, floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu-r.webp", plan: { x: 72, y: 52 }, fov: 128.7, w: 6017, h: 3014,
+        { id: "ar-tamu", tv: { video: "qnagZMb5LtI", c: [[66.9, 46.5], [72.9, 45.8], [73.9, 62.4], [67.7, 57.3]] }, floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu-r.webp", plan: { x: 72, y: 52 }, fov: 128.7, w: 6017, h: 3014,
           hotspots: [
             { to: "ar-depan", x: 3.4, y: 67.1, label: "Keluar" },
             { to: "ar-kamar-a", x: 45.5, y: 47, label: "Kamar Tidur" },
             { to: "ar-mandi-a", x: 38, y: 47, label: "Kamar Mandi" },
             { to: "ar-ruang-a", x: 33, y: 60, label: "Sudut Lain" },
-            { to: "ar-dapur", x: 53.5, y: 44, label: "Dapur & Kolam" }
+            { to: "ar-dapur", x: 53.5, y: 44, label: "Dapur & Kolam" },
+            { to: "ar2-landing", x: 30, y: 38, label: "Naik ke Lantai 2" }
           ] },
         { id: "ar-ruang-a", floor: "ar-l1", title: "Ruang Utama · Meja Makan", photo: "photos/ar-ruang-a.webp", plan: { x: 58, y: 48 }, fov: 177.6, w: 6144, h: 2422,
           hotspots: [
