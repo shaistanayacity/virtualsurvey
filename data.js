@@ -382,14 +382,16 @@ window.SURVEY = {
             { to: "bi2-kamar-a", x: 33, y: 52, label: "Kamar Tidur" },
             { to: "bi2-kerja-c", x: 53, y: 48, label: "Ruang Kerja" },
             { to: "bi-tamu-b", x: 62.9, y: 66.4, label: "Turun ke Lantai 1" },
-            { to: "bi2-lorong-b", x: 91.2, y: 47.6, label: "Lorong · Sudut Lain" }
+            { to: "bi2-lorong-b", x: 91.2, y: 47.6, label: "Lorong · Sudut Lain" },
+            { info: { title: "Kamar Mandi", text: "Kamar mandi Lantai 2 (keramik 30 × 60, monoblock & shower). Foto bagian dalam menyusul." }, x: 14, y: 48 }
           ] },
         { id: "bi2-lorong-b", floor: "bi-l2", title: "Lorong · Sudut Lain", photo: "photos/bi2-lorong-b-r.webp", plan: { x: 37, y: 40 }, fov: 130.3, w: 6075, h: 3130,
           hotspots: [
             { to: "bi2-kamar-a", x: 34.8, y: 49.4, label: "Kamar Tidur" },
             { to: "bi2-kerja-c", x: 47.0, y: 47.8, label: "Ruang Kerja" },
             { to: "bi-tamu-b", x: 59.9, y: 67.1, label: "Turun ke Lantai 1" },
-            { to: "bi2-lorong", x: 9.5, y: 50.4, label: "Lorong" }
+            { to: "bi2-lorong", x: 9.5, y: 50.4, label: "Lorong" },
+            { info: { title: "Kamar Mandi", text: "Kamar mandi Lantai 2 (keramik 30 × 60, monoblock & shower). Foto bagian dalam menyusul." }, x: 12, y: 52 }
           ] },
         { id: "bi2-kamar-a", floor: "bi-l2", title: "Kamar Tidur Twin", photo: "photos/bi2-kamar-a-r.webp", plan: { x: 78, y: 25 }, fov: 113.0, w: 5895, h: 3159,
           hotspots: [
