@@ -77,8 +77,6 @@ window.SURVEY = {
       ],
       scenes: [
         // Foto 360, rumah ditengah (sudah digeser). Sudut pandang dibatasi ke rumah yang sudah jadi (tenda, puing, dan lahan kosong tidak terlihat), tidak berputar sendiri.
-        { id: "gwen-depan", floor: "gh-luar", title: "Tampak Depan", photo: "photos/gwen-depan-b.webp", yaw: 18, pitch: -2,
-          still: true, limits: { minYaw: -50, maxYaw: 70, minPitch: -30, maxPitch: 40 }, hotspots: [] }
       ] },
     { id: "new-gwen-hook", name: "New Gwen Hook", unit: "New Gwen Hook · F5-08", cover: "photos/cover-new-gwen-hook.webp",
       summary: [["Luas Bangunan", "45 m²"], ["Luas Tanah", "112 m²"], ["Kamar Tidur", "2"], ["Kamar Mandi", "1"], ["Carport", "1 mobil"], ["Mezzanine", "Ya"], ["Smartdoor Lock", "Ya"]],
@@ -95,7 +93,11 @@ window.SURVEY = {
           hotspots: [
             { to: "ngh-tamu", x: 43.5, y: 47, label: "Masuk ke Dalam" },
             { to: "ngh-teras", x: 60, y: 56, label: "Teras Samping" },
-            { to: "ngh-depan-b", x: 34, y: 56, label: "Tampak Depan · Dekat" }
+            { to: "ngh-depan-b", x: 34, y: 56, label: "Tampak Depan · Dekat" },
+            { info: { title: "Atap", text: "Genteng beton flat" }, x: 55, y: 27 },
+            { info: { title: "Fasad", text: "Conwood & cat" }, x: 58, y: 42 },
+            { info: { title: "Kusen", text: "Aluminium, powder coating" }, x: 37, y: 40 },
+            { info: { title: "Carport", text: "1 mobil, paving block" }, x: 24, y: 42 }
           ] },
         { id: "ngh-depan-b", floor: "luar", title: "Tampak Depan · Dekat", photo: "photos/ngh-depan-b.webp", flat: true, focusY: 0.8, pitch: -15, fov: 60, w: 1500, h: 2000,
           hotspots: [
@@ -106,25 +108,30 @@ window.SURVEY = {
         { id: "ngh-teras", floor: "luar", title: "Teras Samping", photo: "photos/ngh-teras.webp", fov: 79.3, w: 4426, h: 3906,
           hotspots: [
             { to: "ngh-tamu", x: 64, y: 49, label: "Masuk ke Dalam" },
-            { to: "ngh-depan", x: 22, y: 62, label: "Tampak Depan" }
+            { to: "ngh-depan", x: 22, y: 62, label: "Tampak Depan" },
+            { info: { title: "Teras Samping", text: "Area duduk dengan lantai kayu dan taman." }, x: 48, y: 62 },
+            { info: { title: "Kusen", text: "Aluminium, powder coating" }, x: 65, y: 42 }
           ] },
         { id: "ngh-tamu", floor: "dalam", title: "Ruang Tamu & Makan", photo: "photos/ngh-tamu-v2.webp", plan: { x: 52, y: 48 }, fov: 177.9, w: 6144, h: 2417,
           hotspots: [
             { to: "ngh-depan", x: 21, y: 40, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 24.5, y: 59 },
-            { to: "ngh-anak", x: 48.3, y: 52, label: "Kamar Anak" },
-            { to: "ngh-mandi", x: 50.5, y: 48, label: "Kamar Mandi" },
-            { to: "ngh-utama", x: 55, y: 52, label: "Kamar Utama" },
+            { to: "ngh-anak", x: 46.5, y: 40, label: "Kamar Anak" },
+            { to: "ngh-mandi", x: 49.5, y: 56, label: "Kamar Mandi" },
+            { to: "ngh-utama", x: 52.5, y: 40, label: "Kamar Utama" },
             { to: "ngh-dapur", x: 66.8, y: 51, label: "Dapur & Area Belakang" },
             { to: "ngh-tamu-b", x: 74, y: 64, label: "Sudut Lain" },
             { to: "ngh-tamu-c", x: 28, y: 62, label: "Ruang Tamu · TV & Pintu" },
-            { to: "ngh-tamu-d", x: 16, y: 60, label: "Tampilan 360°" }
+            { info: { title: "TV & Rak Display", text: "Panel TV dengan rak display dan lampu LED." }, x: 14, y: 47 }
           ] },
         { id: "ngh-tamu-b", trim: { r: 0.12 }, floor: "dalam", title: "Meja Makan", photo: "photos/ngh-tamu-b.webp", plan: { x: 52, y: 36 }, fov: 173.3, w: 3619, h: 1779,
           hotspots: [
             { to: "ngh-tamu", x: 36, y: 60, label: "Sudut Lain" },
             { to: "ngh-mandi", x: 53, y: 52, label: "Kamar Mandi" },
-            { to: "ngh-dapur", x: 78, y: 48, label: "Dapur & Area Belakang" }
+            { to: "ngh-dapur", x: 78, y: 48, label: "Dapur & Area Belakang" },
+            { to: "ngh-depan", x: 16.5, y: 50, label: "Keluar" },
+            { to: "ngh-anak", x: 49.5, y: 44, label: "Kamar Anak" },
+            { to: "ngh-utama", x: 54.5, y: 44, label: "Kamar Utama" }
           ] },
         { id: "ngh-tamu-c", floor: "dalam", title: "Ruang Tamu · TV & Pintu", photo: "photos/ngh-tamu-c.webp", flat: true, focusY: 0.5, plan: { x: 46, y: 54 }, fov: 86.3, w: 1822, h: 1794,
           hotspots: [
@@ -132,15 +139,6 @@ window.SURVEY = {
             { to: "ngh-mandi", x: 62, y: 55, label: "Kamar Mandi" },
             { to: "ngh-tamu", x: 40, y: 68, label: "Sudut Lain" },
             { video: "qnagZMb5LtI", x: 4.5, y: 49, label: "Putar video di TV" }
-          ] },
-        { id: "ngh-tamu-d", tv: { video: "qnagZMb5LtI", c: [[91.0, 44.1], [97.7, 45.2], [97.5, 57.3], [90.6, 58.8]] }, floor: "dalam", title: "Ruang Tamu (360°)", photo: "photos/ngh-tamu-360-v2.webp", plan: { x: 46, y: 54 }, yaw: -130, pitch: -6, still: true, minHfov: 100, limits: { minPitch: -30, maxPitch: 38 },
-          hotspots: [
-            { to: "ngh-depan", yaw: -168.6, pitch: 4, label: "Keluar" },
-            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: -163.5, pitch: -4 },
-            { to: "ngh-mandi", yaw: -64.8, pitch: 10, label: "Kamar Mandi" },
-            { to: "ngh-tamu-b", yaw: 23.4, pitch: -22, label: "Ruang Makan" },
-            { to: "ngh-dapur", yaw: 97, pitch: -2, label: "Dapur" },
-            { to: "ngh-tamu", yaw: -112, pitch: -12, label: "Sudut Lain" }
           ] },
         { id: "ngh-anak", floor: "dalam", title: "Kamar Anak", photo: "photos/ngh-anak.webp", plan: { x: 23, y: 12 }, fov: 84.5, w: 4748, h: 3932,
           hotspots: [
@@ -154,16 +152,19 @@ window.SURVEY = {
           ] },
         { id: "ngh-mandi", trim: { l: 0.12, r: 0.15 }, floor: "dalam", title: "Kamar Mandi", photo: "photos/ngh-mandi-r.webp", plan: { x: 18, y: 31 }, fov: 106.0, w: 2224, h: 1754,
           hotspots: [
-            { to: "ngh-tamu", x: 27.6, y: 59.7, label: "Ruang Tamu" }
+            { to: "ngh-tamu", x: 27.6, y: 59.7, label: "Ruang Tamu" },
+            { info: { title: "Kamar Mandi", text: "Keramik 25 × 40, monoblock & shower" }, x: 45, y: 68 }
           ] },
         { id: "ngh-utama", trim: { l: 0.05 }, floor: "dalam", title: "Kamar Utama", photo: "photos/ngh-utama.webp", plan: { x: 22, y: 47 }, fov: 158.5, w: 3339, h: 1801,
           hotspots: [
             { to: "ngh-tamu", x: 13, y: 50, label: "Ruang Tamu" },
-            { to: "ngh-tidur", x: 75, y: 68, label: "Tempat Tidur" }
+            { to: "ngh-tidur", x: 75, y: 68, label: "Tempat Tidur" },
+            { info: { title: "Lemari Built-in", text: "Lemari terbuka dengan gantungan dan rak." }, x: 38, y: 45 }
           ] },
         { id: "ngh-tidur", trim: { r: 0.18 }, floor: "dalam", title: "Tempat Tidur", photo: "photos/ngh-tidur.webp", plan: { x: 16, y: 50 }, fov: 107.9, w: 2251, h: 1783,
           hotspots: [
-            { to: "ngh-utama", x: 4, y: 62, label: "Kamar Utama" }
+            { to: "ngh-utama", x: 4, y: 62, label: "Kamar Utama" },
+            { info: { title: "Meja Rias", text: "Cermin lengkung dengan meja rias." }, x: 18, y: 45 }
           ] },
         { id: "ngh-dapur", floor: "dalam", title: "Dapur", photo: "photos/ngh-dapur-v2.webp", flat: true, focusY: 0.55, plan: { x: 68, y: 16 }, fov: 60, w: 1800, h: 2400,
           hotspots: [
@@ -191,14 +192,14 @@ window.SURVEY = {
             { to: "ar-tamu", x: 46.3, y: 56, label: "Masuk ke Dalam" }
           ] },
         { id: "ar-tamu", tv: { video: "qnagZMb5LtI", c: [[66.9, 46.5], [72.9, 45.8], [73.9, 62.4], [67.7, 57.3],
-            { to: "ar2-landing", x: 29.4, y: 43.1, label: "Naik ke Lantai 2" }
+            { to: "ar2-landing", x: 30, y: 38, label: "Naik ke Lantai 2" }
           ] }, floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu-r.webp", plan: { x: 72, y: 52 }, fov: 128.7, w: 6017, h: 3014,
           hotspots: [
             { to: "ar-depan", x: 3.4, y: 67.1, label: "Keluar" },
-            { to: "ar-kamar-a", x: 47.0, y: 51.4, label: "Kamar Tidur" },
-            { to: "ar-mandi-a", x: 37.7, y: 50.0, label: "Kamar Mandi" },
-            { to: "ar-ruang-a", x: 32.7, y: 54.8, label: "Sudut Lain" },
-            { to: "ar-dapur", x: 53.5, y: 46.5, label: "Dapur & Kolam" }
+            { to: "ar-kamar-a", x: 45.5, y: 47, label: "Kamar Tidur" },
+            { to: "ar-mandi-a", x: 38, y: 47, label: "Kamar Mandi" },
+            { to: "ar-ruang-a", x: 33, y: 60, label: "Sudut Lain" },
+            { to: "ar-dapur", x: 53.5, y: 44, label: "Dapur & Kolam" }
           ] },
         { id: "ar-ruang-a", floor: "ar-l1", title: "Ruang Utama · Meja Makan", photo: "photos/ar-ruang-a.webp", plan: { x: 58, y: 48 }, fov: 177.6, w: 6144, h: 2422,
           hotspots: [
@@ -212,7 +213,8 @@ window.SURVEY = {
         { id: "ar-kamar-a", trim: { r: 0.15 }, floor: "ar-l1", title: "Kamar Tidur", photo: "photos/ar-kamar-a.webp", plan: { x: 26, y: 29 }, fov: 92.7, w: 5232, h: 3952,
           hotspots: [
             { to: "ar-ruang-a", x: 5, y: 50, label: "Keluar ke Ruang Utama" },
-            { to: "ar-kamar-b", x: 62, y: 58, label: "Kamar Tidur · Jendela" }
+            { to: "ar-kamar-b", x: 62, y: 58, label: "Kamar Tidur · Jendela" },
+            { info: { title: "Meja Kerja", text: "Meja kerja built-in di kamar tidur." }, x: 30, y: 68 }
           ] },
         { id: "ar-kamar-b", trim: { r: 0.22 }, floor: "ar-l1", title: "Kamar Tidur · Jendela", photo: "photos/ar-kamar-b.webp", plan: { x: 30, y: 27 }, fov: 131.9, w: 6144, h: 3260,
           hotspots: [
@@ -242,11 +244,14 @@ window.SURVEY = {
         { id: "ar-dapur", trim: { l: 0.17 }, floor: "ar-l1", title: "Dapur & Area Kolam", photo: "photos/ar-dapur-v3.webp", plan: { x: 68, y: 33 }, fov: 92.4, w: 5198, h: 3938,
           hotspots: [
             { to: "ar-ruang-a", x: 95, y: 40, label: "Masuk ke Rumah" },
-            { to: "ar-kolam", x: 25, y: 66, label: "Kolam Pribadi" }
+            { to: "ar-kolam", x: 25, y: 66, label: "Kolam Pribadi" },
+            { info: { title: "Kitchen Set", text: "Concrete-based kitchen & kitchen sink" }, x: 62, y: 58 },
+            { info: { title: "Atap Kaca", text: "Atap kaca melengkung di area kolam." }, x: 35, y: 18 }
           ] },
         { id: "ar-kolam", trim: { l: 0.17, r: 0.1 }, floor: "ar-l1", title: "Kolam Pribadi", photo: "photos/ar-kolam-v3.webp", plan: { x: 50, y: 18 }, fov: 96.1, w: 5410, h: 3940,
           hotspots: [
-            { to: "ar-dapur", x: 24, y: 68, label: "Dapur" }
+            { to: "ar-dapur", x: 24, y: 68, label: "Dapur" },
+            { info: { title: "Private Pool", text: "Kolam renang pribadi dengan deck kayu." }, x: 45, y: 66 }
           ] },
         { id: "ar2-landing", floor: "ar-l2", title: "Lorong & Tangga", photo: "photos/ar2-landing.webp", plan: { x: 38, y: 44 }, fov: 135.8, w: 6144, h: 3167,
           hotspots: [
@@ -286,7 +291,8 @@ window.SURVEY = {
         { id: "ar2-mandi-a", floor: "ar-l2", title: "Kamar Mandi Lantai 2", photo: "photos/ar2-mandi-a-r.webp", plan: { x: 35, y: 58 }, fov: 89.6, w: 4981, h: 3774,
           hotspots: [
             { to: "ar2-landing", x: 78.4, y: 43.9, label: "Keluar" },
-            { to: "ar2-mandi-b", x: 39.9, y: 55.5, label: "Sudut Lain" }
+            { to: "ar2-mandi-b", x: 39.9, y: 55.5, label: "Sudut Lain" },
+            { info: { title: "Water Heater", text: "Pemanas air listrik di kamar mandi lantai 2." }, x: 30, y: 16 }
           ] },
         { id: "ar2-mandi-b", floor: "ar-l2", title: "Kamar Mandi Lantai 2 · Cermin", photo: "photos/ar2-mandi-b.webp", plan: { x: 36, y: 59 }, fov: 97.6, w: 5426, h: 3890,
           hotspots: [
@@ -309,23 +315,19 @@ window.SURVEY = {
           specs: [["Kamar tidur", "2 di lantai 2"], ["Balkon", "Ya"]] }
       ],
       scenes: [
-        { id: "bianca-depan", floor: "bi-luar", title: "Tampak Depan", photo: "photos/bianca-depan-b.webp", yaw: 0, pitch: -2,
-          // Fokus ke rumah: sudut pandang dibatasi (sisi yang masih dibangun tidak terlihat) dan tidak berputar sendiri.
-          still: true, limits: { minYaw: -52, maxYaw: 44, minPitch: -32, maxPitch: 38 },
-          hotspots: [{ to: "bi-tamu", yaw: 11.3, pitch: 1, label: "Masuk ke Dalam" }, { to: "bi-kawasan", yaw: -36, pitch: -6, label: "Tampak Kawasan" }] },
         { id: "bi-kawasan", trim: { r: 0.58 }, floor: "bi-luar", title: "Tampak Depan · Kawasan", photo: "photos/bi-kawasan.webp", fov: 155.4, w: 6144, h: 2768,
           hotspots: [
-            { to: "bianca-depan", x: 14, y: 62, label: "Tampak Depan" },
             { to: "bi-tamu", x: 29, y: 44, label: "Masuk ke Dalam" }
           ] },
         { id: "bi-tamu", floor: "bi-l1", title: "Ruang Tamu", photo: "photos/bi-tamu.webp", plan: { x: 62, y: 38 }, fov: 133.9, w: 6144, h: 3212,
           hotspots: [
-            { to: "bianca-depan", x: 86, y: 38, label: "Keluar" },
+            { to: "bi-kawasan", x: 86, y: 38, label: "Keluar" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 79, y: 58 },
             { to: "bi-tamu-b", x: 58, y: 56, label: "Ruang Makan & Tangga" },
             { to: "bi-kamar-a", x: 39, y: 47, label: "Kamar Tidur" },
             { to: "bi-dapur", x: 32, y: 50, label: "Dapur & Taman" },
-            { to: "bianca-lantai1", x: 10, y: 62, label: "Tampilan 360°" }
+            { to: "bi2-lorong", x: 55, y: 38, label: "Naik ke Lantai 2" },
+            { info: { title: "TV & Panel Kayu", text: "Panel TV dengan rak kayu." }, x: 10, y: 48 }
           ] },
         { id: "bi-tamu-b", floor: "bi-l1", title: "Ruang Makan & Tangga", photo: "photos/bi-tamu-b.webp", plan: { x: 45, y: 45 }, fov: 137.4, w: 6144, h: 3131,
           hotspots: [
@@ -336,12 +338,14 @@ window.SURVEY = {
           ] },
         { id: "bi-wc", trim: { r: 0.08 }, floor: "bi-l1", title: "Kamar Mandi", photo: "photos/bi-wc.webp", plan: { x: 22, y: 32 }, fov: 171.9, w: 6144, h: 2502,
           hotspots: [
-            { to: "bi-tamu-b", x: 72, y: 50, label: "Keluar" }
+            { to: "bi-tamu-b", x: 72, y: 50, label: "Keluar" },
+            { info: { title: "Kamar Mandi", text: "Keramik 30 × 60, monoblock & shower" }, x: 28, y: 55 }
           ] },
         { id: "bi-kamar-a", floor: "bi-l1", title: "Kamar Tidur", photo: "photos/bi-kamar-a.webp", plan: { x: 27, y: 14 }, fov: 155.0, w: 6144, h: 2776,
           hotspots: [
             { to: "bi-tamu-b", x: 72, y: 50, label: "Keluar" },
-            { to: "bi-kamar-b", x: 25, y: 56, label: "Kamar Tidur · Lemari" }
+            { to: "bi-kamar-b", x: 25, y: 56, label: "Kamar Tidur · Lemari" },
+            { info: { title: "Meja Rias", text: "Meja rias dengan cermin bulat." }, x: 36, y: 40 }
           ] },
         { id: "bi-kamar-b", floor: "bi-l1", title: "Kamar Tidur · Lemari", photo: "photos/bi-kamar-b.webp", plan: { x: 24, y: 13 }, fov: 126.0, w: 6144, h: 3413,
           hotspots: [
@@ -361,7 +365,8 @@ window.SURVEY = {
           hotspots: [
             { to: "bi-tamu", x: 45, y: 50, label: "Masuk ke Rumah" },
             { to: "bi-dapur-c", x: 62, y: 60, label: "Taman & Area Cuci 2" },
-            { to: "bi-dapur", x: 22, y: 62, label: "Dapur" }
+            { to: "bi-dapur", x: 22, y: 62, label: "Dapur" },
+            { info: { title: "Area Cuci", text: "Area cuci dengan kitchen set dan ruang mesin cuci." }, x: 70, y: 62 }
           ] },
         { id: "bi-dapur-c", floor: "bi-l1", title: "Taman & Area Cuci 2", photo: "photos/bi-dapur-c.webp", plan: { x: 72, y: 24 }, fov: 129.1, w: 6144, h: 3331,
           hotspots: [
@@ -370,17 +375,19 @@ window.SURVEY = {
           ] },
         { id: "bi2-lorong", floor: "bi-l2", title: "Lorong & Tangga", photo: "photos/bi2-lorong-r.webp", plan: { x: 38, y: 36 }, fov: 116.5, w: 5958, h: 3224,
           hotspots: [
-            { to: "bi2-kamar-a", x: 42.9, y: 53.0, label: "Kamar Tidur" },
-            { to: "bi2-kerja", x: 70.5, y: 45.5, label: "Ruang Kerja" },
+            { to: "bi2-kamar-a", x: 33, y: 52, label: "Kamar Tidur" },
+            { to: "bi2-kerja", x: 53, y: 48, label: "Ruang Kerja" },
             { to: "bi-tamu-b", x: 62.9, y: 66.4, label: "Turun ke Lantai 1" },
-            { to: "bi2-lorong-b", x: 91.2, y: 47.6, label: "Lorong · Sudut Lain" }
+            { to: "bi2-lorong-b", x: 91.2, y: 47.6, label: "Lorong · Sudut Lain" },
+            { info: { title: "Kamar Mandi Lantai 2", text: "Pintu hitam di lorong menuju kamar mandi lantai 2." }, x: 14, y: 48 }
           ] },
         { id: "bi2-lorong-b", floor: "bi-l2", title: "Lorong · Sudut Lain", photo: "photos/bi2-lorong-b-r.webp", plan: { x: 37, y: 40 }, fov: 130.3, w: 6075, h: 3130,
           hotspots: [
             { to: "bi2-kamar-a", x: 34.8, y: 49.4, label: "Kamar Tidur" },
             { to: "bi2-kerja", x: 47.0, y: 47.8, label: "Ruang Kerja" },
             { to: "bi-tamu-b", x: 59.9, y: 67.1, label: "Turun ke Lantai 1" },
-            { to: "bi2-lorong", x: 9.5, y: 50.4, label: "Lorong" }
+            { to: "bi2-lorong", x: 9.5, y: 50.4, label: "Lorong" },
+            { info: { title: "Kamar Mandi Lantai 2", text: "Pintu hitam di lorong menuju kamar mandi lantai 2." }, x: 12, y: 52 }
           ] },
         { id: "bi2-kamar-a", floor: "bi-l2", title: "Kamar Tidur Twin", photo: "photos/bi2-kamar-a-r.webp", plan: { x: 78, y: 25 }, fov: 113.0, w: 5895, h: 3159,
           hotspots: [
@@ -395,7 +402,8 @@ window.SURVEY = {
         { id: "bi2-kerja", trim: { r: 0.1 }, floor: "bi-l2", title: "Ruang Kerja", photo: "photos/bi2-kerja.webp", plan: { x: 78, y: 52 }, fov: 85.5, w: 4826, h: 3952,
           hotspots: [
             { to: "bi2-lorong", x: 84, y: 52, label: "Keluar" },
-            { to: "bi2-kerja-b", x: 40, y: 62, label: "Ruang Kerja · Rak" }
+            { to: "bi2-kerja-b", x: 40, y: 62, label: "Ruang Kerja · Rak" },
+            { info: { title: "Rak Display", text: "Rak kayu dengan lampu LED." }, x: 45, y: 40 }
           ] },
         { id: "bi2-kerja-b", floor: "bi-l2", title: "Ruang Kerja · Rak", photo: "photos/bi2-kerja-b-r.webp", plan: { x: 79, y: 54 }, fov: 141.0, w: 6051, h: 2799,
           hotspots: [
@@ -411,16 +419,6 @@ window.SURVEY = {
           hotspots: [
             { to: "bi2-lorong", x: 34, y: 48, label: "Keluar" },
             { to: "bi2-kerja", x: 80, y: 66, label: "Ruang Kerja" }
-          ] },
-        { id: "bianca-lantai1", floor: "bi-l1", title: "Ruang Utama (360°)", photo: "photos/bianca-lantai1.webp", plan: { x: 46, y: 50 }, yaw: -40, pitch: -3,
-          hotspots: [
-            { to: "bianca-depan", yaw: 132.5, pitch: 1, label: "Keluar" },
-            { to: "bianca-kamar", yaw: -137, pitch: -6, label: "Kamar Tidur" },
-            { to: "bi-tamu", yaw: 60, pitch: -4, label: "Ruang Tamu (foto)" },
-            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: 131, pitch: -14 }
-          ] },
-        { id: "bianca-kamar", floor: "bi-l1", title: "Kamar Tidur (360°)", photo: "photos/bianca-kamar.webp", plan: { x: 24, y: 17 }, yaw: 40, pitch: -10,
-          hotspots: [{ to: "bianca-lantai1", yaw: -119, pitch: -6, label: "Keluar ke Ruang Utama" }] }
-      ] }
+          ] }      ] }
   ]
 };
