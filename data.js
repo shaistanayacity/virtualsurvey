@@ -312,14 +312,114 @@ window.SURVEY = {
         { id: "bianca-depan", floor: "bi-luar", title: "Tampak Depan", photo: "photos/bianca-depan-b.webp", yaw: 0, pitch: -2,
           // Fokus ke rumah: sudut pandang dibatasi (sisi yang masih dibangun tidak terlihat) dan tidak berputar sendiri.
           still: true, limits: { minYaw: -52, maxYaw: 44, minPitch: -32, maxPitch: 38 },
-          hotspots: [{ to: "bianca-lantai1", yaw: 11.3, pitch: 1, label: "Masuk ke Dalam" }] },
-        { id: "bianca-lantai1", floor: "bi-l1", title: "Ruang Utama", photo: "photos/bianca-lantai1.webp", plan: { x: 46, y: 50 }, yaw: -40, pitch: -3,
+          hotspots: [{ to: "bi-tamu", yaw: 11.3, pitch: 1, label: "Masuk ke Dalam" }, { to: "bi-kawasan", yaw: -36, pitch: -6, label: "Tampak Kawasan" }] },
+        { id: "bi-kawasan", trim: { r: 0.58 }, floor: "bi-luar", title: "Tampak Depan · Kawasan", photo: "photos/bi-kawasan.webp", fov: 155.4, w: 6144, h: 2768,
+          hotspots: [
+            { to: "bianca-depan", x: 14, y: 62, label: "Tampak Depan" },
+            { to: "bi-tamu", x: 29, y: 44, label: "Masuk ke Dalam" }
+          ] },
+        { id: "bi-tamu", floor: "bi-l1", title: "Ruang Tamu", photo: "photos/bi-tamu.webp", plan: { x: 62, y: 38 }, fov: 133.9, w: 6144, h: 3212,
+          hotspots: [
+            { to: "bianca-depan", x: 86, y: 38, label: "Keluar" },
+            { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, x: 79, y: 58 },
+            { to: "bi-tamu-b", x: 58, y: 56, label: "Ruang Makan & Tangga" },
+            { to: "bi-kamar-a", x: 39, y: 47, label: "Kamar Tidur" },
+            { to: "bi-dapur", x: 32, y: 50, label: "Dapur & Taman" },
+            { to: "bianca-lantai1", x: 10, y: 62, label: "Tampilan 360°" }
+          ] },
+        { id: "bi-tamu-b", floor: "bi-l1", title: "Ruang Makan & Tangga", photo: "photos/bi-tamu-b.webp", plan: { x: 45, y: 45 }, fov: 137.4, w: 6144, h: 3131,
+          hotspots: [
+            { to: "bi-tamu", x: 20, y: 55, label: "Ruang Tamu" },
+            { to: "bi-wc", x: 48.5, y: 58, label: "Kamar Mandi" },
+            { to: "bi-kamar-a", x: 40, y: 50, label: "Kamar Tidur" },
+            { to: "bi2-lorong", x: 74, y: 48, label: "Naik ke Lantai 2" }
+          ] },
+        { id: "bi-wc", trim: { r: 0.08 }, floor: "bi-l1", title: "Kamar Mandi", photo: "photos/bi-wc.webp", plan: { x: 22, y: 32 }, fov: 171.9, w: 6144, h: 2502,
+          hotspots: [
+            { to: "bi-tamu-b", x: 72, y: 50, label: "Keluar" }
+          ] },
+        { id: "bi-kamar-a", floor: "bi-l1", title: "Kamar Tidur", photo: "photos/bi-kamar-a.webp", plan: { x: 27, y: 14 }, fov: 155.0, w: 6144, h: 2776,
+          hotspots: [
+            { to: "bi-tamu-b", x: 72, y: 50, label: "Keluar" },
+            { to: "bi-kamar-b", x: 25, y: 56, label: "Kamar Tidur · Lemari" }
+          ] },
+        { id: "bi-kamar-b", floor: "bi-l1", title: "Kamar Tidur · Lemari", photo: "photos/bi-kamar-b.webp", plan: { x: 24, y: 13 }, fov: 126.0, w: 6144, h: 3413,
+          hotspots: [
+            { to: "bi-tamu-b", x: 54, y: 46, label: "Keluar" },
+            { to: "bi-kamar-c", x: 30, y: 58, label: "Kamar Tidur · Jendela" }
+          ] },
+        { id: "bi-kamar-c", floor: "bi-l1", title: "Kamar Tidur · Jendela", photo: "photos/bi-kamar-c.webp", plan: { x: 28, y: 16 }, fov: 147.0, w: 6144, h: 2925,
+          hotspots: [
+            { to: "bi-kamar-a", x: 52, y: 60, label: "Kamar Tidur" }
+          ] },
+        { id: "bi-dapur", floor: "bi-l1", title: "Dapur & Taman", photo: "photos/bi-dapur.webp", plan: { x: 78, y: 26 }, fov: 122.4, w: 6144, h: 3513,
+          hotspots: [
+            { to: "bi-tamu", x: 80, y: 50, label: "Masuk ke Rumah" },
+            { to: "bi-dapur-b", x: 50, y: 62, label: "Taman & Area Cuci" }
+          ] },
+        { id: "bi-dapur-b", floor: "bi-l1", title: "Taman & Area Cuci", photo: "photos/bi-dapur-b.webp", plan: { x: 74, y: 22 }, fov: 119.3, w: 6144, h: 3606,
+          hotspots: [
+            { to: "bi-tamu", x: 45, y: 50, label: "Masuk ke Rumah" },
+            { to: "bi-dapur-c", x: 62, y: 60, label: "Taman & Area Cuci 2" },
+            { to: "bi-dapur", x: 22, y: 62, label: "Dapur" }
+          ] },
+        { id: "bi-dapur-c", floor: "bi-l1", title: "Taman & Area Cuci 2", photo: "photos/bi-dapur-c.webp", plan: { x: 72, y: 24 }, fov: 129.1, w: 6144, h: 3331,
+          hotspots: [
+            { to: "bi-tamu", x: 51, y: 50, label: "Masuk ke Rumah" },
+            { to: "bi-dapur-b", x: 25, y: 62, label: "Taman & Area Cuci" }
+          ] },
+        { id: "bi2-lorong", floor: "bi-l2", title: "Lorong & Tangga", photo: "photos/bi2-lorong.webp", plan: { x: 38, y: 36 }, fov: 120.1, w: 6144, h: 3580,
+          hotspots: [
+            { to: "bi2-kamar-a", x: 43, y: 52, label: "Kamar Tidur" },
+            { to: "bi2-kerja", x: 70, y: 48, label: "Ruang Kerja" },
+            { to: "bi-tamu-b", x: 62, y: 66, label: "Turun ke Lantai 1" },
+            { to: "bi2-lorong-b", x: 90, y: 52, label: "Lorong · Sudut Lain" }
+          ] },
+        { id: "bi2-lorong-b", floor: "bi-l2", title: "Lorong · Sudut Lain", photo: "photos/bi2-lorong-b.webp", plan: { x: 37, y: 40 }, fov: 131.8, w: 6144, h: 3264,
+          hotspots: [
+            { to: "bi2-kamar-a", x: 35, y: 50, label: "Kamar Tidur" },
+            { to: "bi2-kerja", x: 47, y: 48, label: "Ruang Kerja" },
+            { to: "bi-tamu-b", x: 60, y: 66, label: "Turun ke Lantai 1" },
+            { to: "bi2-lorong", x: 10, y: 52, label: "Lorong" }
+          ] },
+        { id: "bi2-kamar-a", floor: "bi-l2", title: "Kamar Tidur Twin", photo: "photos/bi2-kamar-a.webp", plan: { x: 78, y: 25 }, fov: 117.8, w: 6144, h: 3650,
+          hotspots: [
+            { to: "bi2-lorong", x: 9, y: 50, label: "Keluar" },
+            { to: "bi2-kamar-b", x: 48, y: 62, label: "Kamar Tidur Twin · Panorama" }
+          ] },
+        { id: "bi2-kamar-b", floor: "bi-l2", title: "Kamar Tidur Twin · Panorama", photo: "photos/bi2-kamar-b.webp", plan: { x: 79, y: 24 }, fov: 212.9, w: 6144, h: 2020,
+          hotspots: [
+            { to: "bi2-lorong", x: 91, y: 42, label: "Keluar" },
+            { to: "bi2-kamar-a", x: 40, y: 64, label: "Kamar Tidur Twin" }
+          ] },
+        { id: "bi2-kerja", trim: { r: 0.1 }, floor: "bi-l2", title: "Ruang Kerja", photo: "photos/bi2-kerja.webp", plan: { x: 78, y: 52 }, fov: 85.5, w: 4826, h: 3952,
+          hotspots: [
+            { to: "bi2-lorong", x: 84, y: 52, label: "Keluar" },
+            { to: "bi2-kerja-b", x: 40, y: 62, label: "Ruang Kerja · Rak" }
+          ] },
+        { id: "bi2-kerja-b", floor: "bi-l2", title: "Ruang Kerja · Rak", photo: "photos/bi2-kerja-b.webp", plan: { x: 79, y: 54 }, fov: 143.2, w: 6144, h: 3004,
+          hotspots: [
+            { to: "bi2-lorong", x: 72, y: 50, label: "Keluar" },
+            { to: "bi2-kerja-c", x: 30, y: 64, label: "Ruang Kerja · Meja" }
+          ] },
+        { id: "bi2-kerja-c", floor: "bi-l2", title: "Ruang Kerja · Meja", photo: "photos/bi2-kerja-c.webp", plan: { x: 78, y: 53 }, fov: 164.2, w: 6144, h: 2620,
+          hotspots: [
+            { to: "bi2-lorong", x: 74, y: 50, label: "Keluar" },
+            { to: "bi2-kerja-d", x: 25, y: 64, label: "Ruang Kerja · Pintu" }
+          ] },
+        { id: "bi2-kerja-d", floor: "bi-l2", title: "Ruang Kerja · Pintu", photo: "photos/bi2-kerja-d.webp", plan: { x: 77, y: 52 }, fov: 126.4, w: 6144, h: 3402,
+          hotspots: [
+            { to: "bi2-lorong", x: 34, y: 48, label: "Keluar" },
+            { to: "bi2-kerja", x: 80, y: 66, label: "Ruang Kerja" }
+          ] },
+        { id: "bianca-lantai1", floor: "bi-l1", title: "Ruang Utama (360°)", photo: "photos/bianca-lantai1.webp", plan: { x: 46, y: 50 }, yaw: -40, pitch: -3,
           hotspots: [
             { to: "bianca-depan", yaw: 132.5, pitch: 1, label: "Keluar" },
             { to: "bianca-kamar", yaw: -137, pitch: -6, label: "Kamar Tidur" },
+            { to: "bi-tamu", yaw: 60, pitch: -4, label: "Ruang Tamu (foto)" },
             { info: { title: "Smart Door Lock", text: "Semua unit dilengkapi smartdoor lock." }, yaw: 131, pitch: -14 }
           ] },
-        { id: "bianca-kamar", floor: "bi-l1", title: "Kamar Tidur", photo: "photos/bianca-kamar.webp", plan: { x: 24, y: 17 }, yaw: 40, pitch: -10,
+        { id: "bianca-kamar", floor: "bi-l1", title: "Kamar Tidur (360°)", photo: "photos/bianca-kamar.webp", plan: { x: 24, y: 17 }, yaw: 40, pitch: -10,
           hotspots: [{ to: "bianca-lantai1", yaw: -119, pitch: -6, label: "Keluar ke Ruang Utama" }] }
       ] }
   ]
