@@ -190,7 +190,9 @@ window.SURVEY = {
           hotspots: [
             { to: "ar-tamu", x: 46.3, y: 56, label: "Masuk ke Dalam" }
           ] },
-        { id: "ar-tamu", tv: { video: "qnagZMb5LtI", c: [[66.9, 46.5], [72.9, 45.8], [73.9, 62.4], [67.7, 57.3]] }, floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu.webp", plan: { x: 72, y: 52 }, fov: 131.4, w: 6144, h: 3273,
+        { id: "ar-tamu", tv: { video: "qnagZMb5LtI", c: [[66.9, 46.5], [72.9, 45.8], [73.9, 62.4], [67.7, 57.3],
+            { to: "ar2-utama-a", x: 30, y: 42, label: "Naik ke Lantai 2" }
+          ] }, floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu.webp", plan: { x: 72, y: 52 }, fov: 131.4, w: 6144, h: 3273,
           hotspots: [
             { to: "ar-depan", x: 4, y: 62, label: "Keluar" },
             { to: "ar-kamar-a", x: 47, y: 51, label: "Kamar Tidur" },
@@ -204,7 +206,8 @@ window.SURVEY = {
             { to: "ar-depan", x: 21.8, y: 44, label: "Keluar" },
             { to: "ar-kamar-a", x: 74.3, y: 51, label: "Kamar Tidur" },
             { to: "ar-dapur", x: 84, y: 51, label: "Dapur & Kolam" },
-            { to: "ar-tamu", x: 8, y: 62, label: "Sudut Lain" }
+            { to: "ar-tamu", x: 8, y: 62, label: "Sudut Lain" },
+            { to: "ar2-utama-a", x: 52.5, y: 44, label: "Naik ke Lantai 2" }
           ] },
         { id: "ar-kamar-a", trim: { r: 0.15 }, floor: "ar-l1", title: "Kamar Tidur", photo: "photos/ar-kamar-a.webp", plan: { x: 26, y: 29 }, fov: 92.7, w: 5232, h: 3952,
           hotspots: [
@@ -245,6 +248,21 @@ window.SURVEY = {
           hotspots: [
             { to: "ar-dapur", x: 24, y: 68, label: "Dapur" }
           ] },
+        { id: "ar2-utama-a", trim: { l: 0.1 }, floor: "ar-l2", title: "Kamar Utama · Balkon", photo: "photos/ar2-utama-a.webp", plan: { x: 71, y: 57 }, fov: 138.3, w: 6144, h: 3111,
+          hotspots: [
+            { to: "ar2-kamar", x: 17.5, y: 48, label: "Kamar Tidur 2" },
+            { to: "ar2-utama-b", x: 50, y: 60, label: "Sudut Lain" }
+          ] },
+        { id: "ar2-utama-b", floor: "ar-l2", title: "Kamar Utama · Lemari", photo: "photos/ar2-utama-b.webp", plan: { x: 70, y: 60 }, fov: 118.0, w: 6144, h: 3646,
+          hotspots: [
+            { to: "ar-ruang-a", x: 80, y: 40, label: "Turun ke Lantai 1" },
+            { to: "ar2-utama-a", x: 45, y: 60, label: "Sudut Lain" }
+          ] },
+        { id: "ar2-kamar", floor: "ar-l2", title: "Kamar Tidur 2", photo: "photos/ar2-kamar.webp", plan: { x: 76, y: 32 }, fov: 132.5, w: 6144, h: 3247,
+          hotspots: [
+            { to: "ar-ruang-a", x: 16, y: 42, label: "Turun ke Lantai 1" },
+            { to: "ar2-utama-a", x: 42, y: 60, label: "Kamar Utama" }
+          ] }
       ] },
     { id: "bianca", name: "Bianca Deluxe", unit: "Bianca Deluxe", cover: "photos/cover-bianca-deluxe.webp", summary: [["Luas Bangunan", "65 m²"], ["Luas Tanah", "72 m²"], ["Kamar Tidur", "3"], ["Kamar Mandi", "2"], ["Carport", "2 mobil"], ["Balkon", "Ya"], ["Smartdoor Lock", "Ya"]], building: SPEC_SIERRA,
       floors: [
