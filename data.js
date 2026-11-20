@@ -152,9 +152,9 @@ window.SURVEY = {
             { to: "ngh-tamu", x: 83, y: 52, label: "Ruang Tamu" },
             { to: "ngh-anak", x: 10, y: 62, label: "Sudut Lain" }
           ] },
-        { id: "ngh-mandi", trim: { l: 0.12, r: 0.15 }, floor: "dalam", title: "Kamar Mandi", photo: "photos/ngh-mandi.webp", plan: { x: 18, y: 31 }, fov: 107.6, w: 2257, h: 1796,
+        { id: "ngh-mandi", trim: { l: 0.12, r: 0.15 }, floor: "dalam", title: "Kamar Mandi", photo: "photos/ngh-mandi-r.webp", plan: { x: 18, y: 31 }, fov: 106.0, w: 2224, h: 1754,
           hotspots: [
-            { to: "ngh-tamu", x: 28, y: 60, label: "Ruang Tamu" }
+            { to: "ngh-tamu", x: 27.6, y: 59.7, label: "Ruang Tamu" }
           ] },
         { id: "ngh-utama", trim: { l: 0.05 }, floor: "dalam", title: "Kamar Utama", photo: "photos/ngh-utama.webp", plan: { x: 22, y: 47 }, fov: 158.5, w: 3339, h: 1801,
           hotspots: [
@@ -191,14 +191,14 @@ window.SURVEY = {
             { to: "ar-tamu", x: 46.3, y: 56, label: "Masuk ke Dalam" }
           ] },
         { id: "ar-tamu", tv: { video: "qnagZMb5LtI", c: [[66.9, 46.5], [72.9, 45.8], [73.9, 62.4], [67.7, 57.3],
-            { to: "ar2-landing", x: 30, y: 42, label: "Naik ke Lantai 2" }
-          ] }, floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu.webp", plan: { x: 72, y: 52 }, fov: 131.4, w: 6144, h: 3273,
+            { to: "ar2-landing", x: 29.4, y: 43.1, label: "Naik ke Lantai 2" }
+          ] }, floor: "ar-l1", title: "Ruang Utama", photo: "photos/ar-tamu-r.webp", plan: { x: 72, y: 52 }, fov: 128.7, w: 6017, h: 3014,
           hotspots: [
-            { to: "ar-depan", x: 4, y: 62, label: "Keluar" },
-            { to: "ar-kamar-a", x: 47, y: 51, label: "Kamar Tidur" },
-            { to: "ar-mandi-a", x: 38, y: 49, label: "Kamar Mandi" },
-            { to: "ar-ruang-a", x: 33, y: 53, label: "Sudut Lain" },
-            { to: "ar-dapur", x: 53.5, y: 47, label: "Dapur & Kolam" }
+            { to: "ar-depan", x: 3.4, y: 67.1, label: "Keluar" },
+            { to: "ar-kamar-a", x: 47.0, y: 51.4, label: "Kamar Tidur" },
+            { to: "ar-mandi-a", x: 37.7, y: 50.0, label: "Kamar Mandi" },
+            { to: "ar-ruang-a", x: 32.7, y: 54.8, label: "Sudut Lain" },
+            { to: "ar-dapur", x: 53.5, y: 46.5, label: "Dapur & Kolam" }
           ] },
         { id: "ar-ruang-a", floor: "ar-l1", title: "Ruang Utama · Meja Makan", photo: "photos/ar-ruang-a.webp", plan: { x: 58, y: 48 }, fov: 177.6, w: 6144, h: 2422,
           hotspots: [
@@ -268,10 +268,10 @@ window.SURVEY = {
             { to: "ar2-landing", x: 17.5, y: 48, label: "Lorong" },
             { to: "ar2-utama-b", x: 50, y: 60, label: "Sudut Lain" }
           ] },
-        { id: "ar2-utama-b", floor: "ar-l2", title: "Kamar Utama · Lemari", photo: "photos/ar2-utama-b.webp", plan: { x: 70, y: 60 }, fov: 118.0, w: 6144, h: 3646,
+        { id: "ar2-utama-b", floor: "ar-l2", title: "Kamar Utama · Lemari", photo: "photos/ar2-utama-b-r.webp", plan: { x: 70, y: 60 }, fov: 116.4, w: 6059, h: 3499,
           hotspots: [
-            { to: "ar2-landing", x: 80, y: 40, label: "Lorong" },
-            { to: "ar2-utama-a", x: 45, y: 60, label: "Sudut Lain" }
+            { to: "ar2-landing", x: 80.6, y: 40.9, label: "Lorong" },
+            { to: "ar2-utama-a", x: 44.8, y: 60.2, label: "Sudut Lain" }
           ] },
         { id: "ar2-kamar", floor: "ar-l2", title: "Kamar Tidur 2", photo: "photos/ar2-kamar.webp", plan: { x: 76, y: 32 }, fov: 132.5, w: 6144, h: 3247,
           hotspots: [
@@ -283,10 +283,10 @@ window.SURVEY = {
             { to: "ar2-landing", x: 9, y: 50, label: "Lorong" },
             { to: "ar2-kamar", x: 45, y: 62, label: "Sudut Lain" }
           ] },
-        { id: "ar2-mandi-a", floor: "ar-l2", title: "Kamar Mandi Lantai 2", photo: "photos/ar2-mandi-a.webp", plan: { x: 35, y: 58 }, fov: 91.2, w: 5072, h: 3894,
+        { id: "ar2-mandi-a", floor: "ar-l2", title: "Kamar Mandi Lantai 2", photo: "photos/ar2-mandi-a-r.webp", plan: { x: 35, y: 58 }, fov: 89.6, w: 4981, h: 3774,
           hotspots: [
-            { to: "ar2-landing", x: 78, y: 45, label: "Keluar" },
-            { to: "ar2-mandi-b", x: 40, y: 55, label: "Sudut Lain" }
+            { to: "ar2-landing", x: 78.4, y: 43.9, label: "Keluar" },
+            { to: "ar2-mandi-b", x: 39.9, y: 55.5, label: "Sudut Lain" }
           ] },
         { id: "ar2-mandi-b", floor: "ar-l2", title: "Kamar Mandi Lantai 2 · Cermin", photo: "photos/ar2-mandi-b.webp", plan: { x: 36, y: 59 }, fov: 97.6, w: 5426, h: 3890,
           hotspots: [
@@ -368,44 +368,44 @@ window.SURVEY = {
             { to: "bi-tamu", x: 51, y: 50, label: "Masuk ke Rumah" },
             { to: "bi-dapur-b", x: 25, y: 62, label: "Taman & Area Cuci" }
           ] },
-        { id: "bi2-lorong", floor: "bi-l2", title: "Lorong & Tangga", photo: "photos/bi2-lorong.webp", plan: { x: 38, y: 36 }, fov: 120.1, w: 6144, h: 3580,
+        { id: "bi2-lorong", floor: "bi-l2", title: "Lorong & Tangga", photo: "photos/bi2-lorong-r.webp", plan: { x: 38, y: 36 }, fov: 116.5, w: 5958, h: 3224,
           hotspots: [
-            { to: "bi2-kamar-a", x: 43, y: 52, label: "Kamar Tidur" },
-            { to: "bi2-kerja", x: 70, y: 48, label: "Ruang Kerja" },
-            { to: "bi-tamu-b", x: 62, y: 66, label: "Turun ke Lantai 1" },
-            { to: "bi2-lorong-b", x: 90, y: 52, label: "Lorong · Sudut Lain" }
+            { to: "bi2-kamar-a", x: 42.9, y: 53.0, label: "Kamar Tidur" },
+            { to: "bi2-kerja", x: 70.5, y: 45.5, label: "Ruang Kerja" },
+            { to: "bi-tamu-b", x: 62.9, y: 66.4, label: "Turun ke Lantai 1" },
+            { to: "bi2-lorong-b", x: 91.2, y: 47.6, label: "Lorong · Sudut Lain" }
           ] },
-        { id: "bi2-lorong-b", floor: "bi-l2", title: "Lorong · Sudut Lain", photo: "photos/bi2-lorong-b.webp", plan: { x: 37, y: 40 }, fov: 131.8, w: 6144, h: 3264,
+        { id: "bi2-lorong-b", floor: "bi-l2", title: "Lorong · Sudut Lain", photo: "photos/bi2-lorong-b-r.webp", plan: { x: 37, y: 40 }, fov: 130.3, w: 6075, h: 3130,
           hotspots: [
-            { to: "bi2-kamar-a", x: 35, y: 50, label: "Kamar Tidur" },
-            { to: "bi2-kerja", x: 47, y: 48, label: "Ruang Kerja" },
-            { to: "bi-tamu-b", x: 60, y: 66, label: "Turun ke Lantai 1" },
-            { to: "bi2-lorong", x: 10, y: 52, label: "Lorong" }
+            { to: "bi2-kamar-a", x: 34.8, y: 49.4, label: "Kamar Tidur" },
+            { to: "bi2-kerja", x: 47.0, y: 47.8, label: "Ruang Kerja" },
+            { to: "bi-tamu-b", x: 59.9, y: 67.1, label: "Turun ke Lantai 1" },
+            { to: "bi2-lorong", x: 9.5, y: 50.4, label: "Lorong" }
           ] },
-        { id: "bi2-kamar-a", floor: "bi-l2", title: "Kamar Tidur Twin", photo: "photos/bi2-kamar-a.webp", plan: { x: 78, y: 25 }, fov: 117.8, w: 6144, h: 3650,
+        { id: "bi2-kamar-a", floor: "bi-l2", title: "Kamar Tidur Twin", photo: "photos/bi2-kamar-a-r.webp", plan: { x: 78, y: 25 }, fov: 113.0, w: 5895, h: 3159,
           hotspots: [
-            { to: "bi2-lorong", x: 9, y: 50, label: "Keluar" },
-            { to: "bi2-kamar-b", x: 48, y: 62, label: "Kamar Tidur Twin · Panorama" }
+            { to: "bi2-lorong", x: 7.4, y: 43.3, label: "Keluar" },
+            { to: "bi2-kamar-b", x: 47.3, y: 63.5, label: "Kamar Tidur Twin · Panorama" }
           ] },
-        { id: "bi2-kamar-b", floor: "bi-l2", title: "Kamar Tidur Twin · Panorama", photo: "photos/bi2-kamar-b.webp", plan: { x: 79, y: 24 }, fov: 212.9, w: 6144, h: 2020,
+        { id: "bi2-kamar-b", floor: "bi-l2", title: "Kamar Tidur Twin · Panorama", photo: "photos/bi2-kamar-b-r.webp", plan: { x: 79, y: 24 }, fov: 209.8, w: 6055, h: 1673,
           hotspots: [
-            { to: "bi2-lorong", x: 91, y: 42, label: "Keluar" },
-            { to: "bi2-kamar-a", x: 40, y: 64, label: "Kamar Tidur Twin" }
+            { to: "bi2-lorong", x: 91.7, y: 49.0, label: "Keluar" },
+            { to: "bi2-kamar-a", x: 39.6, y: 64.8, label: "Kamar Tidur Twin" }
           ] },
         { id: "bi2-kerja", trim: { r: 0.1 }, floor: "bi-l2", title: "Ruang Kerja", photo: "photos/bi2-kerja.webp", plan: { x: 78, y: 52 }, fov: 85.5, w: 4826, h: 3952,
           hotspots: [
             { to: "bi2-lorong", x: 84, y: 52, label: "Keluar" },
             { to: "bi2-kerja-b", x: 40, y: 62, label: "Ruang Kerja · Rak" }
           ] },
-        { id: "bi2-kerja-b", floor: "bi-l2", title: "Ruang Kerja · Rak", photo: "photos/bi2-kerja-b.webp", plan: { x: 79, y: 54 }, fov: 143.2, w: 6144, h: 3004,
+        { id: "bi2-kerja-b", floor: "bi-l2", title: "Ruang Kerja · Rak", photo: "photos/bi2-kerja-b-r.webp", plan: { x: 79, y: 54 }, fov: 141.0, w: 6051, h: 2799,
           hotspots: [
-            { to: "bi2-lorong", x: 72, y: 50, label: "Keluar" },
-            { to: "bi2-kerja-c", x: 30, y: 64, label: "Ruang Kerja · Meja" }
+            { to: "bi2-lorong", x: 72.3, y: 48.4, label: "Keluar" },
+            { to: "bi2-kerja-c", x: 29.9, y: 66.5, label: "Ruang Kerja · Meja" }
           ] },
-        { id: "bi2-kerja-c", floor: "bi-l2", title: "Ruang Kerja · Meja", photo: "photos/bi2-kerja-c.webp", plan: { x: 78, y: 53 }, fov: 164.2, w: 6144, h: 2620,
+        { id: "bi2-kerja-c", floor: "bi-l2", title: "Ruang Kerja · Meja", photo: "photos/bi2-kerja-c-r.webp", plan: { x: 78, y: 53 }, fov: 162.5, w: 6080, h: 2462,
           hotspots: [
-            { to: "bi2-lorong", x: 74, y: 50, label: "Keluar" },
-            { to: "bi2-kerja-d", x: 25, y: 64, label: "Ruang Kerja · Pintu" }
+            { to: "bi2-lorong", x: 74.2, y: 51.5, label: "Keluar" },
+            { to: "bi2-kerja-d", x: 24.6, y: 63.3, label: "Ruang Kerja · Pintu" }
           ] },
         { id: "bi2-kerja-d", floor: "bi-l2", title: "Ruang Kerja · Pintu", photo: "photos/bi2-kerja-d.webp", plan: { x: 77, y: 52 }, fov: 126.4, w: 6144, h: 3402,
           hotspots: [
